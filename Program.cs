@@ -1,1 +1,1 @@
-﻿WriteLine("Hello, World!");
+﻿ShowMainMenu();

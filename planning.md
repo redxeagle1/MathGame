@@ -2,7 +2,10 @@
 
 ## Requirements
 
-- You need to create a game that consists of asking the player what's the result of a math question (i.e. 9 x 9 = ?), collecting the input and adding a point in case of a correct answer.
+- You need to create a game that **consists** of asking the player what's the result of a math question (i.e. 9 x 9 = ?), collecting the input and adding a point in case of a correct answer.
+
+<!-- ### solution -->
+
 - A game needs to have at least 5 questions.
 - The divisions should result on INTEGERS ONLY and dividends should go from 0 to 100. Example: Your app shouldn't present the division 7/2 to the user, since it doesn't result in an integer.
 - Users should be presented with a menu to choose an operation
@@ -15,3 +18,77 @@
 - Add a timer to track how long the user takes to finish the game.
 - Create a 'Random Game' option where the players will be presented with questions from random operations
 - To follow the DRY Principle, try using just one method for all games. Additionally, double check your project and try to find opportunities to achieve the same functionality with less code, avoiding repetition when possible.
+
+## menu
+
+### main menu
+
+- the window must be constantly update to much the screen (18 X 80)
+
+```text
+███╗   ███╗ █████╗ ████████╗██╗  ██╗     ██████╗  █████╗ ███╗   ███╗███████╗
+████╗ ████║██╔══██╗╚══██╔══╝██║  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝
+██╔████╔██║███████║   ██║   ███████║    ██║  ███╗███████║██╔████╔██║█████╗
+██║╚██╔╝██║██╔══██║   ██║   ██╔══██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  
+██║ ╚═╝ ██║██║  ██║   ██║   ██║  ██║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗
+╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝ [this will take about 6 X 76]
+
+
+    a. Start The Game
+    b. History Record
+    c. About The Game
+    d. Exit
+
+
+
+[this will be in the end of the screen]
+[hint of how the user will choose]                                                  [this will take about  1 X 50]
+Type your answer :  [your choice] (MUST TRIM AND LOWER THE USER'INPUT)          [this will take about  1 X 37]
+```
+
+- the window of the start setup
+
+```text
+you can type "q" to quit to the main menu age
+you can type "w" to wipe all the options and start again
+
+choose your type of question
+    a. MCQ
+    b. true or false
+    c. fill the gaps
+    d. normal (1 + 3 = 4)
+    e. random
+
+you chosed [] as your difficulty 
+you chosed [] as your operation 
+you chosed [] as your question type
+Are you sure about your options [Y/n]
+
+Type your answer :  [your choice] (MUST TRIM AND LOWER THE USER'INPUT)          [this will take about  1 X 37]
+```
+
+### logic
+
+- the update loop must chech if window width and hight are (18 X 80) if not it will pause the execution until the user follow the instructions
+- there should be an option in the menu for the user to **visualize a history of previous games**.
+- there should be an option for **starting the game which** which will give the following set of question to answer
+  - choose a difficulty (type the Menu Keys:[a,b,c,d])
+    - a. eazy (digits from 0 to 10)
+    - b. normal (digits from 0 to 100)
+    - c. hard (diget from 0 to 10 + TIMED 10s)
+    - d. insane (diget from 0 to 100 + TIMED 10s and 15s if random)
+    - e. impossible (diget from 0 to 100 + TIMED 5s and 10s if random)
+  > upon choosing the difficulty it will then show the type of operation
+  - choose operation
+    - a. addition (+)
+    - b. substraction (-)
+    - c. multiplication (×)
+    - d. division (÷)
+    - e. random operation
+  > upon choosing the operation it will then choose the type of question
+  - choose your type of question
+    - a. MCQ
+    - b. true or false
+    - c. fill the gaps
+    - d. normal
+    - e. random

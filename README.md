@@ -20,3 +20,7 @@ I followed when commiting Conventional Commits.Standard Commit Structure
   - ci: Changes to CI configuration files and scripts.
   - chore: Other changes that don't modify src or test files.
   - revert: Reverts a previous commit.
+
+## changlog
+
+- docs[menu planning] : design the main menu and the 1st step of the project  (August 25, 2026 at 4:39 AM)
