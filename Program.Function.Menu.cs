@@ -1,7 +1,7 @@
 public partial class Program
 {
     // responsible for the menu interface
-    static void ConstructMainMenu(ref readonly char[] validOptions)
+    static void ConstructMainMenu(char[] validOptions)
     {
         string[] gameLabel = [
     @"███╗   ███╗ █████╗ ████████╗██╗  ██╗     ██████╗  █████╗ ███╗   ███╗███████╗",
@@ -34,6 +34,21 @@ public partial class Program
         Console.Write(askForInput);
         // the null check is for safety, but this will just show what the user has typed
         Console.Write(InputBuffer?.ToString().ToLower());
+    }
+    // TODO: add warning signal after the input to indicate user errors i.e wrong input or empty input  
+    static void ShowErrorMessage(string currentErrorType)
+    {
+        
+    }
+    // TODO: add menu handling logic
+    static bool TryHandleMenuOption(string userInput)
+    {
+        return true;
+    }
+    // TODO: add the static setup menu
+    static void ConstructSetupMenu()
+    {
+        
     }
     static void QuitGameBanner()
     {

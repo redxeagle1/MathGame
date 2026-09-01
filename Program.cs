@@ -1,9 +1,9 @@
 ﻿
 Console.Clear();
-ConstructMainMenu(ref userValidMainOptions);
+ConstructMainMenu(userValidMainOptions);
 while (true)
 {
-    if (TryUpdateWindow(UserWindowWidth, UserWindowHeight, ref userValidMainOptions, out int nextX, out int nextY))
+    if (TryUpdateWindow(UserWindowWidth, UserWindowHeight, userValidMainOptions, out int nextX, out int nextY))
     {
         // Only update properties if the window actually resized
         UserWindowWidth = nextX;
@@ -19,6 +19,7 @@ while (true)
 
             HandleUserInput(keyInfo);
         }
+        // TODO: add the window switch mechanism 
         if (CurrentWindow == WINDOW_MAP[6])
         {
             return;

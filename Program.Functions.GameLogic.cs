@@ -1,5 +1,3 @@
-using System.Text;
-
 public partial class Program
 {
 
@@ -54,7 +52,7 @@ public partial class Program
         return true;
 
     }
-    static bool TryUpdateWindow(int currentX, int currentY, ref char[] validMenuOptions, out int newX, out int newY)
+    static bool TryUpdateWindow(int currentX, int currentY, char[] validMenuOptions, out int newX, out int newY)
     {
         newX = currentX;
         newY = currentY;
@@ -69,8 +67,13 @@ public partial class Program
             }
 
             Thread.Sleep(30); // Prevents high CPU usage
-            ConstructMainMenu(ref validMenuOptions);
+            ConstructMainMenu(validMenuOptions);
         }
         return false;
+    }
+    //TODO: ADD the window switch method
+    static void SwitchWindows()
+    {
+        
     }
 }
