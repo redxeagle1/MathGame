@@ -1,12 +1,45 @@
 public partial class Program
 {
-    static void ShowMainMenu()
+    // responsible for the menu interface
+    static void ConstructMainMenu(ref readonly char[] validOptions)
     {
-        string[] menu = [
-            "A. Start the game",
-            "B. Settings",
-            "C. Help"
+        string[] gameLabel = [
+    @"███╗   ███╗ █████╗ ████████╗██╗  ██╗     ██████╗  █████╗ ███╗   ███╗███████╗",
+    @"████╗ ████║██╔══██╗╚══██╔══╝██║  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝",
+    @"██╔████╔██║███████║   ██║   ███████║    ██║  ███╗███████║██╔████╔██║█████╗"  ,
+    @"██║╚██╔╝██║██╔══██║   ██║   ██╔══██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ",
+    @"██║ ╚═╝ ██║██║  ██║   ██║   ██║  ██║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗",
+    @"╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝"
         ];
-        WriteLine(string.Join("\r\n", menu));
+
+        string[] menu = 
+        [
+        "\t\t\tA. Start the game",
+        "\t\t\tB. History records",
+        "\t\t\tC. About the game",
+        ];
+
+        string hintSelection = $"type a letter from [{string.Join(", ", validOptions)}]\r\nNOTE: to end the program type [q] soft exit or [crtl+c] hard exit";
+        string askForInput = "\r\nType your answer : \t";
+
+        Console.Write(string.Join("\r\n", gameLabel));
+
+        // seperation to avoid cluttering the window
+        Console.Write("\r\n\r\n");
+        Console.Write(string.Join("\r\n", menu));
+        // seperation to avoid cluttering the window
+        Console.Write("\r\n\r\n");
+        Console.Write(hintSelection);
+        Console.Write("\r\n");
+        Console.Write(askForInput);
+        // the null check is for safety, but this will just show what the user has typed
+        Console.Write(InputBuffer?.ToString().ToLower());
+    }
+    static void QuitGameBanner()
+    {
+        Console.Clear();
+        Console.WriteLine("Goodbye");
+        Thread.Sleep(1000);
+        CurrentWindow = WINDOW_MAP[6];
     }
 }

@@ -1,11 +1,12 @@
 
+
 public partial class Program
 {
 
     // a constant array to difine our minimum valid screen
     static readonly byte[] MIN_WINDOW_COORDINATES = [25, 85]; // (hieght,width) (y,x)
     
-    static readonly char[] USERVALIDMAINOPTIONS = ['a', 'b', 'c',];
+    static char[] userValidMainOptions = ['a', 'b', 'c',];
     static readonly char[] USERVALIDSETUPOPTIONS = ['a', 'b', 'c', 'd', 'e', 'w',];
     static readonly char[] USERVALIDMCQOPTIONS = ['a', 'b', 'c', 'd'];
 
