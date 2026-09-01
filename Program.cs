@@ -1,1 +1,1 @@
-﻿ShowMainMenu();
+﻿SetupGameProperties();

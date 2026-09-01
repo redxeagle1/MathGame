@@ -1,11 +1,17 @@
+
 public partial class Program
 {
-#pragma warning disable IDE0044 // Add readonly modifier
 
-    static private string userInput = "";
-    static private int[] maxwindowSizw = [WindowWidth,WindowHeight]; // (x,y) for console control
-    static private string[] userChoices = new string [3];
+    // a constant array to difine our minimum valid screen
+    static readonly byte[] MIN_WINDOW_COORDINATES = [25, 85]; // (hieght,width) (y,x)
+    
+    static readonly char[] USERVALIDMAINOPTIONS = ['a', 'b', 'c',];
+    static readonly char[] USERVALIDSETUPOPTIONS = ['a', 'b', 'c', 'd', 'e', 'w',];
+    static readonly char[] USERVALIDMCQOPTIONS = ['a', 'b', 'c', 'd'];
+
+    // a full map for our game
+    static readonly string[] WINDOW_MAP = ["MAIN_MENU", "SETUP_MENU", "GAME_WINDOW", "GAME_OVER_WINDOW", "HISTORY_WINDOW", "ABOUT_WINDOW", "QUIT_BANNER"];
 
 
-#pragma warning restore IDE0044 // Add readonly modifier
+
 }
