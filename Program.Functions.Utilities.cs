@@ -14,7 +14,12 @@ public partial class Program
             Console.Write("\a");
         }
     }
-
+    static void ShowErrorMessage(string currentErrorType,int placement)
+    {
+        // just to show the user what is wrong
+        Console.SetCursorPosition(0,placement);
+        Console.WriteLine($"\a\e[31m{currentErrorType}\e[0m");
+    }
     static bool CheckOngoingInputBuffer(string buffer)
     {
         if (string.IsNullOrEmpty(buffer) && !(buffer.Length > 1))

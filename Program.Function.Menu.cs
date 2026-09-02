@@ -35,11 +35,6 @@ public partial class Program
         // the null check is for safety, but this will just show what the user has typed
         Console.Write(InputBuffer?.ToString().ToLower());
     }
-    // TODO: add warning signal after the input to indicate user errors i.e wrong input or empty input  
-    static void ShowErrorMessage(string currentErrorType)
-    {
-        
-    }
     // TODO: add menu handling logic
     static bool TryHandleMenuOption(string userInput)
     {
