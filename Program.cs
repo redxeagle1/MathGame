@@ -1,9 +1,9 @@
 ﻿
 Console.Clear();
-ConstructMainMenu(userValidMainOptions);
+ConstructMainMenu(s_userValidMainOptions);
 while (true)
 {
-    if (TryUpdateWindow(UserWindowWidth, UserWindowHeight, userValidMainOptions, out int nextX, out int nextY))
+    if (TryUpdateWindow(UserWindowWidth, UserWindowHeight, s_userValidMainOptions, out int nextX, out int nextY))
     {
         // Only update properties if the window actually resized
         UserWindowWidth = nextX;

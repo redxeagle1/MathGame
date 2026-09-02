@@ -7,12 +7,19 @@ public partial class Program
         {
             case ConsoleKey.Enter:
                 UserInput = InputBuffer?.ToString().Trim().ToLower();
+
                 // TODO: Add user processing pipeline method
-                if (UserInput?.Trim().ToLower()[0] == 'q')
+                switch (CurrentWindow)
                 {
-                    QuitGameBanner();
-                    return;
+                    case "MAIN_MENU":
+                        IsHandlingFailed = TryHandleMenuOptions(userInput: UserInput ?? "");
+                        Thread.Sleep(1000);
+                        break;
                 }
+                if (IsInputWrong || IsHandlingFailed) {
+                    goto default;
+                }
+
                 Console.WriteLine($"\r\nprocessing your input note that the input is auto trimmed and lowered for consistant processing  : [{UserInput}]");
                 // TODO: add a method for processing choices processing logic
                 break;
@@ -20,13 +27,14 @@ public partial class Program
                 if (InputBuffer?.Length > 0)
                 {
                     InputBuffer?.Remove(InputBuffer.Length - 1, 1);
+                    IsInputWrong = IsHandlingFailed = false;
                     Console.Write("\b \b"); // Erase character visually from console screen
                 }
                 break;
             default:
                 if (CheckOngoingInputBuffer(InputBuffer?.ToString() ?? "" ) || questionMode)
                 {
-                    HandleInputKeys(key, userValidMainOptions);
+                    TryHandleInputKeys(key, s_userValidMainOptions);
                 }
                 break;
         }

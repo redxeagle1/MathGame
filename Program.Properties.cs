@@ -18,4 +18,8 @@ public partial class Program
     public static string? CurrentWindow { get; set; } = WINDOW_MAP[0];
     #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
+
+    // indicators for wrong typing or invalid inputs 
+    public static bool IsInputWrong {get; set;} = false;
+    public static bool IsHandlingFailed {get; set;}= false;
 }

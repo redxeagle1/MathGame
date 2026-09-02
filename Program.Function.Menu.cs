@@ -34,11 +34,22 @@ public partial class Program
         Console.Write(askForInput);
         // the null check is for safety, but this will just show what the user has typed
         Console.Write(InputBuffer?.ToString().ToLower());
+        if ((IsInputWrong || IsHandlingFailed) && (CurrentWindow == WINDOW_MAP[0]))
+        {
+            Console.SetCursorPosition(14,20);
+            Console.Write(InputBuffer?.ToString().ToLower());
+        }
     }
     // TODO: add menu handling logic
-    static bool TryHandleMenuOption(string userInput)
+    static bool TryHandleMenuOptions(string userInput)
     {
-        return true;
+        if (string.IsNullOrEmpty(userInput))
+        {
+            ShowErrorMessage("You didn't type anything please enter something", MENU_ERROR_PLACEMENT);
+            return true;
+        }        
+
+        return false;
     }
     // TODO: add the static setup menu
     static void ConstructSetupMenu()
