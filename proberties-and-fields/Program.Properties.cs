@@ -22,4 +22,5 @@ public partial class Program
     // indicators for wrong typing or invalid inputs 
     public static bool IsInputWrong {get; set;} = false;
     public static bool IsHandlingFailed {get; set;}= false;
+    public static int CurrentErrorLocation {get; set;} = 0;
 }

@@ -3,6 +3,9 @@ public partial class Program
     // responsible for the menu interface
     static void ConstructMainMenu(char[] validOptions)
     {
+        // setting up the Error display location 
+        CurrentErrorLocation = 15;
+        // game components
         string[] gameLabel = [
     @"███╗   ███╗ █████╗ ████████╗██╗  ██╗     ██████╗  █████╗ ███╗   ███╗███████╗",
     @"████╗ ████║██╔══██╗╚══██╔══╝██║  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝",
@@ -22,6 +25,7 @@ public partial class Program
         string hintSelection = $"type a letter from [{string.Join(", ", validOptions)}]\r\nNOTE: to end the program type [q] soft exit or [ctrl+c] hard exit";
         string askForInput = "\r\nType your answer : \t";
 
+        // printing the game components
         Console.Write(string.Join("\r\n", gameLabel));
 
         // separation to avoid cluttering the window
@@ -40,7 +44,7 @@ public partial class Program
     {
         if (string.IsNullOrEmpty(userInput))
         {
-            ShowErrorMessage("You didn't type anything please enter something", MENU_ERROR_PLACEMENT);
+            ShowErrorMessage("You didn't type anything please enter something", CurrentErrorLocation);
             return true;
         }
         return false;

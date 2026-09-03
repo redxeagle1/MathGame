@@ -14,7 +14,7 @@ public partial class Program
                 IsInputWrong = false;
                 IsHandlingFailed = false;
                 // passing an empty string will clear the error as well
-                ShowErrorMessage("",MENU_ERROR_PLACEMENT);
+                ShowErrorMessage("",CurrentErrorLocation);
             }
 
             // if so append that key to our input buffer then write it
@@ -34,7 +34,7 @@ public partial class Program
             else
             {
                 // print the error message for the user
-                ShowErrorMessage($"You type wrong option you can only use" + "[" +string.Join(", ",s_userValidMainOptions) + ", q]",MENU_ERROR_PLACEMENT);
+                ShowErrorMessage($"You type wrong option you can only use" + "[" +string.Join(", ",s_userValidMainOptions) + ", q]",CurrentErrorLocation);
                 // make IsInputWrong true
                 IsInputWrong = true;
             }

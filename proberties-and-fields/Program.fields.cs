@@ -15,6 +15,6 @@ public partial class Program
     // a full map for our game
     static string[] WINDOW_MAP = ["MAIN_MENU", "SETUP_MENU", "GAME_WINDOW", "GAME_OVER_WINDOW", "HISTORY_WINDOW", "ABOUT_WINDOW", "QUIT_BANNER"];
 
-    static readonly int MENU_ERROR_PLACEMENT = 15;
+    // static readonly int CurrentErrorLocation = 15;
 
 }
