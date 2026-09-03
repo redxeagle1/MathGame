@@ -1,11 +1,25 @@
-> I asked gemini to seek what I can do next because I hit a rock implementing error handling and asked him to generate TODO list for me<!-- markdownlint-disable-line MD041 -->
-
 ## Code Refactoring & Immediate Fixes <!-- markdownlint-disable-line MD041 -->
+
+### short-term goals for friday (September 4rd)
+
+- [ ]
+
+#### bonus
+
+- [ ]
+
+### short-term goals for thursday (September 3rd)
+
+> I asked gemini to seek what I can do next because I hit a rock implementing error handling and asked him to generate TODO list for me
 
 - [x] **Fix Cursor Dislocation & Error Ghosting:** Update `ShowErrorMessage` to save `Console.CursorLeft` and `Console.CursorTop` before moving the cursor. Use `.PadRight(Console.WindowWidth)` on the error string and print it using `Console.Write` instead of `WriteLine` to avoid line breaks. Finally, restore the cursor to its saved coordinates so the user can continue typing seamlessly.
 - [x] **Clear Errors on Valid Input:** Modify `TryHandleInputKeys` so that when a valid key is pressed, it clears any active errors by calling `ShowErrorMessage("", MENU_ERROR_PLACEMENT)` and explicitly sets `IsInputWrong` and `IsHandlingFailed` to `false`.
 - [x] **Implement Enum for State Management:** Replace the `WINDOW_MAP` string array with an `enum` (e.g., `enum MenuState`) to handle application routing safely. Update the window switch mechanisms to evaluate against this enum instead of hardcoded string indices like `WINDOW_MAP[6]`.
 - [x] **Simplify Buffer Check:** Rewrite `CheckOngoingInputBuffer` in `Program.Functions.Utilities.cs` to simply evaluate and return `string.IsNullOrEmpty(buffer)`.
+
+#### bonus goal for that day
+
+- [ ]
 
 ## Core Feature Implementation
 
