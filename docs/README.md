@@ -2,7 +2,7 @@
 
 ## commit philosophy
 
-I followed when commiting Conventional Commits.Standard Commit Structure
+I followed when committing Conventional Commits.Standard Commit Structure
 
 ```text
 <type>[optional scope]: <description>
@@ -23,12 +23,12 @@ I followed when commiting Conventional Commits.Standard Commit Structure
 
 ## What I discovered and learned on top of my current knowledge
 
-- `StringBuilder` and `ConsoleKeyInfo` input compination : at least now I know a new way of processing user input alongside with `Readline()` that would not pause the user execution but sure it soooooooooooooooooooo hard and easy to mess things up
+- `StringBuilder` and `ConsoleKeyInfo` input combination : at least now I know a new way of processing user input alongside with `Readline()` that would not pause the user execution but sure it super hard and easy to mess things up
 - How to get the user's console size and utilize it for dictating some conditions like what I did
-- How to set the default value of your Properties and I learned the hard way that properties cannot be passed by refrence
+- How to set the default value of your Properties and I learned the hard way that properties cannot be passed by reference
 - `"\a"` is the `Console.Beep()` cross-platform alt
 
-## changlog
+## changelog
 
 - refactor: added the boilerplate for the upcoming must to do tasks (September 1, 2026 at 8:25 PM)
 - feat: constructed the main game logic and the user input processing and handling (September 1, 2026 at 8:20 PM)
