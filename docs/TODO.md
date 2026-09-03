@@ -23,6 +23,15 @@
 
 ## Core Feature Implementation
 
+- [ ] **Build the Main Menu**
+  - [x] Complete the `ConstructMainMenu()` method used to build the main menu
+  - [ ] finish user input processing and handling pipeline
+    - [x] finish Error handling mechanism
+    - [ ] finish input processing mechanism
+    - [x] finish input handling mechanism
+  - [ ] implement Window switching mechanism
+  - [x] implement window update mechanism
+
 - [ ] **Build the Setup Menu:** Complete the empty `ConstructSetupMenu()` method to display the exact configuration interface for difficulty, operation, and question type outlined in your planning document.
 - [ ] **Develop Math Generation Logic:** Create a robust method to generate math equations based on the user's selected difficulty and operation. Ensure the division logic strictly calculates integers only and uses dividends ranging from 0 to 100.
 - [ ] **Implement the Core Game Loop:** Build the `GAME_WINDOW` state to iterate through a minimum of 5 questions per game, collect user answers, evaluate correctness, and accumulate points.
