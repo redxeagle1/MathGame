@@ -1,4 +1,5 @@
 using System.Text;
+using MathGame;
 
 public partial class Program
 {
@@ -13,10 +14,9 @@ public partial class Program
     // so this is the safest route i can take 
     public static StringBuilder? InputBuffer { get; set; } = new();
     
-    #pragma warning disable CS8602 // Dereference of a possibly null reference.
+    
     // a static property to indicate the what will be drawn in the user's window
-    public static string? CurrentWindow { get; set; } = WINDOW_MAP[0];
-    #pragma warning restore CS8602 // Dereference of a possibly null reference.
+    public static WindowMap CurrentWindow { get; set; } = WindowMap.MAIN_MENU;
 
 
     // indicators for wrong typing or invalid inputs 

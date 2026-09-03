@@ -1,3 +1,5 @@
+using MathGame;
+
 public partial class Program
 {
 
@@ -11,9 +13,8 @@ public partial class Program
                 // TODO: Add user processing pipeline method
                 switch (CurrentWindow)
                 {
-                    case "MAIN_MENU":
+                    case WindowMap.MAIN_MENU:
                         IsHandlingFailed=TryHandleMenuOptions(userInput: UserInput ?? "");
-                        Thread.Sleep(1000);
                         break;
                 }
                 if (IsInputWrong || IsHandlingFailed) {

@@ -1,8 +1,11 @@
+using MathGame;
+
 public partial class Program
 {
     // responsible for the menu interface
     static void ConstructMainMenu(char[] validOptions)
     {
+        CurrentWindow = WindowMap.MAIN_MENU;
         // setting up the Error display location 
         CurrentErrorLocation = 15;
         // game components
@@ -56,9 +59,9 @@ public partial class Program
     }
     static void QuitGameBanner()
     {
+        CurrentWindow = WindowMap.QUIT_BANNER;
         Console.Clear();
         Console.WriteLine("Goodbye");
         Thread.Sleep(1000);
-        CurrentWindow = WINDOW_MAP[6];
     }
 }

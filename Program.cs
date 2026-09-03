@@ -1,4 +1,6 @@
 ﻿
+using MathGame;
+
 Console.Clear();
 ConstructMainMenu(s_userValidMainOptions);
 while (true)
@@ -9,7 +11,7 @@ while (true)
         UserWindowWidth = nextX;
         UserWindowHeight = nextY;
     }
-    // to make sure that our next logic is executed correctly we need to excecute the following if the screen is valid
+    // to make sure that our next logic is executed correctly we need to execute the following if the screen is valid
     if (CheckValidScreen())
     {
         if (Console.KeyAvailable) //  true if a key press is available;
@@ -20,7 +22,7 @@ while (true)
             HandleUserInput(keyInfo);
         }
         // TODO: add the window switch mechanism 
-        if (CurrentWindow == WINDOW_MAP[6])
+        if (CurrentWindow == WindowMap.QUIT_BANNER)
         {
             return;
         }
