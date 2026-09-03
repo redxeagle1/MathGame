@@ -36,7 +36,6 @@ public partial class Program
         Console.Write(InputBuffer?.ToString().ToLower());
         if ((IsInputWrong || IsHandlingFailed) && (CurrentWindow == WINDOW_MAP[0]))
         {
-            Console.SetCursorPosition(14,20);
             Console.Write(InputBuffer?.ToString().ToLower());
         }
     }

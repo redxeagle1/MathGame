@@ -16,11 +16,19 @@ public partial class Program
             IsInputWrong = true;
         }
     }
+    // just to show the user what is wrong
     static void ShowErrorMessage(string currentErrorType,int placement)
     {
-        // just to show the user what is wrong
+        // saving the current user cursot position
+        int currentLeftCursor = Console.CursorLeft;
+        int currentTopCursor = Console.CursorTop;
+
+        // seting the cursor into the specified location to display the message 
         Console.SetCursorPosition(0,placement);
-        Console.Write($"\a\e[31m{currentErrorType}\e[0m");
+        // print the message and over-write the rest of the line with blanks  
+        Console.Write($"\a\e[31m{currentErrorType}\e[0m".PadRight(Console.WindowWidth,' '));
+        // reset the cursor back to the old position
+        Console.SetCursorPosition(currentLeftCursor,currentTopCursor);
     }
     static bool CheckOngoingInputBuffer(string buffer)
     {
