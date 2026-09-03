@@ -12,7 +12,7 @@ public partial class Program
                 switch (CurrentWindow)
                 {
                     case "MAIN_MENU":
-                        IsHandlingFailed = TryHandleMenuOptions(userInput: UserInput ?? "");
+                        IsHandlingFailed=TryHandleMenuOptions(userInput: UserInput ?? "");
                         Thread.Sleep(1000);
                         break;
                 }

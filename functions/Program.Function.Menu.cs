@@ -34,10 +34,6 @@ public partial class Program
         Console.Write(askForInput);
         // the null check is for safety, but this will just show what the user has typed
         Console.Write(InputBuffer?.ToString().ToLower());
-        if ((IsInputWrong || IsHandlingFailed) && (CurrentWindow == WINDOW_MAP[0]))
-        {
-            Console.Write(InputBuffer?.ToString().ToLower());
-        }
     }
     // TODO: add menu handling logic
     static bool TryHandleMenuOptions(string userInput)
@@ -46,8 +42,7 @@ public partial class Program
         {
             ShowErrorMessage("You didn't type anything please enter something", MENU_ERROR_PLACEMENT);
             return true;
-        }        
-
+        }
         return false;
     }
     // TODO: add the static setup menu
