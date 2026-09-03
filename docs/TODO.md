@@ -4,7 +4,6 @@
 
 - [x] **Fix Cursor Dislocation & Error Ghosting:** Update `ShowErrorMessage` to save `Console.CursorLeft` and `Console.CursorTop` before moving the cursor. Use `.PadRight(Console.WindowWidth)` on the error string and print it using `Console.Write` instead of `WriteLine` to avoid line breaks. Finally, restore the cursor to its saved coordinates so the user can continue typing seamlessly.
 - [x] **Clear Errors on Valid Input:** Modify `TryHandleInputKeys` so that when a valid key is pressed, it clears any active errors by calling `ShowErrorMessage("", MENU_ERROR_PLACEMENT)` and explicitly sets `IsInputWrong` and `IsHandlingFailed` to `false`.
-- [ ] **Clear Errors on Backspace:** Update the `ConsoleKey.Backspace` case in `HandleUserInput` to also call `ShowErrorMessage("", MENU_ERROR_PLACEMENT)` and reset both error booleans to `false` when the user deletes their mistake.
 - [ ] **Implement Enum for State Management:** Replace the `WINDOW_MAP` string array with an `enum` (e.g., `enum MenuState`) to handle application routing safely. Update the window switch mechanisms to evaluate against this enum instead of hardcoded string indices like `WINDOW_MAP[6]`.
 - [ ] **Simplify Buffer Check:** Rewrite `CheckOngoingInputBuffer` in `Program.Functions.Utilities.cs` to simply evaluate and return `string.IsNullOrEmpty(buffer)`.
 
