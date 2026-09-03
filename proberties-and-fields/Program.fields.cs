@@ -12,8 +12,6 @@ public partial class Program
     static readonly char[] USERVALIDSETUPOPTIONS = ['a', 'b', 'c', 'd', 'e', 'w',];
     static readonly char[] USERVALIDMCQOPTIONS = ['a', 'b', 'c', 'd'];
 
-    // a full map for our game
-
-    // static readonly int CurrentErrorLocation = 15;
+    
 
 }

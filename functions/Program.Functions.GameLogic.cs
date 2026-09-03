@@ -30,6 +30,10 @@ public partial class Program
                     InputBuffer?.Remove(InputBuffer.Length - 1, 1);
                     IsInputWrong = IsHandlingFailed = false;
                     Console.Write("\b \b"); // Erase character visually from console screen
+                    if (IsInputWrong || IsHandlingFailed)
+                    {
+                        CleanErrors();
+                    }
                 }
                 break;
             default:
