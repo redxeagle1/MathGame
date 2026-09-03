@@ -20,7 +20,7 @@ public partial class Program
                     goto default;
                 }
 
-                Console.WriteLine($"\r\nprocessing your input note that the input is auto trimmed and lowered for consistant processing  : [{UserInput}]");
+                Console.WriteLine($"\r\nprocessing your input note that the input is auto trimmed and lowered for consistent processing  : [{UserInput}]");
                 // TODO: add a method for processing choices processing logic
                 break;
             case ConsoleKey.Backspace: // to add back spacing logic since we give up ReadLine
@@ -54,7 +54,7 @@ public partial class Program
 
 
             Console.WriteLine($"Window must be greater than or equal to  ({MIN_WINDOW_COORDINATES[0]} x {MIN_WINDOW_COORDINATES[1]}) please adjust {whatToAdjust}");
-            Thread.Sleep(100); // Prevents high CPU usag
+            Thread.Sleep(100); // Prevents high CPU usage
             return false;
         }
         return true;

@@ -59,9 +59,9 @@ choose your type of question
     d. normal (1 + 3 = 4)
     e. random
 
-you chosed [] as your difficulty 
-you chosed [] as your operation 
-you chosed [] as your question type
+you chose [] as your difficulty 
+you chose [] as your operation 
+you chose [] as your question type
 Are you sure about your options [Y/n]
 
 Type your answer :  [your choice] (MUST TRIM AND LOWER THE USER'INPUT)          [this will take about  1 X 37]
@@ -69,19 +69,19 @@ Type your answer :  [your choice] (MUST TRIM AND LOWER THE USER'INPUT)          
 
 ### logic
 
-- the update loop must chech if window width and hight are (18 X 80) if not it will pause the execution until the user follow the instructions
+- the update loop must check if window width and hight are (18 X 80) if not it will pause the execution until the user follow the instructions
 - there should be an option in the menu for the user to **visualize a history of previous games**.
 - there should be an option for **starting the game which** which will give the following set of question to answer
   - choose a difficulty (type the Menu Keys:[a,b,c,d])
-    - a. eazy (digits from 0 to 10)
+    - a. easy (digits from 0 to 10)
     - b. normal (digits from 0 to 100)
-    - c. hard (diget from 0 to 10 + TIMED 10s)
-    - d. insane (diget from 0 to 100 + TIMED 10s and 15s if random)
-    - e. impossible (diget from 0 to 100 + TIMED 5s and 10s if random)
+    - c. hard (digits from 0 to 10 + TIMED 10s)
+    - d. insane (digits from 0 to 100 + TIMED 10s and 15s if random)
+    - e. impossible (digits from 0 to 100 + TIMED 5s and 10s if random)
   > upon choosing the difficulty it will then show the type of operation
   - choose operation
     - a. addition (+)
-    - b. substraction (-)
+    - b. subtraction (-)
     - c. multiplication (×)
     - d. division (÷)
     - e. random operation

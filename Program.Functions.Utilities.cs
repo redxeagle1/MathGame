@@ -19,11 +19,11 @@ public partial class Program
     // just to show the user what is wrong
     static void ShowErrorMessage(string currentErrorType,int placement)
     {
-        // saving the current user cursot position
+        // saving the current user cursor position
         int currentLeftCursor = Console.CursorLeft;
         int currentTopCursor = Console.CursorTop;
 
-        // seting the cursor into the specified location to display the message 
+        // setting the cursor into the specified location to display the message 
         Console.SetCursorPosition(0,placement);
         // print the message and over-write the rest of the line with blanks  
         Console.Write($"\a\e[31m{currentErrorType}\e[0m".PadRight(Console.WindowWidth,' '));

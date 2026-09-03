@@ -2,14 +2,14 @@ using System.Text;
 
 public partial class Program
 {
-    // a proberty that holds our game input for processing
+    // a property that holds our game input for processing
     public static string? UserInput { get; set; } = "";
     public static int UserWindowHeight { get; set; } = Console.WindowHeight;
     public static int UserWindowWidth { get; set; } = Console.WindowWidth;
     
     
-    // had to give up using readline() since it liturally stop the execution of window update logic
-    // I may use thread for that but I don't know multi-threading and concurency eaither 
+    // had to give up using readline() since it literally stop the execution of window update logic
+    // I may use thread for that but I don't know multi-threading and concurrency either 
     // so this is the safest route i can take 
     public static StringBuilder? InputBuffer { get; set; } = new();
     

@@ -19,15 +19,15 @@ public partial class Program
         "\t\t\tC. About the game",
         ];
 
-        string hintSelection = $"type a letter from [{string.Join(", ", validOptions)}]\r\nNOTE: to end the program type [q] soft exit or [crtl+c] hard exit";
+        string hintSelection = $"type a letter from [{string.Join(", ", validOptions)}]\r\nNOTE: to end the program type [q] soft exit or [ctrl+c] hard exit";
         string askForInput = "\r\nType your answer : \t";
 
         Console.Write(string.Join("\r\n", gameLabel));
 
-        // seperation to avoid cluttering the window
+        // separation to avoid cluttering the window
         Console.Write("\r\n\r\n");
         Console.Write(string.Join("\r\n", menu));
-        // seperation to avoid cluttering the window
+        // separation to avoid cluttering the window
         Console.Write("\r\n\r\n");
         Console.Write(hintSelection);
         Console.Write("\r\n");
