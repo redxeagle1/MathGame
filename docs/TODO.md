@@ -1,12 +1,17 @@
-## Code Refactoring & Immediate Fixes <!-- markdownlint-disable-line MD041 -->
+## Short-Term Goals<!-- markdownlint-disable-line MD041 -->
 
 ### short-term goals for friday (September 4rd)
 
-- [ ]
+- [ ] **Handle User Menu Input** finish the `TryHandleMenuOptions()` method which will handle what the user will type which will switch the `CurrentWindow` Property to the targeted window
+- [ ] **Make A Struct That Will Store The Game History** add a new struct calling it `GameRecord` then define a constructor for easy initialization and add a `s_gameHistory` field in `Program.fields.cs` that is array of that struct
+- [ ] **Implement The Window Switch Mechanics** in the current empty `SwitchWindows()` to switch windows in using `CurrentWindow` Property and the `WindowMap` Enum to perform such operation
 
 #### bonus
 
-- [ ]
+- [ ] **Implement The _Static_ Setup Window** define the main structure of the setup menu that will define how the game should behave in the `ConstructSetupMenu()` in `Program.Function.Menu.cs`
+- [ ] **Add Small Indicator To Tell The Current Window** Just a method that will like be in the `TryUpdateWindow()` in the `Program.Functions.GameLogic.cs` this will ether be displayed in the top-right side or bottom right side of current window to indicate the current menu
+
+------------------------------------------------------------------------------------------
 
 ### short-term goals for thursday (September 3rd)
 
@@ -19,7 +24,7 @@
 
 #### bonus goal for that day
 
-- [ ]
+_**NONE**_
 
 ## Core Feature Implementation
 
