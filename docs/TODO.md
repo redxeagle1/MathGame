@@ -1,6 +1,6 @@
 ## Short-Term Goals<!-- markdownlint-disable-line MD041 -->
 
-### short-term goals for saturday (September 5rd)
+### short-term goals for sunday (September 6rd)
 
 - [ ] **Handle User Menu Input** finish the `TryHandleMenuOptions()` method which will handle what the user will type which will switch the `CurrentWindow` Property to the targeted window
 - [ ] **Make A Struct That Will Store The Game History** add a new struct calling it `GameRecord` then define a constructor for easy initialization and add a `s_gameHistory` field in `Program.fields.cs` that is array of that struct
