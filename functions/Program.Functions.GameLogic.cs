@@ -15,9 +15,7 @@ public partial class Program
                 {
                     goto default;
                 }
-                Console.WriteLine($"\r\nprocessing your input note that the input is auto trimmed and lowered for consistent processing  : [{UserInput}]");
                 break;
-            // TODO: add a method for processing choices processing logic
             case ConsoleKey.Backspace: // to add back spacing logic since we give up ReadLine
                 if (InputBuffer?.Length > 0)
                 {
@@ -81,7 +79,6 @@ public partial class Program
         }
         return false;
     }
-    //TODO: ADD the window switch method
     static void SwitchWindows()
     {
         switch (CurrentWindow)
@@ -94,7 +91,6 @@ public partial class Program
                 break;
         }
     }
-
     static void SaveGameRecord(GameRecord record)
     {
         // using the modulus operator we can assure that 1000 element is displayed at a time

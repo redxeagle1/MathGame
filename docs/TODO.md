@@ -29,13 +29,13 @@ _**NONE**_
 
 ## Core Feature Implementation
 
-- [ ] **Build the Main Menu**
+- [x] **Build the Main Menu**
   - [x] Complete the `ConstructMainMenu()` method used to build the main menu
-  - [ ] finish user input processing and handling pipeline
+  - [x] finish user input processing and handling pipeline
     - [x] finish Error handling mechanism
-    - [ ] finish input processing mechanism
+    - [x] finish input processing mechanism
     - [x] finish input handling mechanism
-  - [ ] implement Window switching mechanism
+  - [x] implement Window switching mechanism
   - [x] implement window update mechanism
 
 - [ ] **Build the Setup Menu:** Complete the empty `ConstructSetupMenu()` method to display the exact configuration interface for difficulty, operation, and question type outlined in your planning document.

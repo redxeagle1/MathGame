@@ -28,8 +28,6 @@ while (true)
 
             HandleUserInput(keyInfo);
         }
-        // TODO: add the window switch mechanism 
-
     }
     Thread.Sleep(30);
 }
