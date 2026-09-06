@@ -58,6 +58,11 @@ public partial class Program
                 CurrentWindow = WindowMap.SETUP_MENU;
                 break;
             case "b":
+                if (TotalGamesPlayed == 0)
+                {
+                    ShowErrorMessage("No History Found you must play to see that", CurrentErrorLocation);
+                    return true;
+                }
                 CurrentWindow = WindowMap.HISTORY_WINDOW;
                 break;
             case "c":

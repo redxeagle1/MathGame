@@ -93,4 +93,11 @@ public partial class Program
         //         break;
         // }
     }
+
+    static void SaveGameRecord(GameRecord record)
+    {
+        int index = TotalGamesPlayed % GameHistoryArray.Length;
+        GameHistoryArray[index] = record;
+        TotalGamesPlayed++;
+    } 
 }
