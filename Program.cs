@@ -2,10 +2,10 @@
 using MathGame;
 
 Console.Clear();
-ConstructMainMenu(s_userValidMainOptions);
+ConstructMainMenu(s_activeOptionBuffer);
 while (true)
 {
-    if (TryUpdateWindow(UserWindowWidth, UserWindowHeight, s_userValidMainOptions, out int nextX, out int nextY))
+    if (TryUpdateWindow(UserWindowWidth, UserWindowHeight, s_activeOptionBuffer, out int nextX, out int nextY))
     {
         // Only update properties if the window actually resized
         UserWindowWidth = nextX;

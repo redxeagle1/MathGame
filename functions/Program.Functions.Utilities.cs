@@ -29,7 +29,7 @@ public partial class Program
             else
             {
                 // print the error message for the user
-                ShowErrorMessage($"You type wrong option you can only use" + "[" + string.Join(", ", s_userValidMainOptions) + ", q]", CurrentErrorLocation);
+                ShowErrorMessage($"You type wrong option you can only use" + "[" + string.Join(", ", s_activeOptionBuffer) + ", q]", CurrentErrorLocation);
                 // make IsInputWrong true
                 IsInputWrong = true;
             }

@@ -39,7 +39,7 @@ public partial class Program
             default:
                 if (string.IsNullOrEmpty(InputBuffer?.ToString() ?? "" ) || questionMode)
                 {
-                    TryHandleInputKeys(key, s_userValidMainOptions);
+                    TryHandleInputKeys(key, s_activeOptionBuffer);
                 }
                 break;
         }

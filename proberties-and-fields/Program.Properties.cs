@@ -23,4 +23,19 @@ public partial class Program
     public static bool IsInputWrong {get; set;} = false;
     public static bool IsHandlingFailed {get; set;}= false;
     public static int CurrentErrorLocation {get; set;} = 0;
+
+
+    // this is for controlling s_activeOptionBuffer it reset the current options into new ones
+    public static string? SetActiveOptions
+    {
+        set
+        {
+            field = value; // Saves the string text into the hidden string aka field
+            
+            // I know this isn't a best practice
+            // but window updates happens one a time not in a constant loop  
+            // so it's better to go with that option for easy modularity and extensibility  
+            s_activeOptionBuffer = (value ?? "").ToCharArray();
+        }
+    } = "abc";
 }
