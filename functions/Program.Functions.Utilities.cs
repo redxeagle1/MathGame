@@ -64,8 +64,4 @@ public partial class Program
         // reset the cursor back to the old position
         Console.SetCursorPosition(oldLeftCursor, oldTopCursor);
     }
-    static bool CheckOngoingInputBuffer(string buffer)
-    {
-        return string.IsNullOrEmpty(buffer);
-    }
 }

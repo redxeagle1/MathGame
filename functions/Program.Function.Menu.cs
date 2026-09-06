@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using MathGame;
 
 public partial class Program
@@ -50,6 +51,22 @@ public partial class Program
             ShowErrorMessage("You didn't type anything please enter something", CurrentErrorLocation);
             return true;
         }
+
+        switch (userInput)
+        {
+            case "a":
+                CurrentWindow = WindowMap.SETUP_MENU;
+                break;
+            case "b":
+                CurrentWindow = WindowMap.HISTORY_WINDOW;
+                break;
+            case "c":
+                CurrentWindow = WindowMap.ABOUT_WINDOW;
+                break;
+            case "q":
+                CurrentWindow = WindowMap.QUIT_BANNER;
+                break;
+        }
         return false;
     }
     // TODO: add the static setup menu
@@ -59,7 +76,6 @@ public partial class Program
     }
     static void QuitGameBanner()
     {
-        CurrentWindow = WindowMap.QUIT_BANNER;
         Console.Clear();
         Console.WriteLine("Goodbye");
         Thread.Sleep(1000);

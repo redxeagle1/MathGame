@@ -10,7 +10,7 @@ public partial class Program
             case ConsoleKey.Enter:
                 UserInput = InputBuffer?.ToString().Trim().ToLower();
 
-                // TODO: Add user processing pipeline method
+               
                 switch (CurrentWindow)
                 {
                     case WindowMap.MAIN_MENU:
@@ -37,7 +37,7 @@ public partial class Program
                 }
                 break;
             default:
-                if (CheckOngoingInputBuffer(InputBuffer?.ToString() ?? "" ) || questionMode)
+                if (string.IsNullOrEmpty(InputBuffer?.ToString() ?? "" ) || questionMode)
                 {
                     TryHandleInputKeys(key, s_userValidMainOptions);
                 }
@@ -87,6 +87,10 @@ public partial class Program
     //TODO: ADD the window switch method
     static void SwitchWindows()
     {
-        
+        // switch (CurrentWindow)
+        // {
+        //     case WindowMap.MAIN_MENU:
+        //         break;
+        // }
     }
 }
