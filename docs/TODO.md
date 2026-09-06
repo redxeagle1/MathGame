@@ -5,7 +5,7 @@
 - [x] **Handle User Menu Input** finish the `TryHandleMenuOptions()` method which will handle what the user will type which will switch the `CurrentWindow` Property to the targeted window
 - [x] **URGENT** update the way of handling valid user options field to have only 1 field and it's counter so you always update the option on the fly and add extra ones
 - [x] **Make A Struct That Will Store The Game History** add a new struct calling it `GameRecord` then define a constructor for easy initialization and add a `s_gameHistory` field in `Program.fields.cs` that is array of that struct
-- [ ] **Implement The Window Switch Mechanics** in the current empty `SwitchWindows()` to switch windows in using `CurrentWindow` Property and the `WindowMap` Enum to perform such operation
+- [x] **Implement The Window Switch Mechanics** in the current empty `SwitchWindows()` to switch windows in using `CurrentWindow` Property and the `WindowMap` Enum to perform such operation
 
 #### bonus
 

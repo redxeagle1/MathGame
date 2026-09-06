@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using MathGame;
 
 public partial class Program
@@ -9,21 +10,14 @@ public partial class Program
         {
             case ConsoleKey.Enter:
                 UserInput = InputBuffer?.ToString().Trim().ToLower();
-
-               
-                switch (CurrentWindow)
+                IsHandlingFailed = TryHandleMenuOptions(userInput: UserInput ?? "");
+                if (IsInputWrong || IsHandlingFailed)
                 {
-                    case WindowMap.MAIN_MENU:
-                        IsHandlingFailed=TryHandleMenuOptions(userInput: UserInput ?? "");
-                        break;
-                }
-                if (IsInputWrong || IsHandlingFailed) {
                     goto default;
                 }
-
                 Console.WriteLine($"\r\nprocessing your input note that the input is auto trimmed and lowered for consistent processing  : [{UserInput}]");
-                // TODO: add a method for processing choices processing logic
                 break;
+            // TODO: add a method for processing choices processing logic
             case ConsoleKey.Backspace: // to add back spacing logic since we give up ReadLine
                 if (InputBuffer?.Length > 0)
                 {
@@ -37,7 +31,7 @@ public partial class Program
                 }
                 break;
             default:
-                if (string.IsNullOrEmpty(InputBuffer?.ToString() ?? "" ) || questionMode)
+                if (string.IsNullOrEmpty(InputBuffer?.ToString() ?? "") || questionMode)
                 {
                     TryHandleInputKeys(key, s_activeOptionBuffer);
                 }
@@ -65,11 +59,14 @@ public partial class Program
         return true;
 
     }
-    static bool TryUpdateWindow(int currentX, int currentY, char[] validMenuOptions, out int newX, out int newY)
+    static bool TryUpdateWindow(int currentX, int currentY,WindowMap previousWindow, char[] validMenuOptions, out int newX, out int newY)
     {
         newX = currentX;
         newY = currentY;
-        if (Console.WindowWidth != currentX || Console.WindowHeight != currentY)
+        bool isMenuChanged = CurrentWindow != previousWindow;
+        bool isWindowChanged = Console.WindowWidth != currentX || Console.WindowHeight != currentY;
+        
+        if (isWindowChanged || isMenuChanged)
         {
             newX = Console.WindowWidth;
             newY = Console.WindowHeight;
@@ -80,24 +77,30 @@ public partial class Program
             }
 
             Thread.Sleep(30); // Prevents high CPU usage
-            ConstructMainMenu(validMenuOptions);
+            SwitchWindows();
         }
         return false;
     }
     //TODO: ADD the window switch method
     static void SwitchWindows()
     {
-        // switch (CurrentWindow)
-        // {
-        //     case WindowMap.MAIN_MENU:
-        //         break;
-        // }
+        switch (CurrentWindow)
+        {
+            case WindowMap.MAIN_MENU:
+                ConstructMainMenu(s_activeOptionBuffer);
+                break;
+            case WindowMap.QUIT_BANNER:
+                QuitGameBanner();
+                break;
+        }
     }
 
     static void SaveGameRecord(GameRecord record)
     {
+        // using the modulus operator we can assure that 1000 element is displayed at a time
         int index = TotalGamesPlayed % GameHistoryArray.Length;
+        // sure that will overwrite data but I sacrificed it for lesser memory footprint  
         GameHistoryArray[index] = record;
         TotalGamesPlayed++;
-    } 
+    }
 }

@@ -15,9 +15,8 @@ public partial class Program
     public static StringBuilder? InputBuffer { get; set; } = new();
     
     
-    // a static property to indicate the what will be drawn in the user's window
+    // a static property to indicate the what will be currently drawn in the user's window
     public static WindowMap CurrentWindow { get; set; } = WindowMap.MAIN_MENU;
-
 
     // indicators for wrong typing or invalid inputs 
     public static bool IsInputWrong {get; set;} = false;
