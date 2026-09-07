@@ -2,7 +2,7 @@
 
 ### short-term goals for monday (September 7rd)
 
-- [ ] **Design The Setup Menu Look** in internal files design the main functionality of the window and how each char will be placed
+- [x] **Design The Setup Menu Look** in internal files design the main functionality of the window and how each char will be placed
 - [x] **Make Inner Struct To Store Gama Options** Make Inner Struct named `GameOptions` which hold all the enum properties in `Program.fields.cs`
 
 #### bonus

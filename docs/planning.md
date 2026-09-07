@@ -19,9 +19,7 @@
 - Create a 'Random Game' option where the players will be presented with questions from random operations
 - To follow the DRY Principle, try using just one method for all games. Additionally, double check your project and try to find opportunities to achieve the same functionality with less code, avoiding repetition when possible.
 
-## menu
-
-### main menu
+## Main menu
 
 - the window must be constantly update to much the screen (18 X 80)
 
@@ -29,7 +27,7 @@
 ███╗   ███╗ █████╗ ████████╗██╗  ██╗     ██████╗  █████╗ ███╗   ███╗███████╗
 ████╗ ████║██╔══██╗╚══██╔══╝██║  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝
 ██╔████╔██║███████║   ██║   ███████║    ██║  ███╗███████║██╔████╔██║█████╗
-██║╚██╔╝██║██╔══██║   ██║   ██╔══██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  
+██║╚██╔╝██║██╔══██║   ██║   ██╔══██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝
 ██║ ╚═╝ ██║██║  ██║   ██║   ██║  ██║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗
 ╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝ [this will take about 6 X 76]
 
@@ -43,27 +41,6 @@
 
 [this will be in the end of the screen]
 [hint of how the user will choose]                                                  [this will take about  1 X 50]
-Type your answer :  [your choice] (MUST TRIM AND LOWER THE USER'INPUT)          [this will take about  1 X 37]
-```
-
-- the window of the start setup
-
-```text
-you can type "q" to quit to the main menu age
-you can type "w" to wipe all the options and start again
-
-choose your type of question
-    a. MCQ
-    b. true or false
-    c. fill the gaps
-    d. normal (1 + 3 = 4)
-    e. random
-
-you chose [] as your difficulty 
-you chose [] as your operation 
-you chose [] as your question type
-Are you sure about your options [Y/n]
-
 Type your answer :  [your choice] (MUST TRIM AND LOWER THE USER'INPUT)          [this will take about  1 X 37]
 ```
 
@@ -92,3 +69,43 @@ Type your answer :  [your choice] (MUST TRIM AND LOWER THE USER'INPUT)          
     - c. fill the gaps
     - d. normal
     - e. random
+
+## setup menu
+
+- the window of the start setup Which will define how the game will work
+
+```text
+Choose From The Following Options
+
+choose a difficulty
+
+        a. easy (digits from 0 to 10)     4
+        b. normal (digits from 0 to 100)
+        c. hard (digits from 0 to 10 + TIMED 10s)
+        d. insane (digits from 0 to 100 + TIMED 10s and 15s if random operation)
+        e. impossible (digits from 0 to 100 + TIMED 5s and 10s if random operation)             8
+
+
+Difficulty : NONE               Operation : NONE                Question Type : NONE
+
+
+██  ██ ▄▄ ▄▄  ▄▄ ▄▄▄▄▄▄ ▄▄▄▄
+██████ ██ ███▄██   ██  ███▄▄
+██  ██ ██ ██ ▀██   ██  ▄▄██▀
+
+- type a letter from [a, b, c, d, e]
+- to go back to main menu [q] soft exit
+- type [w] to wipe all selections
+- press [ctrl+c] to hard exit
+
+
+Type your answer :      23
+```
+
+### logic and design
+
+- hight from 4 to 8 is the selection place and the maximum width is 76 the maximum that the window could reach is 23 rows and 76 columns
+- add a method to wipe-out all the selection upon selection
+- Add a method to print the current selection then print the user selection in a different location
+- define How would you deal with q, w and general user input
+- handle the input process correctly
