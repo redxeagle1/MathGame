@@ -2,9 +2,13 @@
 
 ### short-term goals for monday (September 7rd)
 
+- [ ] **Design The Setup Menu Look** in internal files design the main functionality of the window and how each char will be placed
+- [x] **Make Inner Struct To Store Gama Options** Make Inner Struct named `GameOptions` which hold all the enum properties in `Program.fields.cs`
+
+#### bonus
+
 - [ ] **Implement The _Static_ Setup Window** define the main structure of the setup menu that will define how the game should behave in the `ConstructSetupMenu()` in `Program.Function.Menu.cs`
 - [ ] **Add Small Indicator To Tell The Current Window** Just a method that will like be in the `TryUpdateWindow()` in the `Program.Functions.GameLogic.cs` this will ether be displayed in the top-right side or bottom right side of current window to indicate the current menu
-- [x] **Make Inner Struct To Store Gama Options** Make Inner Struct named `GameOptions` which hold all the enum properties in `Program.fields.cs`
 - [ ] **Handle User Input In Setup Menu** implement `TryHandleSetupMenu()` which based on the user input will set the option struct `GameOptions` in `Program.Function.Menu.cs`
 
 ### short-term goals for sunday (September 6rd)
@@ -14,7 +18,7 @@
 - [x] **Make A Struct That Will Store The Game History** add a new struct calling it `GameRecord` then define a constructor for easy initialization and add a `s_gameHistory` field in `Program.fields.cs` that is array of that struct
 - [x] **Implement The Window Switch Mechanics** in the current empty `SwitchWindows()` to switch windows in using `CurrentWindow` Property and the `WindowMap` Enum to perform such operation
 
-#### bonus
+#### bonus NOT FINISHED
 
 - [ ] **Implement The _Static_ Setup Window** define the main structure of the setup menu that will define how the game should behave in the `ConstructSetupMenu()` in `Program.Function.Menu.cs`
 - [ ] **Add Small Indicator To Tell The Current Window** Just a method that will like be in the `TryUpdateWindow()` in the `Program.Functions.GameLogic.cs` this will ether be displayed in the top-right side or bottom right side of current window to indicate the current menu
