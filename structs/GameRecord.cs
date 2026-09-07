@@ -24,3 +24,16 @@ public struct GameRecord(int id,
     public GameOperation OperationType = op;
     public GameQuestionType QuestionType = qType;
 }
+
+// this is for holding our selected options
+public struct GameOptions
+{
+    public GameOptions()
+    {
+        
+    }
+
+    public GameDifficulty Difficulty {get;set;}= GameDifficulty.EASY;
+    public GameOperation Operation {get;set;}= GameOperation.ADDITION;
+    public GameQuestionType QuestionType {get;set;} = GameQuestionType.MCQ;
+}

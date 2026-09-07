@@ -11,9 +11,14 @@ public partial class Program
     private static char[] s_activeOptionBuffer = ['a', 'b', 'c'];
 
     
+    // our game option storage
+    private GameOptions gameOptions = new(); 
+
     
     // our game history
     public static GameRecord[] GameHistoryArray = new GameRecord[1000];
     // Global tracker for both the record id and detection of array current size 
     public static int TotalGamesPlayed = 0;
+
+    
 }

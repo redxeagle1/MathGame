@@ -1,4 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
 using MathGame;
 
 public partial class Program
@@ -74,7 +73,6 @@ public partial class Program
         }
         return false;
     }
-    // TODO: add the static setup menu
     static void ConstructSetupMenu()
     {
         
