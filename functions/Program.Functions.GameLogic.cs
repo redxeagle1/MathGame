@@ -11,6 +11,7 @@ public partial class Program
             case ConsoleKey.Enter:
                 UserInput = InputBuffer?.ToString().Trim().ToLower();
                 IsHandlingFailed = TryHandleMenuOptions(userInput: UserInput ?? "");
+                InputBuffer?.Clear();
                 if (IsInputWrong || IsHandlingFailed)
                 {
                     goto default;
@@ -76,6 +77,8 @@ public partial class Program
 
             Thread.Sleep(30); // Prevents high CPU usage
             SwitchWindows();
+            // To indicate a successful update if not the app will rapidly redraw the window
+            return true;
         }
         return false;
     }
@@ -85,6 +88,9 @@ public partial class Program
         {
             case WindowMap.MAIN_MENU:
                 ConstructMainMenu(s_activeOptionBuffer);
+                break;
+            case WindowMap.SETUP_MENU:
+                ConstructSetupMenu();
                 break;
             case WindowMap.QUIT_BANNER:
                 QuitGameBanner();
