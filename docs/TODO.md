@@ -1,15 +1,29 @@
 ## Short-Term Goals<!-- markdownlint-disable-line MD041 -->
 
+### short-term goals for Tuesday (September 8rd)
+
+- [ ] **Implement The _Static_ Setup Window** define the main structure of the setup menu that will define how the game should behave in the `ConstructSetupMenu()` in `Program.Function.Menu.cs`
+  - [ ] **Add A Method For Swapping Options Upon Selecting** for each set of question defined add method that pint that set in the defined location then set the cursor back to the input location `Program.Function.Menu.cs`
+  - [ ] **Add A Question Wipe Method** this method wipes out all the question group and save the result back to `GameOptions` struct via another method or in the same method
+  - [ ] **Add A Game Option Reset Method** this method will apply full reset in `GameOptions` then call back the first question group
+  - [ ] **ONGOING AND URGENT** check compatibility with other components scattered across the program
+  - [ ] **ONGOING AND URGENT** Handle any potential flow in the Setup Menu
+- [ ] **Handle User Input In Setup Menu** implement `TryHandleSetupMenu()` which based on the user input will set the option struct `GameOptions` in `Program.Function.Menu.cs`
+
+#### bonus
+
+- [ ] **Add Small Indicator To Tell The Current Window** Just a method that will like be in the `TryUpdateWindow()` in the `Program.Functions.GameLogic.cs` this will ether be displayed in the top-right side or bottom right side of current window to indicate the current menu
+
 ### short-term goals for monday (September 7rd)
 
 - [x] **Design The Setup Menu Look** in internal files design the main functionality of the window and how each char will be placed
 - [x] **Make Inner Struct To Store Gama Options** Make Inner Struct named `GameOptions` which hold all the enum properties in `Program.fields.cs`
 
-#### bonus
+#### bonus NOT FINISHED
 
-- [ ] **Implement The _Static_ Setup Window** define the main structure of the setup menu that will define how the game should behave in the `ConstructSetupMenu()` in `Program.Function.Menu.cs`
-- [ ] **Add Small Indicator To Tell The Current Window** Just a method that will like be in the `TryUpdateWindow()` in the `Program.Functions.GameLogic.cs` this will ether be displayed in the top-right side or bottom right side of current window to indicate the current menu
-- [ ] **Handle User Input In Setup Menu** implement `TryHandleSetupMenu()` which based on the user input will set the option struct `GameOptions` in `Program.Function.Menu.cs`
+- ❌ **Implement The _Static_ Setup Window** define the main structure of the setup menu that will define how the game should behave in the `ConstructSetupMenu()` in `Program.Function.Menu.cs`
+- ❌ **Add Small Indicator To Tell The Current Window** Just a method that will like be in the `TryUpdateWindow()` in the `Program.Functions.GameLogic.cs` this will ether be displayed in the top-right side or bottom right side of current window to indicate the current menu
+- ❌ **Handle User Input In Setup Menu** implement `TryHandleSetupMenu()` which based on the user input will set the option struct `GameOptions` in `Program.Function.Menu.cs`
 
 ### short-term goals for sunday (September 6rd)
 
@@ -18,10 +32,10 @@
 - [x] **Make A Struct That Will Store The Game History** add a new struct calling it `GameRecord` then define a constructor for easy initialization and add a `s_gameHistory` field in `Program.fields.cs` that is array of that struct
 - [x] **Implement The Window Switch Mechanics** in the current empty `SwitchWindows()` to switch windows in using `CurrentWindow` Property and the `WindowMap` Enum to perform such operation
 
-#### bonus NOT FINISHED
+#### bonus NOT FINISHED <!-- markdownlint-disable-line MD000 -->
 
-- [ ] **Implement The _Static_ Setup Window** define the main structure of the setup menu that will define how the game should behave in the `ConstructSetupMenu()` in `Program.Function.Menu.cs`
-- [ ] **Add Small Indicator To Tell The Current Window** Just a method that will like be in the `TryUpdateWindow()` in the `Program.Functions.GameLogic.cs` this will ether be displayed in the top-right side or bottom right side of current window to indicate the current menu
+- ❌ **Implement The _Static_ Setup Window** define the main structure of the setup menu that will define how the game should behave in the `ConstructSetupMenu()` in `Program.Function.Menu.cs`
+- ❌ **Add Small Indicator To Tell The Current Window** Just a method that will like be in the `TryUpdateWindow()` in the `Program.Functions.GameLogic.cs` this will ether be displayed in the top-right side or bottom right side of current window to indicate the current menu
 
 ------------------------------------------------------------------------------------------
 
