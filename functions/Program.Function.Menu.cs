@@ -75,6 +75,14 @@ public partial class Program
     }
     static void ConstructSetupMenu()
     {
+        CurrentWindow = WindowMap.SETUP_MENU;
+        // CurrentErrorLocation = 24; // validate it
+        string Choose = "Choose From The Following Options:";
+        Console.Write($"{Choose}\tX:{Choose.Length}\tY:{Console.CursorTop}\r\n");
+        // Console.Write(Console.CursorTop);
+    }
+    static void ConstructQuestionOptions()
+    {
         
     }
     static void QuitGameBanner()

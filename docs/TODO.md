@@ -1,6 +1,6 @@
 ## Short-Term Goals<!-- markdownlint-disable-line MD041 -->
 
-### short-term goals for Tuesday (September 8rd)
+### short-term goals for Wednesday (September 9rd)
 
 - [ ] **Implement The _Static_ Setup Window** define the main structure of the setup menu that will define how the game should behave in the `ConstructSetupMenu()` in `Program.Function.Menu.cs`
   - [ ] **Add A Method For Swapping Options Upon Selecting** for each set of question defined add method that pint that set in the defined location then set the cursor back to the input location `Program.Function.Menu.cs`

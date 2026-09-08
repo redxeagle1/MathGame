@@ -1,8 +1,8 @@
-﻿
-using MathGame;
+﻿using MathGame;
 Console.Clear();
-ConstructMainMenu(s_activeOptionBuffer);
-
+// ConstructMainMenu(s_activeOptionBuffer); //TODO: uncomment that 
+CurrentWindow = WindowMap.SETUP_MENU;
+SwitchWindows();
 // Track the state so we know when to trigger a redraw
 WindowMap prevWindow = CurrentWindow;
 while (true)
@@ -19,15 +19,14 @@ while (true)
         return;
     }
     // to make sure that our next logic is executed correctly we need to execute the following if the screen is valid
-    if (CheckValidScreen())
-    {
-        if (Console.KeyAvailable) //  true if a key press is available;
-        {
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true); // true hide the automatic key echoing
-            Console.TreatControlCAsInput = false; // so to prevent accidental catch of the control 
+    // if (CheckValidScreen())
+    // {
+    //     if (Console.KeyAvailable) //  true if a key press is available;
+    //     {
+    //         ConsoleKeyInfo keyInfo = Console.ReadKey(true); // true hide the automatic key echoing
+    //         Console.TreatControlCAsInput = false; // so to prevent accidental catch of the control 
 
-            HandleUserInput(keyInfo);
-        }
-    }
-    Thread.Sleep(30);
+    //         HandleUserInput(keyInfo);
+    //     }
+    // }
 }
