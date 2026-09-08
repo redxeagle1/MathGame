@@ -12,7 +12,7 @@ public partial class Program
 
     
     // our game option storage
-    private GameOptions gameOptions = new(); 
+    private GameOptions GameOptions = new(); 
 
     
     // our game history

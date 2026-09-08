@@ -2,10 +2,10 @@ using System;
 
 namespace MathGame;
 
-public enum GameDifficulty : byte {EASY,NORMAL,HARD,INSANE,IMPOSSIBLE,}
+public enum GameDifficulty : byte {NONE,EASY,NORMAL,HARD,INSANE,IMPOSSIBLE,}
 
-public enum GameOperation : byte {ADDITION,SUBTRACTION,MULTIPLICATION,DIVISION,RANDOM}
-public enum GameQuestionType : byte {MCQ,TRUE_FALSE,FILL_GAPS,NORMAL,RANDOM,}
+public enum GameOperation : byte {NONE,ADDITION,SUBTRACTION,MULTIPLICATION,DIVISION,RANDOM}
+public enum GameQuestionType : byte {NONE,MCQ,TRUE_FALSE,FILL_GAPS,NORMAL,RANDOM,}
 public struct GameRecord(int id,
                   DateTime startTime,
                   short questions,
@@ -33,7 +33,7 @@ public struct GameOptions
         
     }
 
-    public GameDifficulty Difficulty {get;set;}= GameDifficulty.EASY;
-    public GameOperation Operation {get;set;}= GameOperation.ADDITION;
-    public GameQuestionType QuestionType {get;set;} = GameQuestionType.MCQ;
+    public GameDifficulty Difficulty {get;set;}= GameDifficulty.NONE;
+    public GameOperation Operation {get;set;}= GameOperation.NONE;
+    public GameQuestionType QuestionType {get;set;} = GameQuestionType.NONE;
 }

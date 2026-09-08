@@ -9,6 +9,7 @@
   - [ ] **ONGOING AND URGENT** check compatibility with other components scattered across the program
   - [ ] **ONGOING AND URGENT** Handle any potential flow in the Setup Menu
 - [ ] **Handle User Input In Setup Menu** implement `TryHandleSetupMenu()` which based on the user input will set the option struct `GameOptions` in `Program.Function.Menu.cs`
+- [x] **Refactor The `GameOptions` ENUM To Hold A Default `NONE` Value**
 
 #### bonus
 
