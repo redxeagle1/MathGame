@@ -1,11 +1,3 @@
-using System;
-
-namespace MathGame;
-
-public enum GameDifficulty : byte {NONE,EASY,NORMAL,HARD,INSANE,IMPOSSIBLE,}
-
-public enum GameOperation : byte {NONE,ADDITION,SUBTRACTION,MULTIPLICATION,DIVISION,RANDOM}
-public enum GameQuestionType : byte {NONE,MCQ,TRUE_FALSE,FILL_GAPS,NORMAL,RANDOM,}
 public struct GameRecord(int id,
                   DateTime startTime,
                   short questions,
@@ -25,15 +17,3 @@ public struct GameRecord(int id,
     public GameQuestionType QuestionType = qType;
 }
 
-// this is for holding our selected options
-public struct GameOptions
-{
-    public GameOptions()
-    {
-        
-    }
-
-    public GameDifficulty Difficulty {get;set;}= GameDifficulty.NONE;
-    public GameOperation Operation {get;set;}= GameOperation.NONE;
-    public GameQuestionType QuestionType {get;set;} = GameQuestionType.NONE;
-}
