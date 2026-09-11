@@ -1,6 +1,4 @@
 using System.Diagnostics;
-using MathGame;
-
 public partial class Program
 {
 

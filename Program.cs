@@ -1,5 +1,4 @@
-﻿using MathGame;
-Console.Clear();
+﻿Console.Clear();
 // ConstructMainMenu(s_activeOptionBuffer); //TODO: uncomment that 
 CurrentWindow = WindowMap.SETUP_MENU;
 SwitchWindows();
