@@ -1,31 +1,32 @@
 using MathGame;
 
 public class GameEngine
-// this class handle the window control as well as orchestration
+// this class handle the window control as well as orchestration the gameplay
 {
-
-
-    
+    #region  Fields
     // our game option storage
     private GameOptions GameOptions = new(); 
-
-    
     // our game history
     public static GameRecord[] GameHistoryArray = new GameRecord[1000];
     // Global tracker for both the record id and detection of array current size 
     public static int TotalGamesPlayed = 0;
-    // Track the current window and change it on demand
-    // Track the state Change so we know when to trigger a redraw
-    public void GameSetup()
+    
+    #endregion
+    
+    #region Properties
+    
+    #endregion
+
+    #region Methods
+    public static void GameSetup()
     // a setup method to set the environment before entering the loop
     {
         // Clear the Terminal
         Console.Clear();
-        // Call the menu Constructor for the first time
-        // ConstructMainMenu(s_activeOptionBuffer); //TODO: uncomment that 
+
 
     }
-    public void Render()
+    public static void Render()
     {
         
         while (true)
@@ -44,11 +45,16 @@ public class GameEngine
                     ConsoleKeyInfo keyInfo = Console.ReadKey(true); // true hide the automatic key echoing
                     Console.TreatControlCAsInput = false; // so to prevent accidental catch of the control 
 
-                    // HandleUserInput(keyInfo);
+                    string userInput = InputHandler.HandleUserInput(keyInfo);
+                    if (!string.IsNullOrEmpty(userInput))
+                    {
+                        
+                    }
                 }
             }
         }
 
     }
+    #endregion
 
 }
