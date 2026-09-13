@@ -2,6 +2,7 @@ using System.Text;
 namespace MathGame
 {
     public static class InputHandler
+    // A unified utility class for handling user input effectively  
     {
         #region fields
         // this was preferred since I wanted to make most of my functions modular and window agnostic
@@ -34,6 +35,7 @@ namespace MathGame
         // indicators for wrong typing or invalid inputs 
         public static bool IsInputWrong { get; set; } = false;
         public static bool IsHandlingFailed { get; set; } = false;
+        public static bool IsInputEmpty{get; set;}
 
         // the place in which will display our errors in the current active window
         public static int CurrentErrorLocation { get; set; } = 0;
@@ -42,33 +44,56 @@ namespace MathGame
         static public string HandleUserInput(ConsoleKeyInfo key)
         // this method handles the input buffer itself
         {
-            string userInput = "";
+            string userInput = ""; // this is the return variable
+            
             switch (key.Key)
+            // based on the given key it will handle these cases
             {
                 case ConsoleKey.Enter:
-                    // IsHandlingFailed = TryHandleMenuOptions(userInput: UserInput ?? ""); // FIXME:
+                    // store this input into the string we are returning
                     userInput = InputBuffer?.ToString() ?? "";
-                    InputBuffer?.Clear();
-                    if (IsInputWrong || IsHandlingFailed)
+
+                    // to check for empty input before submitting the string
+                    if (string.IsNullOrEmpty(userInput))
                     {
+                        IsInputEmpty = true;
+                        ShowErrorMessage("You didn't type anything please enter something", CurrentErrorLocation);
+                    }
+                    // clear the buffer to reuse it again
+                    InputBuffer?.Clear();
+                    // check if there has been any errors flagged or no
+                    if (IsInputWrong || IsHandlingFailed || IsInputEmpty)
+                    {
+                        // if true goto the default case
                         goto default;
                     }
                     break;
+
+
+                
                 case ConsoleKey.Backspace: // to add back spacing logic since we give up ReadLine
+                    
                     if (InputBuffer?.Length > 0)
+                    // checking the length of the input buffer to avoid accidental invalid indexing  
                     {
+                        // remove the element once from the buffer
                         InputBuffer?.Remove(InputBuffer.Length - 1, 1);
-                        IsInputWrong = IsHandlingFailed = false;
                         Console.Write("\b \b"); // Erase character visually from console screen
+
+                        // Clean errors if spotted
                         if (IsInputWrong || IsHandlingFailed)
                         {
                             CleanErrors();
                         }
+                        // Force the active window and the input prompt to render cleanly 
+                        WindowManager.ActiveWindow.Render();
                     }
                     break;
                 default:
+                    // check if the input buffer's equivalent string empty or null 
                     if (string.IsNullOrEmpty(InputBuffer?.ToString() ?? ""))
                     {
+                        // pass the key itself to be check in handle key method
                         HandleInputKeys(key);
                     }
                     break;
@@ -84,7 +109,7 @@ namespace MathGame
             if ((s_activeOptionsBuffer.Contains(loweredKey) || loweredKey == 'q') && InputBuffer?.Length == 0)
             {
                 //check for potential error 
-                if (IsInputWrong || IsHandlingFailed)
+                if (IsInputWrong || IsHandlingFailed || IsInputEmpty)
                 {
                     // calling clean function if there is errors 
                     CleanErrors();
@@ -119,6 +144,7 @@ namespace MathGame
             // reset all the error flags as well
             IsInputWrong = false;
             IsHandlingFailed = false;
+            IsInputEmpty = false;
         }
         static public void ShowErrorMessage(string currentErrorType, int placement)
         // just to show the user what is wrong
@@ -133,6 +159,31 @@ namespace MathGame
             Console.Write($"\e[31m{currentErrorType}\e[0m".PadRight(Console.WindowWidth, ' '));
             // reset the cursor back to the old position
             Console.SetCursorPosition(oldLeftCursor, oldTopCursor);
+        }
+        static public void InputPrompt(string[]? inputTips = null)
+        // Rather than ask for input in each time the user move to a new menu this method
+        // will handle this Idea as well as displaying tips to the user
+        {
+            // separation to avoid cluttering the input area with the menu of the current window
+            Console.Write("\r\n\r\n");
+
+
+            // to address the null array I used null coalescing operator
+            // if it founds that the array is null assign it to an empty array 
+            inputTips ??= []; 
+            if (   !(inputTips.Length == 0)   )
+            {
+                Console.Write($"NOTES:");
+                Console.Write($"\t{string.Join("\r\n\t",inputTips)}\r\n");
+            }
+            // this to hold the current active options
+            string inputHints = $"type a letter from [{string.Join(", ", s_activeOptionsBuffer)}]\r\n";
+            // a prompt to encourage the user to type here  
+            string askForInput = "\r\nType your answer : \t";
+            Console.Write(inputHints);
+            Console.Write(askForInput);
+            // the null check is for safety, but this will just show what the user has typed
+            Console.Write(InputBuffer?.ToString().ToLower());
         }
         #endregion
 

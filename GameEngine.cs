@@ -1,5 +1,4 @@
 using MathGame;
-
 public class GameEngine
 // this class handle the window control as well as orchestration the gameplay
 {
@@ -23,12 +22,12 @@ public class GameEngine
     {
         // Clear the Terminal
         Console.Clear();
-
+        WindowManager.SwitchState(WindowMap.MAIN_MENU);
 
     }
     public static void Render()
     {
-        
+        GameSetup();   
         while (true)
         {
             WindowManager.UpdateWindow();
@@ -48,7 +47,8 @@ public class GameEngine
                     string userInput = InputHandler.HandleUserInput(keyInfo);
                     if (!string.IsNullOrEmpty(userInput))
                     {
-                        
+                        WindowMap nextState = WindowManager.ActiveWindow.ProcessInput(userInput : userInput);
+                        WindowManager.SwitchState(nextState);
                     }
                 }
             }

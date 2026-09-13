@@ -1,3 +1,4 @@
+using System.Collections;
 namespace MathGame
 {
     public static class WindowManager
@@ -6,6 +7,17 @@ namespace MathGame
         #region Fields
         // a constant array to define our minimum valid screen
         static readonly byte[] MIN_WINDOW_COORDINATES = [25, 85]; // (height,width) (y,x)
+
+
+
+        // this field dictionary to be a general way to invoke an work with the windows rather than
+        // handling each window separately
+        private static readonly Dictionary<WindowMap, WindowBase> s_windows = new()
+        {
+            { WindowMap.MAIN_MENU, new MainMenu() },
+            // { WindowMap.SETUP_MENU, new SetupMenuWindow() }
+        
+        };
         #endregion
         #region Properties
         // Track the current window and change it on demand
@@ -13,6 +25,9 @@ namespace MathGame
         // Track the state so we know when to trigger a redraw
         public static WindowMap PreviousWindow { get; set; } = WindowMap.MAIN_MENU;
 
+
+        // this property get the active window based on the CurrentWindow Property 
+        public static WindowBase ActiveWindow { get => s_windows[CurrentWindow]; }
 
         // Stores the current window height or what equivalent to the Y axis
         public static int UserWindowHeight { get; set; } = Console.WindowHeight;
@@ -74,35 +89,33 @@ namespace MathGame
                 UserWindowWidth = newX;
                 UserWindowHeight = newY;
                 Thread.Sleep(30); // Prevents high CPU usage
-                
+
                 // force a redraw for the user screen after resize
-                SwitchWindows(); 
-            }
-
-
-            // handles the window update 
-            if (CurrentWindow != PreviousWindow)
-            {
-                Console.Clear();
-                PreviousWindow = CurrentWindow;
-                SwitchWindows();
+                ActiveWindow.Render();
             }
 
         }
-        static void SwitchWindows()
+        public static void SwitchState(WindowMap newState)
+        // this method handle the switching mechanism
         {
-            switch (CurrentWindow)
+            
+            if(CurrentWindow == newState)
+            // check if the state have been change or still the same
             {
-                case WindowMap.MAIN_MENU:
-                    // ConstructMainMenu(s_activeOptionBuffer);
-                    break;
-                case WindowMap.SETUP_MENU:
-                    // ConstructSetupMenu();
-                    break;
-                case WindowMap.QUIT_BANNER:
-                    // QuitGameBanner();
-                    break;
+                // return if that is the case
+                return;
             }
+            // assign the new state to the CurrentWindow property
+            CurrentWindow = newState;
+            // clear the console for the new window
+            Console.Clear();
+
+            // set the input handler's valid options to
+            InputHandler.SetActiveOptions = ActiveWindow.ValidOptions;
+
+            // renders the new window
+            ActiveWindow.Render();
+
         }
         #endregion
     }
