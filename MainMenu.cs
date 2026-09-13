@@ -42,13 +42,29 @@ public class MainMenu : WindowBase
     }
     public override WindowMap ProcessInput(string userInput)
     {
-        return userInput switch
+        switch (userInput)
         {
-          "a" => WindowMap.SETUP_MENU,
-          "b" => WindowMap.HISTORY_WINDOW,
-          "c" => WindowMap.ABOUT_WINDOW,
-          _ => WindowMap.MAIN_MENU // wrong input stay in the window  
-        };
+            case "a":
+                return WindowMap.SETUP_MENU;
+            case "b":
+                if (GameEngine.TotalGamesPlayed == 0)
+                {
+                    // Push a completely custom error to the handler on demand
+                    InputHandler.ShowErrorMessage("No history found. You must play a game first.",CurrentErrorLocation);
+                    
+                    // Return the same state so the window doesn't switch
+                    return WindowMap.MAIN_MENU; 
+                }
+                return WindowMap.HISTORY_WINDOW;
+            case "c":
+                return WindowMap.ABOUT_WINDOW;
+            case "q":
+                return WindowMap.QUIT_BANNER;
+            default:
+                return WindowMap.MAIN_MENU;
+                
+        }
+
     }    
 }
 

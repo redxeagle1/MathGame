@@ -171,7 +171,7 @@ namespace MathGame
             inputTips ??= []; 
             if (   !(inputTips.Length == 0)   )
             {
-                Console.Write($"NOTES:");
+                Console.Write($"NOTES:\r\n");
                 Console.Write($"\t{string.Join("\r\n\t",inputTips)}\r\n");
             }
             // this to hold the current active options
