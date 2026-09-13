@@ -81,12 +81,10 @@ namespace MathGame
                         Console.Write("\b \b"); // Erase character visually from console screen
 
                         // Clean errors if spotted
-                        if (IsInputWrong || IsHandlingFailed)
+                        if (IsInputWrong || IsHandlingFailed )
                         {
                             CleanErrors();
                         }
-                        // Force the active window and the input prompt to render cleanly 
-                        WindowManager.ActiveWindow.Render();
                     }
                     break;
                 default:

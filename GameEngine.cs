@@ -23,6 +23,7 @@ public class GameEngine
         // Clear the Terminal
         Console.Clear();
         WindowManager.SwitchState(WindowMap.MAIN_MENU);
+        WindowManager.ActiveWindow.Render();
 
     }
     public static void Render()

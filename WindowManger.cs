@@ -110,9 +110,6 @@ namespace MathGame
             // clear the console for the new window
             Console.Clear();
 
-            // set the input handler's valid options to
-            InputHandler.SetActiveOptions = ActiveWindow.ValidOptions;
-
             // renders the new window
             ActiveWindow.Render();
 

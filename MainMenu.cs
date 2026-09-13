@@ -8,6 +8,8 @@ public class MainMenu : WindowBase
     public override int CurrentErrorLocation => 15;
     public override void Render()
     {
+        // set the input handler's valid options to
+        InputHandler.CurrentErrorLocation = CurrentErrorLocation;
         // game components
         string[] gameLabel = [
     @"███╗   ███╗ █████╗ ████████╗██╗  ██╗     ██████╗  █████╗ ███╗   ███╗███████╗",
