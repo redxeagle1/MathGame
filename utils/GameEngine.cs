@@ -4,7 +4,7 @@ public class GameEngine
 {
     #region  Fields
     // our game option storage
-    private GameOptions GameOptions = new(); 
+    public static GameOptions GameOptions = new(); 
     // our game history
     public static GameRecord[] GameHistoryArray = new GameRecord[1000];
     // Global tracker for both the record id and detection of array current size 
