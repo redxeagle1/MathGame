@@ -33,9 +33,7 @@ namespace MathGame
 
 
         // indicators for wrong typing or invalid inputs 
-        public static bool IsInputWrong { get; set; } = false;
-        public static bool IsHandlingFailed { get; set; } = false;
-        public static bool IsInputEmpty{get; set;}
+        public static bool HasError { get; set; } = false;
 
         // the place in which will display our errors in the current active window
         public static int CurrentErrorLocation { get; set; } = 0;
@@ -56,13 +54,18 @@ namespace MathGame
                     // to check for empty input before submitting the string
                     if (string.IsNullOrEmpty(userInput))
                     {
-                        IsInputEmpty = true;
-                        ShowErrorMessage("You didn't type anything please enter something", CurrentErrorLocation);
+                        HasError = true;
+                        ShowErrorMessage("You didn't type anything please enter something");
+                    }
+                    // clear the submitted input for reusing 
+                    for (int i = 0; i < userInput.Length; i++)
+                    {
+                        Console.Write("\b \b");
                     }
                     // clear the buffer to reuse it again
                     InputBuffer?.Clear();
                     // check if there has been any errors flagged or no
-                    if (IsInputWrong || IsHandlingFailed || IsInputEmpty)
+                    if (HasError)
                     {
                         // if true goto the default case
                         goto default;
@@ -73,15 +76,16 @@ namespace MathGame
                 
                 case ConsoleKey.Backspace: // to add back spacing logic since we give up ReadLine
                     
-                    if (InputBuffer?.Length > 0)
+                    if (InputBuffer?.Length > 0  )
                     // checking the length of the input buffer to avoid accidental invalid indexing  
                     {
+                        
                         // remove the element once from the buffer
                         InputBuffer?.Remove(InputBuffer.Length - 1, 1);
                         Console.Write("\b \b"); // Erase character visually from console screen
 
                         // Clean errors if spotted
-                        if (IsInputWrong || IsHandlingFailed )
+                        if (HasError)
                         {
                             CleanErrors();
                         }
@@ -107,7 +111,7 @@ namespace MathGame
             if ((s_activeOptionsBuffer.Contains(loweredKey) || loweredKey == 'q') && InputBuffer?.Length == 0)
             {
                 //check for potential error 
-                if (IsInputWrong || IsHandlingFailed || IsInputEmpty)
+                if (HasError)
                 {
                     // calling clean function if there is errors 
                     CleanErrors();
@@ -119,7 +123,7 @@ namespace MathGame
             else
             {
                 // to check if the IsHandlingFailed is true
-                if (IsHandlingFailed)
+                if (HasError)
                 {
                     // return so the error message of wrong input doesn't override the empty input
                     return;
@@ -127,9 +131,9 @@ namespace MathGame
                 else
                 {
                     // print the error message for the user
-                    ShowErrorMessage($"You type wrong option you can only use" + "[" + string.Join(", ", s_activeOptionsBuffer) + ", q]", CurrentErrorLocation);
+                    ShowErrorMessage($"You type wrong option you can only use" + "[" + string.Join(", ", s_activeOptionsBuffer) + ", q]");
                     // make IsInputWrong true
-                    IsInputWrong = true;
+                    HasError = true;
                 }
             }
         }
@@ -137,14 +141,12 @@ namespace MathGame
         // to check and clear any error
         {
             // passing an empty string will clear the error as well
-            ShowErrorMessage("", CurrentErrorLocation);
+            ShowErrorMessage("");
 
             // reset all the error flags as well
-            IsInputWrong = false;
-            IsHandlingFailed = false;
-            IsInputEmpty = false;
+            HasError = false;
         }
-        static public void ShowErrorMessage(string currentErrorType, int placement)
+        static public void ShowErrorMessage(string currentErrorType)
         // just to show the user what is wrong
         {
             // saving the current user cursor position
@@ -152,7 +154,7 @@ namespace MathGame
             int oldTopCursor = Console.CursorTop;
 
             // setting the cursor into the specified location to display the message 
-            Console.SetCursorPosition(0, placement);
+            Console.SetCursorPosition(0, CurrentErrorLocation);
             // print the message and over-write the rest of the line with blanks  
             Console.Write($"\e[31m{currentErrorType}\e[0m".PadRight(Console.WindowWidth, ' '));
             // reset the cursor back to the old position
@@ -175,7 +177,7 @@ namespace MathGame
                 Console.Write($"\t{string.Join("\r\n\t",inputTips)}\r\n");
             }
             // this to hold the current active options
-            string inputHints = $"type a letter from [{string.Join(", ", s_activeOptionsBuffer)}]\r\n";
+            string inputHints = $"type a letter from [{string.Join(", ", s_activeOptionsBuffer)}, q]\r\n";
             // a prompt to encourage the user to type here  
             string askForInput = "\r\nType your answer : \t";
             Console.Write(inputHints);
@@ -184,6 +186,5 @@ namespace MathGame
             Console.Write(InputBuffer?.ToString().ToLower());
         }
         #endregion
-
     }
 }

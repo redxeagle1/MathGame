@@ -5,7 +5,7 @@ namespace MathGame;
 public class MainMenu : WindowBase
 {
     public override string ValidOptions => "abc";
-    public override int CurrentErrorLocation => 15;
+    public override int CurrentErrorLocation => 16;
     public override void Render()
     {
         // set the input handler's valid options to
@@ -49,8 +49,9 @@ public class MainMenu : WindowBase
             case "b":
                 if (GameEngine.TotalGamesPlayed == 0)
                 {
+                    InputHandler.HasError = true;
                     // Push a completely custom error to the handler on demand
-                    InputHandler.ShowErrorMessage("No history found. You must play a game first.",CurrentErrorLocation);
+                    InputHandler.ShowErrorMessage("No history found. You must play a game first.");
                     
                     // Return the same state so the window doesn't switch
                     return WindowMap.MAIN_MENU; 
