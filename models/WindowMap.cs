@@ -2,6 +2,7 @@
 public enum WindowMap
 // this is for switching between windows easily as well as defining our current window
 {
+    NONE,
     MAIN_MENU,
     SETUP_MENU,
     GAME_WINDOW,
