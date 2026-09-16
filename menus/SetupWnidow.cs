@@ -1,99 +1,170 @@
-using System;
-
 namespace MathGame;
 
 public class SetupWindow : WindowBase
 {
-    public override string ValidOptions => throw new NotImplementedException();
-
-    public override int CurrentErrorLocation => throw new NotImplementedException();
+    public override string ValidOptions { get; set; } = "abcdew";
+    public override int CurrentErrorLocation { get; set; } = 16;
+    private bool IsOptionsSet { get; set; } = false;
+    private GameOptions _gameOptions = GameEngine.sGameOptions;
 
     public override WindowMap ProcessInput(string userInput)
     {
-        throw new NotImplementedException();
+        switch (userInput)
+        {
+            case "w" :
+                ResetOptions();
+                return WindowMap.SETUP_MENU;
+            case "q":
+                return WindowMap.MAIN_MENU;
+            case "y":
+                return WindowMap.GAME_WINDOW;
+            default:
+                SetQuestionOptions(userInput);
+                return WindowMap.SETUP_MENU;
+        }
     }
 
     public override void Render()
     {
-        throw new NotImplementedException();
+
+
+        if (IsOptionsSet)
+        {
+            InputHandler.CurrentErrorLocation = 11;
+            // change the Active Options to 
+            InputHandler.SetActiveOptions = "yw";
+            // A final display of user input
+            Console.Write($"Difficulty : {_gameOptions.Difficulty}\t\tOperation : {_gameOptions.Operation}\t\tQuestion Type : {_gameOptions.QuestionType}\r\n");
+
+            // Confirming the input
+            Console.Write("Are you sure about your inputs");
+            // saves all our selection back to the Game Engine to utilize it in the game mech
+            GameEngine.sGameOptions = _gameOptions;
+
+            InputHandler.InputPrompt(
+            [
+            "- type [q] to go back to main menu",
+            "- type [y] to Confirm",
+            "- type [w] to wipe all selections",
+            "- press [ctrl+c] to hard exit"
+            ]
+            );
+            return;
+        }
+        InputHandler.SetActiveOptions = ValidOptions;
+        InputHandler.CurrentErrorLocation = CurrentErrorLocation;
+        Console.Write($"Choose From The Following Options:\r\n");
+        Console.Write("\r\n");
+        RenderQuestionsSetup();
+        InputHandler.InputPrompt(
+        [
+            "- type [q] to go back to main menu",
+            "- type [w] to wipe all selections",
+            "- press [ctrl+c] to hard exit"
+        ]
+        );
+
     }
+    private void SetQuestionOptions(string userInput)
+    {
+        if (_gameOptions.Difficulty == GameDifficulty.NONE)
+        {
+            _gameOptions.Difficulty = SetGameDifficulty(userInput);
+        }
+        else if (_gameOptions.Operation == GameOperation.NONE)
+        {
+            _gameOptions.Operation = SetGameOperation(userInput);
+        }
+        else if (_gameOptions.QuestionType == GameQuestionType.NONE)
+        {
+            _gameOptions.QuestionType = SetGameQuestionType(userInput);
+            // to indicate that the all options is set
+            IsOptionsSet = true;
+        }
+    }
+    private void RenderQuestionsSetup()
+    {
+        string infoPanel = $"Difficulty : {_gameOptions.Difficulty}\t\tOperation : {_gameOptions.Operation}\t\tQuestion Type : {_gameOptions.QuestionType}";
+        if (_gameOptions.Difficulty == GameDifficulty.NONE)
+        {
+            RenderDifficultyOptions();
+        }
+        else if (_gameOptions.Operation == GameOperation.NONE)
+        {
+            RenderOperationOptions();
+        }
+        else if (_gameOptions.QuestionType == GameQuestionType.NONE)
+        {
+            RenderQuestionTypeOptions();
+        }
+        // an info panel to display the selection summary
+        Console.Write("\r\n");
+        Console.WriteLine($"{infoPanel}\r\n");
+    }
+
+
+    private static void RenderDifficultyOptions()
+    {
+        Console.Write("\tchoose a difficulty}\r\n");
+        Console.Write("\t\ta. easy (digits from 0 to 10)}\r\n");
+        Console.Write("\t\tb. normal (digits from 0 to 100)}\r\n");
+        Console.Write("\t\tc. hard (digits from 0 to 10 + TIMED 10s)}\r\n");
+        Console.Write("\t\td. insane (digits from 0 to 100 + TIMED 10s and 15s if random operation)}\r\n");
+        Console.Write("\t\te. impossible (digits from 0 to 100 + TIMED 5s and 10s if random operation)}\r\n");
+    }
+    private static void RenderOperationOptions()
+    {
+        Console.Write("\tchoose the operation}\r\n");
+        Console.Write($"\t\ta. addition (+)\r\n");
+        Console.Write($"\t\tb. subtraction (-)\r\n");
+        Console.Write($"\t\tc. multiplication (x)\r\n");
+        Console.Write($"\t\td. division (÷)\r\n");
+        Console.Write($"\t\te. random operation\r\n");
+    }
+    private static void RenderQuestionTypeOptions()
+    {
+        Console.Write("\tchoose the question type\r\n");
+        Console.Write("\t\ta. MCQ\r\n");
+        Console.Write("\t\tb. true or false\r\n");
+        Console.Write("\t\tc. fill the gaps\r\n");
+        Console.Write("\t\td. normal\r\n");
+        Console.Write("\t\te. random\r\n");
+    }
+    private static GameDifficulty SetGameDifficulty(string userInput) => userInput switch
+        // these method return a difficulty based on the input 
+        {
+            "a" => GameDifficulty.EASY,
+            "b" => GameDifficulty.NORMAL,
+            "c" => GameDifficulty.HARD,
+            "d" => GameDifficulty.INSANE,
+            "e" => GameDifficulty.IMPOSSIBLE,
+            _ => GameDifficulty.NONE
+        };
+    private static GameOperation SetGameOperation(string userInput) => userInput switch
+        // these method return a Operation based on the input 
+        {
+            "a" => GameOperation.ADDITION,
+            "b" => GameOperation.SUBTRACTION,
+            "c" => GameOperation.MULTIPLICATION,
+            "d" => GameOperation.DIVISION,
+            "e" => GameOperation.RANDOM,
+            _ => GameOperation.NONE
+        };
+    private static GameQuestionType SetGameQuestionType(string userInput) => userInput switch
+        // these method return a QuestionType based on the input 
+        {
+            "a" => GameQuestionType.MCQ,
+            "b" => GameQuestionType.TRUE_FALSE,
+            "c" => GameQuestionType.FILL_GAPS,
+            "d" => GameQuestionType.NORMAL,
+            "e" => GameQuestionType.RANDOM,
+            _ => GameQuestionType.NONE
+        };
+    private void ResetOptions()
+    {
+        _gameOptions.Difficulty = GameDifficulty.NONE;
+        _gameOptions.Operation = GameOperation.NONE;
+        _gameOptions.QuestionType = GameQuestionType.NONE;
+        IsOptionsSet = false;
+    } 
 }
-
-/*
- static void ConstructSetupMenu()
-    {
-        // to set
-        CurrentWindow = WindowMap.SETUP_MENU;
-        SetActiveOptions="abcdew";
-        // CurrentErrorLocation = 24; // validate it
-        string Choose = "Choose From The Following Options:";
-        Console.Write($"{Choose}\tX:{Choose.Length}\tY:{Console.CursorTop}\r\n");
-        Console.Write("\r\n");
-        ConstructQuestionOptions();
-        Console.Write("Type hints\r\n");
-        string hintSelection = $"- type a letter from [{string.Join(", ", s_activeOptionBuffer)}]\r\n- to go back to main menu [q]\r\n- type [w] to wipe all selections\r\n- press [ctrl+c] to hard exit";
-        Console.Write(hintSelection + $"\tY:{Console.CursorTop}\r\n");
-        string askForInput = "\r\nType your answer : \t";
-        Console.Write(askForInput + Console.CursorTop);
-
-    }
-    static void ConstructQuestionOptions()
-    {
-        // TODO: Separate this method into a method for each set of condition 
-        // TODO: Add the handling of these questions and swapping in another method
-        string infoPanel = $"Difficulty : {gameOptions.Difficulty}\t\tOperation : {gameOptions.Operation}\t\tQuestion Type : {gameOptions.QuestionType}";
-        if (gameOptions.Difficulty == GameDifficulty.NONE)
-        {
-            Console.Write($"{"\tchoose a difficulty"}\tX:{"\tchoose a difficulty".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\ta. easy (digits from 0 to 10)"}\tX:{"\t\ta. easy (digits from 0 to 10)".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\tb. normal (digits from 0 to 100)"}\tX:{"\t\tb. normal (digits from 0 to 100)".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\tc. hard (digits from 0 to 10 + TIMED 10s)"}\tX:{"\t\tc. hard (digits from 0 to 10 + TIMED 10s)".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\td. insane (digits from 0 to 100 + TIMED 10s and 15s if random operation)"}\tX:{"\t\td. insane (digits from 0 to 100 + TIMED 10s and 15s if random operation)".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\te. impossible (digits from 0 to 100 + TIMED 5s and 10s if random operation)"}\tX:{"\t\te. impossible (digits from 0 to 100 + TIMED 5s and 10s if random operation)".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write("\r\n");
-            Console.Write("\r\n");
-        }
-        else if (gameOptions.Operation == GameOperation.NONE)
-        {
-            ClearQuestionOptions();
-            Console.Write($"{"\tchoose the operation"}\tX:{"\tchoose the operation".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\ta. addition (+)"}\tX:{"\t\ta. addition (+)".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\tb. subtraction (-)"}\tX:{"\t\tb. subtraction (-)".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\tc. multiplication (x)"}\tX:{"\t\tc. multiplication (x)".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\td. division (÷)"}\tX:{"\t\td. division (÷)".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\te. random operation"}\tX:{"\t\te. random operation".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write("\r\n");
-            Console.Write("\r\n");
-        }
-        else if (gameOptions.QuestionType == GameQuestionType.NONE)
-        {
-            ClearQuestionOptions();
-            Console.Write($"{"\tchoose the question type"}\tX:{"\tchoose the question type".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\ta. MCQ"}\tX:{"\t\ta. MCQ".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\tb. true or false"}\tX:{"\t\tb. true or false".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\tc. fill the gaps"}\tX:{"\t\tc. fill the gaps".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\td. normal"}\tX:{"\t\td. normal".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write($"{"\t\te. random"}\tX:{"\t\te. random".Length}\tY:{Console.CursorTop}\r\n");
-            Console.Write("\r\n");
-            Console.Write("\r\n");
-        }
-        Console.WriteLine($"{infoPanel}\tX:{infoPanel.Length}\tY:{Console.CursorTop}");
-        Console.Write("\r\n");
-        Console.Write("\r\n");
-    }
-    static void ClearQuestionOptions()
-    {
-        // Save the current cursor position to go back to it 
-        int oldX = Console.CursorLeft;
-        int oldY = Console.CursorTop;
-
-        // a loop from 2 to 7 to over-write all the text in these specific locations
-        for (int i = 2; i < 8; i++)
-        {
-            Console.SetCursorPosition(0,i);
-            Console.Write(" ".PadRight(Console.WindowWidth));
-        }
-        // Set the cursor back to the position 
-        Console.SetCursorPosition(oldX,oldY);
-    }
-*/

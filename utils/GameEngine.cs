@@ -4,7 +4,7 @@ public class GameEngine
 {
     #region  Fields
     // our game option storage
-    public static GameOptions GameOptions = new(); 
+    public static GameOptions sGameOptions = new(); 
     // our game history
     public static GameRecord[] GameHistoryArray = new GameRecord[1000];
     // Global tracker for both the record id and detection of array current size 
@@ -49,7 +49,15 @@ public class GameEngine
                     if (!string.IsNullOrEmpty(userInput))
                     {
                         WindowMap nextState = WindowManager.ActiveWindow.ProcessInput(userInput : userInput);
-                        WindowManager.SwitchState(nextState);
+                        if (WindowManager.CurrentWindow != nextState)
+                        {
+                            WindowManager.SwitchState(nextState);
+                        }
+                        else if (!InputHandler.HasError)
+                        {
+                            Console.Clear();
+                            WindowManager.ActiveWindow.Render();
+                        }
                     }
                 }
             }

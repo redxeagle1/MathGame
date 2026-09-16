@@ -4,10 +4,10 @@ public abstract class WindowBase
 // A generic class to hold all the windows and unifying the handling for modularity and simplicity
 {
     // a string to set the active valid option buffer
-    public abstract string ValidOptions {get;}
+    public abstract string ValidOptions { get; set; }
 
     // an int to specify the current error location for InputHandler error utility
-    public abstract int CurrentErrorLocation {get;}
+    public abstract int CurrentErrorLocation { get; set; }
 
 
     // the method to draw and construct the current window

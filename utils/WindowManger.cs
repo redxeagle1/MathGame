@@ -1,4 +1,4 @@
-using System.Collections;
+// using System.Collections;
 namespace MathGame
 {
     public static class WindowManager
@@ -15,7 +15,8 @@ namespace MathGame
         private static readonly Dictionary<WindowMap, WindowBase> s_windows = new()
         {
             { WindowMap.MAIN_MENU, new MainMenu() },
-            {WindowMap.QUIT_BANNER, new QuitWindow()}
+            {WindowMap.QUIT_BANNER, new QuitWindow()},
+            {WindowMap.SETUP_MENU,new SetupWindow()}
             // { WindowMap.SETUP_MENU, new SetupMenuWindow() }
         
         };

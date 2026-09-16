@@ -1,12 +1,9 @@
-using System;
-
 namespace MathGame;
 
 public class QuitWindow :  WindowBase
 {
-    public override int CurrentErrorLocation => 0;
-
-    public override string ValidOptions => "";
+    public override string ValidOptions { get; set; } = "";
+    public override int CurrentErrorLocation { get; set; } = 0;
 
     public override WindowMap ProcessInput(string userInput)
     {
