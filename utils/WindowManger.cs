@@ -1,4 +1,6 @@
 // using System.Collections;
+using MathGame.menus.SetupMenu;
+
 namespace MathGame
 {
     public static class WindowManager

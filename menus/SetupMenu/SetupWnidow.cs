@@ -1,6 +1,4 @@
-using MathGame.menus;
-
-namespace MathGame;
+namespace MathGame.menus.SetupMenu;
 
 public class SetupWindow : WindowBase
 {
