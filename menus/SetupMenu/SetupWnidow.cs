@@ -2,8 +2,8 @@ namespace MathGame.menus.SetupMenu;
 
 public class SetupWindow : WindowBase
 {
-    public override string ValidOptions { get; set; } = "abcdew";
-    public override int CurrentErrorLocation { get; set; } = 16;
+    public override string ValidOptions => "abcdew";
+    public override int CurrentErrorLocation => 16;
     private bool IsOptionsSet { get; set; } = false;
     private GameOptions _gameOptions = GameEngine.sGameOptions;
 
