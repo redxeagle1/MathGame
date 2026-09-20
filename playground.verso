@@ -1,0 +1,34 @@
+{
+  "verso": "1.1",
+  "metadata": {
+    "defaultKernel": "csharp",
+    "activeLayout": {
+      "extensionId": "verso.layout.notebook",
+      "layoutId": "notebook"
+    }
+  },
+  "cells": [
+    {
+      "id": "83ae2568-41da-402b-bc25-291d6b2e7355",
+      "type": "markdown",
+      "source": "### importing the project\u0027s dll to have access to all the classes inside it"
+    },
+    {
+      "id": "d94055db-3267-4579-a4c2-636e513ba7e5",
+      "type": "code",
+      "language": "csharp",
+      "source": "#r \u0022C:\\Users\\saad\\Desktop\\MathGame\\bin\\Debug\\net10.0\\MathGame.dll\u0022\r\nusing MathGame;\r\n"
+    },
+    {
+      "id": "29acf375-93b3-4f4d-bf15-9d2259ed9215",
+      "type": "markdown",
+      "source": "### Testing \u0060Problem.cs\u0060"
+    },
+    {
+      "id": "39131e24-9272-4f8c-9261-e6c731412fbc",
+      "type": "code",
+      "language": "csharp",
+      "source": "Problem problem = new(GameOperation.RANDOM, GameDifficulty.HARD);\r\nproblem"
+    }
+  ]
+}
