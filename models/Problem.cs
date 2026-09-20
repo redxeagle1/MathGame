@@ -17,16 +17,16 @@ public readonly struct Problem
         };
     }
     private readonly char[] _operation = ['+', '-', '*', '/'];
-    public Problem(GameOperation operation,GameDifficulty difficulty)
+    public Problem(GameOptions options)
     {
-        _difficulty = difficulty;
+        _difficulty = options.Difficulty;
         FirstNum = GenerateNumber();
         SecondNum = GenerateNumber();
+        Operation = GenerateOperation(options.Operation);
         while (FirstNum % (double)SecondNum != 0 )
         {
             SecondNum = GenerateNumber();
         }
-        Operation = GenerateOperation(operation);
         Answer = GetAnswer();
     }
 
