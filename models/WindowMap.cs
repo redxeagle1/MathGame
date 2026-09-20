@@ -1,4 +1,6 @@
 // a full map for our game
+namespace MathGame;
+
 public enum WindowMap
 // this is for switching between windows easily as well as defining our current window
 {

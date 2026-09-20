@@ -1,3 +1,4 @@
+namespace MathGame;
 public struct GameRecord(int id,
                   DateTime startTime,
                   short questions,

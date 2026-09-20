@@ -1,3 +1,4 @@
+namespace MathGame;
 public enum GameDifficulty : byte {NONE,EASY,NORMAL,HARD,INSANE,IMPOSSIBLE,}
 
 public enum GameOperation : byte {NONE,ADDITION,SUBTRACTION,MULTIPLICATION,DIVISION,RANDOM}
