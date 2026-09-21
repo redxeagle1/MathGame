@@ -1,24 +1,35 @@
+namespace MathGame;
 using System.Collections;
 using System.Runtime.InteropServices;
-namespace MathGame;
 
-
-public class Answers : IEnumerable
-// an struct for The MCQ question type
+public class AnswerMCQ : AnswerBase<char>, IEnumerable
 {
+
     #region Fields
     // A list that contains our answers
     private readonly List<int> _answerList = new(4);
-    #endregion
-    #region Properties
 
-    // indexer to iterate through the answers
-    public int this[int index] => _answerList[index];
-    public int AnswerIndex {get;set;}
+    // Important for using string.Join
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     #endregion
+
+    #region Properties
+    public override GameQuestionType QuestionType => GameQuestionType.MCQ;
+
+    // Important for using string.Join
+    public IEnumerator GetEnumerator() => _answerList.GetEnumerator();
+
+        #region Indexer
+            // indexer to iterate through the answers
+            public int this[int index] => _answerList[index];
+            public int AnswerIndex {get;set;}
+        #endregion
+    #endregion
+
     #region Constructor
-    public Answers(int answer)
+    public AnswerMCQ(Problem problem)
     {
+        int answer = problem.Answer;
         // add the main answer
         _answerList.Add(answer);
 
@@ -30,8 +41,8 @@ public class Answers : IEnumerable
         AnswerIndex = _answerList.IndexOf(answer);
     }
     #endregion
+
     #region Methods
-    
     private void GenerateAnswerCandidates(int a)
     // this method generate the keys and there values in the dictionary
     {
@@ -53,8 +64,9 @@ public class Answers : IEnumerable
         }
     }
 
-    // Important to use String.Join on it
-    public IEnumerator<int> GetEnumerator() => _answerList.GetEnumerator();
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    
+    // check if the answer is correct without mapping overhead 
+    public override bool ValidateAnswer(char userInput) => (char)(AnswerIndex + 97) == userInput;
     #endregion
+
 }

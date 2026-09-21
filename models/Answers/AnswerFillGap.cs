@@ -1,21 +1,21 @@
+
 namespace MathGame;
 
-public class AnswerFillGaps
-// this will pick one of the the operands, the operator to be the answer
+public class AnswerFillGap : AnswerBase<string>
 {
-    // this will store our current problem
-    private int[] _operationList = new int[3];
-
     #region Fields
+    private int[] _operationList = new int[3];
     #endregion
     #region Properties
     public int TargetGabAnswer{get;} // this will store the target gap's answer
     public int TargetGabIndex{get;} // this will store the gap's index
+    public override GameQuestionType QuestionType => GameQuestionType.FILL_GAPS;
     #endregion
-    
-    
+
+
+        
     #region Constructor
-    public AnswerFillGaps(Problem problem)
+    public AnswerFillGap(Problem problem)
     {
         _operationList = [problem.FirstNum,problem.Operation,problem.SecondNum];
         TargetGabAnswer = GetTheTargetGapValue();
@@ -23,9 +23,11 @@ public class AnswerFillGaps
     }
 
     #endregion
-    
-    
-    
+    public override bool ValidateAnswer(string userInput)
+    {
+        return int.Parse(userInput) == TargetGabAnswer;
+    }
+        
     #region Methods
     private int GetTheTargetGapValue()
     // get the target's Value
