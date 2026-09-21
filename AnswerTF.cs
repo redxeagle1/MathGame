@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Runtime.InteropServices;
 namespace MathGame;
 
-public struct AnswerTF 
+public class AnswerTF 
 
 {
     #region Fields

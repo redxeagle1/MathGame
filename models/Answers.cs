@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 namespace MathGame;
 
 
-public struct Answers : IEnumerable
+public class Answers : IEnumerable
 // an struct for The MCQ question type
 {
     #region Fields
@@ -13,7 +13,7 @@ public struct Answers : IEnumerable
     #region Properties
 
     // indexer to iterate through the answers
-    public readonly int this[int index] => _answerList[index];
+    public int this[int index] => _answerList[index];
     public int AnswerIndex {get;set;}
     #endregion
     #region Constructor
@@ -32,7 +32,7 @@ public struct Answers : IEnumerable
     #endregion
     #region Methods
     
-    private readonly void GenerateAnswerCandidates(int a)
+    private void GenerateAnswerCandidates(int a)
     // this method generate the keys and there values in the dictionary
     {
         // iterating through the given counter
@@ -54,7 +54,7 @@ public struct Answers : IEnumerable
     }
 
     // Important to use String.Join on it
-    public readonly IEnumerator<int> GetEnumerator() => _answerList.GetEnumerator();
-    readonly IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    public IEnumerator<int> GetEnumerator() => _answerList.GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     #endregion
 }
