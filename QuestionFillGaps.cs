@@ -11,7 +11,6 @@ public class QuestionFillGaps : Question<string>
             problem.FirstNum.ToString(),
             problem.Operation.ToString(),
             problem.SecondNum.ToString(),
-            problem.Answer.ToString(),
         ];
     }
 
@@ -21,7 +20,7 @@ public class QuestionFillGaps : Question<string>
 
     public override AnswerBase<string> Answer => _answer;
     private AnswerFillGap _answer;
-    private string[] _problemList = new string[4];
+    private string[] _problemList = new string[3];
 
 
     private string GetQuestionCaption()
@@ -38,7 +37,7 @@ public class QuestionFillGaps : Question<string>
     protected override string GenerateQuestionText()
     {
         string questionHeaderTypeHint = "Fill The Gaps";
-        string questionCaption = $"\r\n{GetQuestionCaption()}= {_problemList[3]}";
+        string questionCaption = $"\r\n{GetQuestionCaption()}= {problem.Answer}";
         string questionAnswers = $"\r\nWhat must be written to satisfy the problem?";
         return questionHeaderTypeHint + questionCaption + questionAnswers;
     }
