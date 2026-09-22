@@ -25,6 +25,10 @@ public class AnswerFillGap : AnswerBase<string>
     #endregion
     public override bool ValidateAnswer(string userInput)
     {
+        if (userInput is "+" or "-" or "*" or "/")
+        {
+            return userInput[0] == TargetGabAnswer;
+        }
         return int.Parse(userInput) == TargetGabAnswer;
     }
         
