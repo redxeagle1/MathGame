@@ -1,14 +1,21 @@
 namespace MathGame;
 
-public abstract class Question
+public abstract class Question<T>(Problem problem)
 {
-    public abstract string QuestionText{get;}
-    // public ProblemSetup problem = new();
-    // public abstract string GenerateQuestion()
+    // the will hold our problem itself
+    public Problem problem = problem;
     
-    // this method will use the Problem Object in Order to prepare the question text
-    
-    public abstract string GenerateQuestionText();
-    // public abstract 
+    // to define the type Effectively
+    public abstract GameQuestionType QuestionType{get;}
+    // question prompt
+    public abstract string QuestionPrompt{get;}
 
+    // Answer Holder
+    public abstract AnswerBase<T> Answer{get;} // note the T must be of the same type 
+    
+
+
+
+    // this method will use the Problem Object in Order to prepare the question text
+    public abstract string GenerateQuestionText();
 }
