@@ -15,7 +15,9 @@ public abstract class Question<T>(Problem problem)
     
 
 
+    protected abstract string? QuestionHeaderTypeHint{get;}
+    protected abstract string? QuestionCaption{get;}
+    protected abstract string? QuestionAnswers{get;}
 
     // this method will use the Problem Object in Order to prepare the question text
-    protected abstract string GenerateQuestionText();
 }

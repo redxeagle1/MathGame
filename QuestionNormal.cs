@@ -5,7 +5,7 @@ public class QuestionNormal : Question<string>
     public QuestionNormal(Problem problem) : base(problem)
     {
         _answer =new(problem);
-        QuestionPrompt = GenerateQuestionText();
+        QuestionPrompt =  QuestionHeaderTypeHint + QuestionCaption + QuestionAnswers ;
     }
 
     public override GameQuestionType QuestionType =>GameQuestionType.NORMAL;
@@ -14,12 +14,12 @@ public class QuestionNormal : Question<string>
 
     public override AnswerBase<string> Answer => _answer;
 
-    private AnswerNormal _answer;
-    protected override string GenerateQuestionText()
-    {
-        string questionHeaderTypeHint = "What Is The Output Of The Following Problem ?";
-        string questionCaption = $"\r\n{problem.FirstNum} {problem.Operation} {problem.SecondNum} = ?";
-        string questionAnswers = ""; 
-        return questionHeaderTypeHint + questionCaption + questionAnswers;
-    }
+    protected override string? QuestionHeaderTypeHint => "What Is The Output Of The Following Problem ?";
+
+    protected override string? QuestionCaption => $"\r\n{problem.FirstNum} {problem.Operation} {problem.SecondNum} = ?";
+
+    protected override string? QuestionAnswers => "";
+
+    private readonly AnswerNormal _answer;
+
 }
