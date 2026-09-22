@@ -14,7 +14,7 @@ public class QuestionMCQ : Question<char>
     public override string QuestionPrompt {get;}
     public override AnswerBase<char> Answer => _answer;
 
-    public override string GenerateQuestionText()
+    protected override string GenerateQuestionText()
     {
         string questionHeader = "Choose the Correct Answer";
         string questionCaption = $"\r\n{problem.FirstNum} {problem.Operation} {problem.SecondNum} = ?";

@@ -17,5 +17,5 @@ public abstract class Question<T>(Problem problem)
 
 
     // this method will use the Problem Object in Order to prepare the question text
-    public abstract string GenerateQuestionText();
+    protected abstract string GenerateQuestionText();
 }
