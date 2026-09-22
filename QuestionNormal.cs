@@ -1,6 +1,6 @@
 namespace MathGame;
 
-public class QuestionNormal : Question<string>
+public class QuestionNormal : QuestionBase<string>
 {
     public QuestionNormal(Problem problem) : base(problem)
     {

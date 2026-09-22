@@ -2,7 +2,7 @@ using System;
 
 namespace MathGame;
 
-public class QuestionTF : Question<char>
+public class QuestionTF : QuestionBase<char>
 {
     public QuestionTF(Problem problem) : base(problem)
     {

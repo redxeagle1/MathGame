@@ -1,7 +1,7 @@
 
 namespace MathGame;
 
-public class QuestionFillGaps : Question<string>
+public class QuestionFillGaps : QuestionBase<string>
 {
     public QuestionFillGaps(Problem problem) : base(problem)
     {

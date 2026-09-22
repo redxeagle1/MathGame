@@ -1,6 +1,6 @@
 namespace MathGame;
 
-public class QuestionMCQ : Question<char>
+public class QuestionMCQ : QuestionBase<char>
 {
     public QuestionMCQ(Problem problem) : base(problem)
     {

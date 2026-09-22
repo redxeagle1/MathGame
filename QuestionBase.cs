@@ -1,6 +1,6 @@
 namespace MathGame;
 
-public abstract class Question<T>(Problem problem)
+public abstract class QuestionBase<T>(Problem problem)
 {
     // the will hold our problem itself
     public Problem problem = problem;
