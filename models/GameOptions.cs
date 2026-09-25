@@ -1,8 +1,8 @@
-namespace MathGame;
-public enum GameDifficulty : byte {NONE,EASY,NORMAL,HARD,INSANE,IMPOSSIBLE,}
+namespace MathGame.models;
+public enum GameDifficulty : byte {None,Easy,Normal,Hard,Insane,Impossible,}
 
-public enum GameOperation : byte {NONE,ADDITION,SUBTRACTION,MULTIPLICATION,DIVISION,RANDOM}
-public enum GameQuestionType : byte {NONE,MCQ,TRUE_FALSE,FILL_GAPS,NORMAL,RANDOM,}
+public enum GameOperation : byte {None,Addition,Subtraction,Multiplication,Division,Random}
+public enum GameQuestionType : byte {None,Mcq,TrueFalse,FillGaps,Normal,Random,}
 public struct GameOptions
 {
     public GameOptions()
@@ -11,7 +11,7 @@ public struct GameOptions
     }
 
 // this is for holding our selected options
-    public GameDifficulty Difficulty {get;set;}= GameDifficulty.NONE;
-    public GameOperation Operation {get;set;}= GameOperation.NONE;
-    public GameQuestionType QuestionType {get;set;} = GameQuestionType.NONE;
+    public GameDifficulty Difficulty {get;set;}= GameDifficulty.None;
+    public GameOperation Operation {get;set;}= GameOperation.None;
+    public GameQuestionType QuestionType {get;set;} = GameQuestionType.None;
 }

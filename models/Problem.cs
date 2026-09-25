@@ -1,10 +1,12 @@
-namespace MathGame;
+namespace MathGame.models;
 
 public readonly struct Problem
 {
 
     #region fields
+/*
     private readonly GameDifficulty _difficulty;
+*/
     private readonly int _range ;
     private readonly char[] _operation = ['+', '-', '*', '/'];
     #endregion
@@ -17,14 +19,15 @@ public readonly struct Problem
 
     public Problem(GameOptions options)
     {
-        // set the difficulty
-        _difficulty = options.Difficulty;
-        
+        var difficulty =
+            // set the difficulty
+            options.Difficulty;
+
         // get the range
-        _range = _difficulty switch
+        _range = difficulty switch
         {
-            GameDifficulty.EASY or GameDifficulty.HARD => 11,
-            GameDifficulty.NORMAL or GameDifficulty.INSANE or GameDifficulty.IMPOSSIBLE => 101,
+            GameDifficulty.Easy or GameDifficulty.Hard => 11,
+            GameDifficulty.Normal or GameDifficulty.Insane or GameDifficulty.Impossible => 101,
             _ => throw new Exception()
         };
 
@@ -45,12 +48,12 @@ public readonly struct Problem
     // get current operation
     private readonly char GenerateOperation(GameOperation operation) => operation switch
     {
-        GameOperation.ADDITION => _operation[0],
-        GameOperation.SUBTRACTION => _operation[1],
-        GameOperation.MULTIPLICATION => _operation[2],
-        GameOperation.DIVISION => _operation[3],
+        GameOperation.Addition => _operation[0],
+        GameOperation.Subtraction => _operation[1],
+        GameOperation.Multiplication => _operation[2],
+        GameOperation.Division => _operation[3],
         // get a random index for the operation array ranged from 0 to Length
-        GameOperation.RANDOM => _operation[Random.Shared.Next(_operation.Length)],
+        GameOperation.Random => _operation[Random.Shared.Next(_operation.Length)],
         _ => throw new ArgumentOutOfRangeException($"unknown {nameof(operation)} : {operation} type")
     };
    

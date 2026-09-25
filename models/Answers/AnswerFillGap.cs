@@ -1,5 +1,5 @@
 
-namespace MathGame;
+namespace MathGame.models.Answers;
 
 public class AnswerFillGap : AnswerBase<string>
 {
@@ -9,7 +9,7 @@ public class AnswerFillGap : AnswerBase<string>
     #region Properties
     public int TargetGabAnswer{get;} // this will store the target gap's answer
     public int TargetGabIndex{get;} // this will store the gap's index
-    public override GameQuestionType QuestionType => GameQuestionType.FILL_GAPS;
+    public override GameQuestionType QuestionType => GameQuestionType.FillGaps;
     #endregion
 
 

@@ -1,4 +1,7 @@
-namespace MathGame;
+using MathGame.models;
+using MathGame.utils;
+
+namespace MathGame.menus;
 
 public class MainMenu : WindowBase
 {
@@ -44,7 +47,7 @@ public class MainMenu : WindowBase
         switch (userInput)
         {
             case "a":
-                return WindowMap.SETUP_MENU;
+                return WindowMap.SetupMenu;
             case "b":
                 if (GameEngine.TotalGamesPlayed == 0)
                 {
@@ -53,15 +56,15 @@ public class MainMenu : WindowBase
                     InputHandler.ShowErrorMessage("No history found. You must play a game first.");
                     
                     // Return the same state so the window doesn't switch
-                    return WindowMap.MAIN_MENU; 
+                    return WindowMap.MainMenu; 
                 }
-                return WindowMap.HISTORY_WINDOW;
+                return WindowMap.HistoryWindow;
             case "c":
-                return WindowMap.ABOUT_WINDOW;
+                return WindowMap.AboutWindow;
             case "q":
-                return WindowMap.QUIT_BANNER;
+                return WindowMap.QuitBanner;
             default:
-                return WindowMap.MAIN_MENU;
+                return WindowMap.MainMenu;
                 
         }
 

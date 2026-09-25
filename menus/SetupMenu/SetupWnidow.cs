@@ -1,3 +1,6 @@
+using MathGame.models;
+using MathGame.utils;
+
 namespace MathGame.menus.SetupMenu;
 
 public class SetupWindow : WindowBase
@@ -5,7 +8,7 @@ public class SetupWindow : WindowBase
     public override string ValidOptions => "abcdew";
     public override int CurrentErrorLocation => 16;
     private bool IsOptionsSet { get; set; } = false;
-    private GameOptions _gameOptions = GameEngine.sGameOptions;
+    private GameOptions _gameOptions = GameEngine.SGameOptions;
 
     public override WindowMap ProcessInput(string userInput)
     {
@@ -14,19 +17,19 @@ public class SetupWindow : WindowBase
             case "w" :
                 SetupOptionHandler.ResetOptions(ref _gameOptions);
                 IsOptionsSet = false;
-                return WindowMap.SETUP_MENU;
+                return WindowMap.SetupMenu;
             case "q":
-                return WindowMap.MAIN_MENU;
+                return WindowMap.MainMenu;
             case "y":
                 // saves all our selection back to the Game Engine to utilize it in the game mech
-                GameEngine.sGameOptions = _gameOptions;
-                return WindowMap.GAME_WINDOW;
+                GameEngine.SGameOptions = _gameOptions;
+                return WindowMap.GameWindow;
             default:
                 if (!IsOptionsSet)
                 {
                     IsOptionsSet = SetupOptionHandler.SetQuestionOptions(userInput, ref _gameOptions);
                 }
-                return WindowMap.SETUP_MENU;
+                return WindowMap.SetupMenu;
         }
     }
 

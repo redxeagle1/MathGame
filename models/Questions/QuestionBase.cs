@@ -1,9 +1,11 @@
-namespace MathGame;
+using MathGame.models.Answers;
+
+namespace MathGame.models.Questions;
 
 public abstract class QuestionBase<T>(Problem problem)
 {
     // the will hold our problem itself
-    public Problem problem = problem;
+    public Problem Problem = problem;
     
     // to define the type Effectively
     public abstract GameQuestionType QuestionType{get;}

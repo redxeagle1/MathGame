@@ -1,3 +1,5 @@
+using MathGame.models;
+
 namespace MathGame.menus;
 
 public class GameWindow : WindowBase

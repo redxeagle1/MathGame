@@ -1,5 +1,7 @@
 
-namespace MathGame;
+using MathGame.models.Answers;
+
+namespace MathGame.models.Questions;
 
 public class QuestionFillGaps : QuestionBase<string>
 {
@@ -15,7 +17,7 @@ public class QuestionFillGaps : QuestionBase<string>
         QuestionPrompt = QuestionHeaderTypeHint +QuestionCaption + QuestionAnswers;
     }
 
-    public override GameQuestionType QuestionType => GameQuestionType.FILL_GAPS;
+    public override GameQuestionType QuestionType => GameQuestionType.FillGaps;
 
     public override string QuestionPrompt{get;}
 
@@ -23,7 +25,7 @@ public class QuestionFillGaps : QuestionBase<string>
 
     protected override string? QuestionHeaderTypeHint => "Fill The Gaps";
 
-    protected override string? QuestionCaption => $"\r\n{GetQuestionCaption()}= {problem.Answer}";
+    protected override string? QuestionCaption => $"\r\n{GetQuestionCaption()}= {Problem.Answer}";
 
     protected override string? QuestionAnswers => $"\r\nWhat must be written to satisfy the problem?";
 

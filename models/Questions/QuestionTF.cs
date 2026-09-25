@@ -1,16 +1,16 @@
-using System;
+using MathGame.models.Answers;
 
-namespace MathGame;
+namespace MathGame.models.Questions;
 
-public class QuestionTF : QuestionBase<char>
+public class QuestionTf : QuestionBase<char>
 {
-    public QuestionTF(Problem problem) : base(problem)
+    public QuestionTf(Problem problem) : base(problem)
     {
         _answer = new(problem);
         QuestionPrompt =  QuestionHeaderTypeHint + QuestionCaption + QuestionAnswers ;
     }
 
-    public override GameQuestionType QuestionType => GameQuestionType.TRUE_FALSE;
+    public override GameQuestionType QuestionType => GameQuestionType.TrueFalse;
 
     public override string QuestionPrompt {get;}
 
@@ -18,13 +18,13 @@ public class QuestionTF : QuestionBase<char>
 
     protected override string? QuestionHeaderTypeHint => "Is This True or False ?";
 
-    protected override string? QuestionCaption => $"\r\n{problem.FirstNum} {problem.Operation} {problem.SecondNum} = {_answer.AnswerContainer}";
+    protected override string? QuestionCaption => $"\r\n{Problem.FirstNum} {Problem.Operation} {Problem.SecondNum} = {_answer.AnswerContainer}";
 
     protected override string? QuestionAnswers => $"\r\n- True[t]\r\n- False[f]\r\n";
 
 
     #region fields
-    private readonly AnswerTF _answer;
+    private readonly AnswerTf _answer;
     #endregion
 
 }

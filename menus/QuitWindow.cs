@@ -1,4 +1,6 @@
-namespace MathGame;
+using MathGame.models;
+
+namespace MathGame.menus;
 
 public class QuitWindow :  WindowBase
 {
@@ -7,7 +9,7 @@ public class QuitWindow :  WindowBase
 
     public override WindowMap ProcessInput(string userInput)
     {
-        return WindowMap.NONE;
+        return WindowMap.None;
     }
 
     public override void Render()

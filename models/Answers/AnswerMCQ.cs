@@ -1,8 +1,9 @@
-namespace MathGame;
 using System.Collections;
 using System.Runtime.InteropServices;
 
-public class AnswerMCQ : AnswerBase<char>, IEnumerable
+namespace MathGame.models.Answers;
+
+public class AnswerMcq : AnswerBase<char>, IEnumerable
 {
 
     #region Fields
@@ -14,7 +15,7 @@ public class AnswerMCQ : AnswerBase<char>, IEnumerable
     #endregion
 
     #region Properties
-    public override GameQuestionType QuestionType => GameQuestionType.MCQ;
+    public override GameQuestionType QuestionType => GameQuestionType.Mcq;
 
     // Important for using string.Join
     public IEnumerator GetEnumerator() => _answerList.GetEnumerator();
@@ -27,7 +28,7 @@ public class AnswerMCQ : AnswerBase<char>, IEnumerable
     #endregion
 
     #region Constructor
-    public AnswerMCQ(Problem problem)
+    public AnswerMcq(Problem problem)
     {
         int answer = problem.Answer;
         // add the main answer

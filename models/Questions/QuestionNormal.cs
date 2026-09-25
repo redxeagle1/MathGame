@@ -1,4 +1,6 @@
-namespace MathGame;
+using MathGame.models.Answers;
+
+namespace MathGame.models.Questions;
 
 public class QuestionNormal : QuestionBase<string>
 {
@@ -8,7 +10,7 @@ public class QuestionNormal : QuestionBase<string>
         QuestionPrompt =  QuestionHeaderTypeHint + QuestionCaption + QuestionAnswers ;
     }
 
-    public override GameQuestionType QuestionType =>GameQuestionType.NORMAL;
+    public override GameQuestionType QuestionType =>GameQuestionType.Normal;
 
     public override string QuestionPrompt {get;}
 
@@ -16,7 +18,7 @@ public class QuestionNormal : QuestionBase<string>
 
     protected override string? QuestionHeaderTypeHint => "What Is The Output Of The Following Problem ?";
 
-    protected override string? QuestionCaption => $"\r\n{problem.FirstNum} {problem.Operation} {problem.SecondNum} = ?";
+    protected override string? QuestionCaption => $"\r\n{Problem.FirstNum} {Problem.Operation} {Problem.SecondNum} = ?";
 
     protected override string? QuestionAnswers => "";
 

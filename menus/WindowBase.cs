@@ -1,4 +1,6 @@
-namespace MathGame;
+using MathGame.models;
+
+namespace MathGame.menus;
 
 public abstract class WindowBase
 // A generic class to hold all the windows and unifying the handling for modularity and simplicity

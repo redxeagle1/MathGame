@@ -1,10 +1,10 @@
-namespace MathGame;
+namespace MathGame.models.Answers;
 
-public class AnswerTF : AnswerBase<char>
+public class AnswerTf : AnswerBase<char>
 {
     #region Properties
     // the type of question of which the answer hold
-    public override GameQuestionType QuestionType => GameQuestionType.TRUE_FALSE;
+    public override GameQuestionType QuestionType => GameQuestionType.TrueFalse;
     
     // the answer
     public bool StateAnswer{get;} 
@@ -15,14 +15,14 @@ public class AnswerTF : AnswerBase<char>
 
 
     #region Fields
-    private const int _wrongAnswerChances = 70;
+    private const int WrongAnswerChances = 70;
     #endregion
     #region Constructor
-    public AnswerTF(Problem problem)
+    public AnswerTf(Problem problem)
     {
         // to make the hard chances more common had to come with this
         // tbh I did use an LLM to construct this logic but almost 95% of code is written by me
-        StateAnswer =Random.Shared.Next(100) >= _wrongAnswerChances; 
+        StateAnswer =Random.Shared.Next(100) >= WrongAnswerChances; 
         int answer = problem.Answer; // get the correct answer
         if (StateAnswer)
         {

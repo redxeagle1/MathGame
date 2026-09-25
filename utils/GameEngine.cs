@@ -1,10 +1,13 @@
-using MathGame;
-public class GameEngine
+using MathGame.models;
+
+namespace MathGame.utils;
+
+public static class GameEngine
 // this class handle the window control as well as orchestration the gameplay
 {
     #region  Fields
     // our game option storage
-    public static GameOptions sGameOptions = new(); 
+    public static GameOptions SGameOptions = new(); 
     // our game history
     public static GameRecord[] GameHistoryArray = new GameRecord[1000];
     // Global tracker for both the record id and detection of array current size 
@@ -18,13 +21,12 @@ public class GameEngine
 
     #region Methods
     public static void GameSetup()
-    // a setup method to set the environment before entering the loop
+        // a setup method to set the environment before entering the loop
     {
         // Clear the Terminal
         Console.Clear();
-        WindowManager.SwitchState(WindowMap.MAIN_MENU);
+        WindowManager.SwitchState(WindowMap.MainMenu);
         WindowManager.ActiveWindow.Render();
-
     }
     public static void Render()
     {
@@ -32,7 +34,7 @@ public class GameEngine
         while (true)
         {
             WindowManager.UpdateWindow();
-            if (WindowManager.CurrentWindow == WindowMap.QUIT_BANNER)
+            if (WindowManager.CurrentWindow == WindowMap.QuitBanner)
             {
                 return;
             }

@@ -1,22 +1,24 @@
-﻿namespace MathGame.menus.SetupMenu
+﻿using MathGame.models;
+
+namespace MathGame.menus.SetupMenu
 {
     internal static class SetupOptionHandler
     {
         public static bool SetQuestionOptions(string userInput,ref GameOptions options)
         {
-            if (options.Difficulty == GameDifficulty.NONE)
+            if (options.Difficulty == GameDifficulty.None)
             {
                 options.Difficulty = SetGameDifficulty(userInput);
             }
-            else if (options.Operation == GameOperation.NONE)
+            else if (options.Operation == GameOperation.None)
             {
                 options.Operation = SetGameOperation(userInput);
             }
-            else if (options.QuestionType == GameQuestionType.NONE)
+            else if (options.QuestionType == GameQuestionType.None)
             {
                 options.QuestionType = SetGameQuestionType(userInput);
                 // to indicate that the all options is set
-                if (options.QuestionType != GameQuestionType.NONE)
+                if (options.QuestionType != GameQuestionType.None)
                 {
                     return true;
                 }
@@ -26,15 +28,15 @@
         public static void RenderQuestionsSetup(ref GameOptions options)
         {
             string infoPanel = $"Difficulty : {options.Difficulty}\t\tOperation : {options.Operation}\t\tQuestion Type : {options.QuestionType}";
-            if (options.Difficulty == GameDifficulty.NONE)
+            if (options.Difficulty == GameDifficulty.None)
             {
                 RenderDifficultyOptions();
             }
-            else if (options.Operation == GameOperation.NONE)
+            else if (options.Operation == GameOperation.None)
             {
                 RenderOperationOptions();
             }
-            else if (options.QuestionType == GameQuestionType.NONE)
+            else if (options.QuestionType == GameQuestionType.None)
             {
                 RenderQuestionTypeOptions();
             }
@@ -74,38 +76,38 @@
         private static GameDifficulty SetGameDifficulty(string userInput) => userInput switch
         // these method return a difficulty based on the input 
         {
-            "a" => GameDifficulty.EASY,
-            "b" => GameDifficulty.NORMAL,
-            "c" => GameDifficulty.HARD,
-            "d" => GameDifficulty.INSANE,
-            "e" => GameDifficulty.IMPOSSIBLE,
-            _ => GameDifficulty.NONE
+            "a" => GameDifficulty.Easy,
+            "b" => GameDifficulty.Normal,
+            "c" => GameDifficulty.Hard,
+            "d" => GameDifficulty.Insane,
+            "e" => GameDifficulty.Impossible,
+            _ => GameDifficulty.None
         };
         private static GameOperation SetGameOperation(string userInput) => userInput switch
         // these method return a Operation based on the input 
         {
-            "a" => GameOperation.ADDITION,
-            "b" => GameOperation.SUBTRACTION,
-            "c" => GameOperation.MULTIPLICATION,
-            "d" => GameOperation.DIVISION,
-            "e" => GameOperation.RANDOM,
-            _ => GameOperation.NONE
+            "a" => GameOperation.Addition,
+            "b" => GameOperation.Subtraction,
+            "c" => GameOperation.Multiplication,
+            "d" => GameOperation.Division,
+            "e" => GameOperation.Random,
+            _ => GameOperation.None
         };
         private static GameQuestionType SetGameQuestionType(string userInput) => userInput switch
         // these method return a QuestionType based on the input 
         {
-            "a" => GameQuestionType.MCQ,
-            "b" => GameQuestionType.TRUE_FALSE,
-            "c" => GameQuestionType.FILL_GAPS,
-            "d" => GameQuestionType.NORMAL,
-            "e" => GameQuestionType.RANDOM,
-            _ => GameQuestionType.NONE
+            "a" => GameQuestionType.Mcq,
+            "b" => GameQuestionType.TrueFalse,
+            "c" => GameQuestionType.FillGaps,
+            "d" => GameQuestionType.Normal,
+            "e" => GameQuestionType.Random,
+            _ => GameQuestionType.None
         };
         public static void ResetOptions(ref GameOptions options)
         {
-            options.Difficulty = GameDifficulty.NONE;
-            options.Operation = GameOperation.NONE;
-            options.QuestionType = GameQuestionType.NONE;
+            options.Difficulty = GameDifficulty.None;
+            options.Operation = GameOperation.None;
+            options.QuestionType = GameQuestionType.None;
         }
     }
 }

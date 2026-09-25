@@ -1,4 +1,4 @@
-namespace MathGame;
+namespace MathGame.models;
 public struct GameRecord(int id,
                   DateTime startTime,
                   short questions,

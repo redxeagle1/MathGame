@@ -1,9 +1,9 @@
-namespace MathGame;
+namespace MathGame.models.Answers;
 
 public class AnswerNormal(Problem problem) : AnswerBase<string>
 {
 
-    public override GameQuestionType QuestionType => GameQuestionType.NORMAL;
+    public override GameQuestionType QuestionType => GameQuestionType.Normal;
     public int CorrectAnswer { get; } = problem.Answer;
 
     public override bool ValidateAnswer(string userInput)

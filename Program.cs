@@ -1,1 +1,3 @@
-﻿GameEngine.Render();
+﻿using MathGame.utils;
+
+GameEngine.Render();

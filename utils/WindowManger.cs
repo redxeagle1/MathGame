@@ -1,37 +1,40 @@
 // using System.Collections;
-using MathGame.menus.SetupMenu;
 
-namespace MathGame
+using MathGame.menus;
+using MathGame.menus.SetupMenu;
+using MathGame.models;
+
+namespace MathGame.utils
 {
     public static class WindowManager
     // A static utility class solely for managing window size update and switching
     {
         #region Fields
         // a constant array to define our minimum valid screen
-        static readonly byte[] MIN_WINDOW_COORDINATES = [25, 85]; // (height,width) (y,x)
+        static readonly byte[] MinWindowCoordinates = [25, 85]; // (height,width) (y,x)
 
 
 
         // this field dictionary to be a general way to invoke an work with the windows rather than
         // handling each window separately
-        private static readonly Dictionary<WindowMap, WindowBase> s_windows = new()
+        private static readonly Dictionary<WindowMap, WindowBase> SWindows = new()
         {
-            { WindowMap.MAIN_MENU, new MainMenu() },
-            {WindowMap.QUIT_BANNER, new QuitWindow()},
-            {WindowMap.SETUP_MENU,new SetupWindow()}
+            { WindowMap.MainMenu, new MainMenu() },
+            {WindowMap.QuitBanner, new QuitWindow()},
+            {WindowMap.SetupMenu,new SetupWindow()}
             // { WindowMap.SETUP_MENU, new SetupMenuWindow() }
         
         };
         #endregion
         #region Properties
         // Track the current window and change it on demand
-        public static WindowMap CurrentWindow { get; set; } = WindowMap.MAIN_MENU;
+        public static WindowMap CurrentWindow { get; set; } = WindowMap.MainMenu;
         // Track the state so we know when to trigger a redraw
-        public static WindowMap PreviousWindow { get; set; } = WindowMap.MAIN_MENU;
+        public static WindowMap PreviousWindow { get; set; } = WindowMap.MainMenu;
 
 
         // this property get the active window based on the CurrentWindow Property 
-        public static WindowBase ActiveWindow { get => s_windows[CurrentWindow]; }
+        public static WindowBase ActiveWindow { get => SWindows[CurrentWindow]; }
 
         // Stores the current window height or what equivalent to the Y axis
         public static int UserWindowHeight { get; set; } = Console.WindowHeight;
@@ -51,8 +54,8 @@ namespace MathGame
 
 
             // stored the minium window size in arrays for simplicity of use as well
-            int minY = MIN_WINDOW_COORDINATES[0];
-            int minX = MIN_WINDOW_COORDINATES[1];
+            int minY = MinWindowCoordinates[0];
+            int minX = MinWindowCoordinates[1];
 
             // compares between the current size the minimum window size
             if (y < minY || x < minX)
