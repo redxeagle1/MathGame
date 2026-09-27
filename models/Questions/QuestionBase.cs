@@ -2,24 +2,19 @@ using MathGame.models.Answers;
 
 namespace MathGame.models.Questions;
 
-public abstract class QuestionBase<T>(Problem problem)
+public abstract class QuestionBase<T>(Problem problem) : IQuestion
 {
-    // the will hold our problem itself
-    public Problem Problem = problem;
-    
+    // they will hold our problem itself
+    protected Problem Problem = problem;
     // to define the type Effectively
     public abstract GameQuestionType QuestionType{get;}
+    
+    
     // question prompt
-    public abstract string QuestionPrompt{get;}
-
+    public abstract string QuestionPrompt { get; }
     // Answer Holder
     public abstract AnswerBase<T> Answer{get;} // note the T must be of the same type 
+    public abstract bool CheckAnswer(string answer);  
     
-
-
-    protected abstract string? QuestionHeaderTypeHint{get;}
-    protected abstract string? QuestionCaption{get;}
-    protected abstract string? QuestionAnswers{get;}
-
     // this method will use the Problem Object in Order to prepare the question text
 }

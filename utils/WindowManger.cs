@@ -21,7 +21,8 @@ namespace MathGame.utils
         {
             { WindowMap.MainMenu, new MainMenu() },
             {WindowMap.QuitBanner, new QuitWindow()},
-            {WindowMap.SetupMenu,new SetupWindow()}
+            {WindowMap.SetupMenu,new SetupWindow()},
+            { WindowMap.GameWindow , new GameWindow()},
             // { WindowMap.SETUP_MENU, new SetupMenuWindow() }
         
         };

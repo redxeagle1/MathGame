@@ -6,7 +6,7 @@ namespace MathGame.menus.SetupMenu;
 public class SetupWindow : WindowBase
 {
     public override string ValidOptions => "abcdew";
-    public override int CurrentErrorLocation => 16;
+    public override int CurrentErrorLocation => 19;
     private bool IsOptionsSet { get; set; } = false;
     private GameOptions _gameOptions = GameEngine.SGameOptions;
 

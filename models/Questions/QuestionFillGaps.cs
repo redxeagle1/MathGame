@@ -14,7 +14,10 @@ public class QuestionFillGaps : QuestionBase<string>
             problem.Operation.ToString(),
             problem.SecondNum.ToString(),
         ];
-        QuestionPrompt = QuestionHeaderTypeHint +QuestionCaption + QuestionAnswers;
+        var questionHeaderTypeHint = "Fill The Gaps";
+        var questionCaption = $"\r\n{GetQuestionCaption()}= {Problem.Answer}";
+        var questionAnswers = $"\r\nWhat must be written to satisfy the problem?";
+        QuestionPrompt = questionHeaderTypeHint + questionCaption + questionAnswers;
     }
 
     public override GameQuestionType QuestionType => GameQuestionType.FillGaps;
@@ -23,14 +26,12 @@ public class QuestionFillGaps : QuestionBase<string>
 
     public override AnswerBase<string> Answer => _answer;
 
-    protected override string? QuestionHeaderTypeHint => "Fill The Gaps";
+    public override bool CheckAnswer(string answer) => _answer.ValidateAnswer(answer);
 
-    protected override string? QuestionCaption => $"\r\n{GetQuestionCaption()}= {Problem.Answer}";
-
-    protected override string? QuestionAnswers => $"\r\nWhat must be written to satisfy the problem?";
+    
 
     private readonly AnswerFillGap _answer;
-    private string[] _problemList = new string[3];
+    private readonly string[] _problemList;
 
 
     private string GetQuestionCaption()
