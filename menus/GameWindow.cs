@@ -16,6 +16,7 @@ public class GameWindow : WindowBase
     private GameOptions _options;
     private int _chances = 5;
     private int _score;
+    private int _totalQuestoinNumbers;
 
     public override WindowMap ProcessInput(string userInput)
     {
@@ -24,6 +25,7 @@ public class GameWindow : WindowBase
             bool isAnswerWrong = userInput == "TIMEOUT" || !(_question != null && _question.CheckAnswer(userInput));
             if (!isAnswerWrong)
             {
+                _totalQuestoinNumbers++;
                 switch (_options.Difficulty)
                 {
                     case GameDifficulty.Easy:
@@ -37,6 +39,7 @@ public class GameWindow : WindowBase
             }
             else
             {
+                _totalQuestoinNumbers++;
                 _chances--;
             }
             if (_chances > 0)
@@ -50,6 +53,10 @@ public class GameWindow : WindowBase
         _chances = 5;
         _score = 0;
         GameEngine.Score = _score;
+        if (_totalQuestoinNumbers >= 5)
+        {
+            GameEngine.TotalGamesPlayed++;
+        }
         return WindowMap.GameOverWindow;
     }
 
@@ -83,6 +90,7 @@ public class GameWindow : WindowBase
         _options = GameEngine.SGameOptions;
         _question = GetQuestion();
         ConfigureInputOptions(_question.QuestionType);
+        Console.Write($"Question numbers: {_totalQuestoinNumbers + 1}");
         Console.Write(_question.QuestionPrompt);
         Console.Write("\r\n");
         // Console.SetCursorPosition(1,0);

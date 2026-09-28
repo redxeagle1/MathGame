@@ -11,7 +11,7 @@ public static class GameEngine
     // our game history
     public static GameRecord[] GameHistoryArray = new GameRecord[1000];
     // Global tracker for both the record id and detection of array current size 
-    public static readonly int TotalGamesPlayed = 0;
+    public static int TotalGamesPlayed = 0;
     
     #endregion
     

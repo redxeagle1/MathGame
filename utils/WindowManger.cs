@@ -23,6 +23,7 @@ namespace MathGame.utils
             {WindowMap.QuitBanner, new QuitWindow()},
             {WindowMap.SetupMenu,new SetupWindow()},
             { WindowMap.GameWindow , new GameWindow()},
+            { WindowMap.GameOverWindow , new GameOverWindow()},
         };
         #endregion
         #region Properties
