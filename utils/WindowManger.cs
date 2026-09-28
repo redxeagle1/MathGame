@@ -12,7 +12,7 @@ namespace MathGame.utils
         #region Fields
         // a constant array to define our minimum valid screen
         static readonly byte[] MinWindowCoordinates = [25, 85]; // (height,width) (y,x)
-
+        public static bool SNeedRefresh; 
 
 
         // this field dictionary to be a general way to invoke an work with the windows rather than
@@ -44,8 +44,8 @@ namespace MathGame.utils
 
 
         #region Methods
-        static public bool CheckValidScreen()
-        // it check if the user window width[x] and height[y] exceeds the minium required Coordinates
+        public static bool CheckValidScreen()
+        // it checks if the user window width[x] and height[y] exceeds the minium required Coordinates
         {
             // store the current user window size and did that to minimize the props invoke
             // since they still technically methods
@@ -81,10 +81,16 @@ namespace MathGame.utils
             }
             return true;
         }
-        static public void UpdateWindow()
+
+        public static void ForceUpdate()
+        {
+            Console.Clear();
+            ActiveWindow.Render();
+        }
+        public static void UpdateWindow()
         // A method that update the window size on demand 
         {
-            if (Console.WindowWidth != UserWindowWidth || Console.WindowHeight != UserWindowHeight)
+            if (Console.WindowWidth != UserWindowWidth || Console.WindowHeight != UserWindowHeight )
             {
                 Console.Clear();
                 int newX = Console.WindowWidth;
@@ -96,7 +102,6 @@ namespace MathGame.utils
                 UserWindowWidth = newX;
                 UserWindowHeight = newY;
                 Thread.Sleep(30); // Prevents high CPU usage
-
                 // force a redraw for the user screen after resize
                 ActiveWindow.Render();
             }

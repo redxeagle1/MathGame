@@ -6,7 +6,7 @@ namespace MathGame.menus.SetupMenu;
 public class SetupWindow : WindowBase
 {
     public override string ValidOptions => "abcdew";
-    public override int CurrentErrorLocation => 19;
+    public override int CurrentErrorLocation => 20;
     private bool IsOptionsSet { get; set; } = false;
     private GameOptions _gameOptions = GameEngine.SGameOptions;
 
@@ -39,7 +39,7 @@ public class SetupWindow : WindowBase
 
         if (IsOptionsSet)
         {
-            InputHandler.CurrentErrorLocation = 11;
+            InputHandler.CurrentErrorLocation = 20;
             // change the Active Options to 
             InputHandler.SetActiveOptions = "yw";
             // A final display of user input

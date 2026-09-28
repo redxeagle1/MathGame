@@ -34,6 +34,10 @@ public static class GameEngine
         while (true)
         {
             WindowManager.UpdateWindow();
+            if (WindowManager.SNeedRefresh)
+            {
+                WindowManager.ForceUpdate();
+            }
             if (WindowManager.CurrentWindow == WindowMap.QuitBanner)
             {
                 return;

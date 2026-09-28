@@ -10,14 +10,15 @@ namespace MathGame.menus;
 public class GameWindow : WindowBase
 {
     public override string ValidOptions => "";
-    public override int CurrentErrorLocation  => 20;
+    public override int CurrentErrorLocation => 20;
     
     private IQuestion? _question;// an interface for all the Questions
     private GameOptions _options;
     private int _chances = 5;
     private int _score;
-    private int _totalQuestoinNumbers;
-
+    private int _totalQuestionNumbers=1;
+    private int _totalQuestionNumbersSnapshot;
+    
     public override WindowMap ProcessInput(string userInput)
     {
         if (_chances != 0 && userInput[0] != 'q')
@@ -25,7 +26,7 @@ public class GameWindow : WindowBase
             bool isAnswerWrong = userInput == "TIMEOUT" || !(_question != null && _question.CheckAnswer(userInput));
             if (!isAnswerWrong)
             {
-                _totalQuestoinNumbers++;
+                _totalQuestionNumbers++;
                 switch (_options.Difficulty)
                 {
                     case GameDifficulty.Easy:
@@ -39,7 +40,7 @@ public class GameWindow : WindowBase
             }
             else
             {
-                _totalQuestoinNumbers++;
+                _totalQuestionNumbers++;
                 _chances--;
             }
             if (_chances > 0)
@@ -53,10 +54,7 @@ public class GameWindow : WindowBase
         _chances = 5;
         _score = 0;
         GameEngine.Score = _score;
-        if (_totalQuestoinNumbers >= 5)
-        {
-            GameEngine.TotalGamesPlayed++;
-        }
+        GameEngine.TotalGamesPlayed++;
         return WindowMap.GameOverWindow;
     }
 
@@ -87,16 +85,22 @@ public class GameWindow : WindowBase
 
     public override void Render()
     {
+        InputHandler.CurrentErrorLocation = 17;
         _options = GameEngine.SGameOptions;
-        _question = GetQuestion();
-        ConfigureInputOptions(_question.QuestionType);
-        Console.Write($"Question numbers: {_totalQuestoinNumbers + 1}");
-        Console.Write(_question.QuestionPrompt);
+        if (_totalQuestionNumbers - _totalQuestionNumbersSnapshot == 1)
+        {
+            _totalQuestionNumbersSnapshot = _totalQuestionNumbers;
+            _question = GetQuestion();
+            
+            CheckTimer();
+
+        }
+        ConfigureInputOptions(_question?.QuestionType);
+        Console.Write($"Question numbers: {_totalQuestionNumbers}\r\n");
+        Console.Write(_question?.QuestionPrompt);
         Console.Write("\r\n");
-        // Console.SetCursorPosition(1,0);
         Console.Write($"\r\nChances Left: {_chances}");
         Console.Write($"\r\nCurrent Score: {_score}");
-        CheckTimer();
         InputHandler.InputPrompt(["type [q] to end the game"]);
     }
 
@@ -124,7 +128,7 @@ public class GameWindow : WindowBase
         }
     }
 
-    private void ConfigureInputOptions(GameQuestionType questionType)
+    private void ConfigureInputOptions(GameQuestionType? questionType)
     // set the input dynamically
     {
         InputHandler.QuestionMode = false;

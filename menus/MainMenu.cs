@@ -6,7 +6,7 @@ namespace MathGame.menus;
 public class MainMenu : WindowBase
 {
     public override string ValidOptions => "abc";
-    public override int CurrentErrorLocation => 16;
+    public override int CurrentErrorLocation => 17;
     public override void Render()
     {
         InputHandler.SetActiveOptions = ValidOptions;

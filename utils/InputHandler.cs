@@ -17,7 +17,7 @@ namespace MathGame.utils
         // I may use thread for that, but I don't know multi-threading and concurrency either 
         // so this is the safest route I can take 
         private static StringBuilder? InputBuffer { get; set; } = new();
-        public static bool QuestionMode { get; set; } = false;
+        public static bool QuestionMode { get; set; } 
         // saving the input location
         public static int InputX{get; set;}
         public static int InputY{get; set;}
@@ -127,7 +127,7 @@ namespace MathGame.utils
                 else
                 {
                     // to check if the IsHandlingFailed is true
-                    if (!HasError)
+                    if (HasError)
                     {
                         CleanErrors();
                         // return so the error message of wrong input doesn't override the empty input
@@ -155,6 +155,7 @@ namespace MathGame.utils
         private static void CleanErrors()
         // to check and clear any error
         {
+            
             // passing an empty string will clear the error as well
             ShowErrorMessage("");
 
@@ -164,9 +165,7 @@ namespace MathGame.utils
         public static void ShowErrorMessage(string currentErrorType)
         // just to show the user what is wrong
         {
-            // saving the current user cursor position
-            int oldLeftCursor = Console.CursorLeft;
-            int oldTopCursor = Console.CursorTop;
+            
 
             // setting the cursor into the specified location to display the message 
             Console.SetCursorPosition(0, CurrentErrorLocation);
@@ -175,7 +174,8 @@ namespace MathGame.utils
             // print the message and over-write the rest of the line with blanks  
             Console.Write($"\e[31m{paddedError}\e[0m");
             // reset the cursor back to the old position
-            Console.SetCursorPosition(oldLeftCursor, oldTopCursor);
+            int returnX = InputX + (InputBuffer?.Length ?? 0);
+            Console.SetCursorPosition(returnX, InputY); 
         }
         public static void InputPrompt(string[]? inputTips = null)
         // Rather than ask for input in each time the user move to a new menu this method
@@ -187,15 +187,13 @@ namespace MathGame.utils
 
             // to address the null array I used null coalescing operator
             // if it founds that the array is null assign it to an empty array 
-            if (inputTips != null)
+            inputTips ??= Array.Empty<string>();
+            if (inputTips is not { Length: 0 })
             {
-                inputTips = [];
-                if (inputTips is not { Length: 0 })
-                {
-                    Console.Write($"NOTES:\r\n");
-                    Console.Write($"\t{string.Join("\r\n\t", inputTips)}\r\n");
-                }
+                Console.Write($"NOTES:\r\n");
+                Console.Write($"\t{string.Join("\r\n\t", inputTips)}\r\n");
             }
+            
 
             // this to hold the current active options
             string inputHints = $"type a letter from [{string.Join(", ", _sActiveOptionsBuffer)}, q]\r\n";
@@ -204,10 +202,10 @@ namespace MathGame.utils
             Console.Write(inputHints);
             Console.Write(askForInput);
             // the null check is for safety, but this will just show what the user has typed
-            Console.Write(InputBuffer?.ToString().ToLower());
             InputX = Console.CursorLeft;
             InputY = Console.CursorTop;
             
+            Console.Write(InputBuffer?.ToString().ToLower());
         }
         #endregion
     }
