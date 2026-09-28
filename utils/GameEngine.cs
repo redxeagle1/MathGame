@@ -40,6 +40,10 @@ public static class GameEngine
             }
             // to make sure that our next logic is executed correctly
             // we need to execute the following if the screen is valid
+            if (WindowManager.CurrentWindow == WindowMap.GameWindow )
+            {
+                QuestionTimer.UpdateTimer();        
+            }    
             if (WindowManager.CheckValidScreen())
             {
                 if (Console.KeyAvailable) //  true if a key press is available;
@@ -60,6 +64,20 @@ public static class GameEngine
                             Console.Clear();
                             WindowManager.ActiveWindow.Render();
                         }
+                    }
+                }
+                else if (WindowManager.CurrentWindow == WindowMap.GameWindow && QuestionTimer.IsTimeFinished)
+                {
+                    // Force penalty on timeout
+                    WindowManager.ActiveWindow.ProcessInput("TIMEOUT");
+                    QuestionTimer.IsTimeFinished = false; 
+                    Console.Clear();
+                    WindowManager.ActiveWindow.Render();
+                }
+                else
+                {
+                    {
+                        Thread.Sleep(10); // not to burn our cpu processing power
                     }
                 }
             }

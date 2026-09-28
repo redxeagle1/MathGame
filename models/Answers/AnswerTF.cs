@@ -42,13 +42,13 @@ public class AnswerTf : AnswerBase<char>
         int wrongAnswer=0;
         do
         {
-        // get an offset near the correct answer by ranged 1 to 5 
-        int offset = Random.Shared.Next(1,6); 
-        // Randomly add or subtract offset but never go below zero
-        wrongAnswer =
-            Random.Shared.Next(2) == 0 ? 
-            correct + offset :
-            Random.Shared.Next(0,correct-offset);  
+            // get an offset near the correct answer by ranged 1 to 5 
+            int offset = Random.Shared.Next(1,6); 
+            // Randomly add or subtract offset but never go below zero
+            wrongAnswer =
+                Random.Shared.Next(2) == 0 ? 
+                    correct + offset :
+                    Random.Shared.Next(0,Math.Abs(correct-offset));  
         } while (wrongAnswer == correct); // iterate till the wrong and correct answer are unequal
         return wrongAnswer;
     }

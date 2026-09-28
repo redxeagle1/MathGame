@@ -18,6 +18,9 @@ namespace MathGame.utils
         // so this is the safest route I can take 
         private static StringBuilder? InputBuffer { get; set; } = new();
         public static bool QuestionMode { get; set; } = false;
+        // saving the input location
+        public static int InputX{get; set;}
+        public static int InputY{get; set;}
         // this is for controlling s_activeOptionBuffer it reset the current options into new ones
         public static string? SetActiveOptions
         {
@@ -167,8 +170,10 @@ namespace MathGame.utils
 
             // setting the cursor into the specified location to display the message 
             Console.SetCursorPosition(0, CurrentErrorLocation);
+            // return a padded version to overWrite it
+            string paddedError = currentErrorType.PadRight(Console.WindowWidth - 1, ' ');
             // print the message and over-write the rest of the line with blanks  
-            Console.Write($"\e[31m{currentErrorType}\e[0m".PadRight(Console.WindowWidth, ' '));
+            Console.Write($"\e[31m{paddedError}\e[0m");
             // reset the cursor back to the old position
             Console.SetCursorPosition(oldLeftCursor, oldTopCursor);
         }
@@ -200,6 +205,9 @@ namespace MathGame.utils
             Console.Write(askForInput);
             // the null check is for safety, but this will just show what the user has typed
             Console.Write(InputBuffer?.ToString().ToLower());
+            InputX = Console.CursorLeft;
+            InputY = Console.CursorTop;
+            
         }
         #endregion
     }

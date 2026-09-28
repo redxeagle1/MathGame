@@ -1,6 +1,3 @@
-using System.Timers;
-using Timer = System.Threading.Timer;
-
 namespace MathGame.utils;
 
 public static class QuestionTimer 
@@ -12,78 +9,82 @@ public static class QuestionTimer
 */
 {
     #region Fields
-    private static readonly System.Timers.Timer Timer = new(1000);
-    private static int _countDown; 
+    private static DateTime _targetTime;
+    private static int _lastPrintedTime;
     #endregion 
     
     ////////////////////
     
     #region Proberties
-    public static int Countdown { get =>_countDown; set=>_countDown=value; }
+
+    public static int CountDown => _lastPrintedTime;
     private static int TimerLocationX { get; set; } 
-    public static bool IsTimeFinished { get; set; } = false;
+    public static bool IsTimeFinished { get; set; }
+    public static bool IsActive { get; private set; }
+
     #endregion
     
     ///////////////////
     
     #region Methods
 
-    // resets time
-    public static void ResetTime(int countdown)=>Countdown = countdown;
-    
-    
     public static void StartTimer(int timerLocationX,int countdown)
     // set up the timer countdown
     {
-        Countdown = countdown; 
-        Timer.Elapsed += OnTimedEvent;
-
-        ////// timer configuration //////
-        // automatically reset the interval
-        Timer.AutoReset = true;
-        // Choose if the timer repeats by setting AutoReset to true
-        Timer.Enabled = true;
-        
-        // put the location of x 
         TimerLocationX = timerLocationX;
+        // calculate the exact end time
+        _targetTime = DateTime.Now.AddSeconds(countdown);
+        _lastPrintedTime = countdown;
         
-        // start the timer
-        PrintTimer();
+        IsTimeFinished = false;
+        IsActive = true;
+        
+        
+        PrintTimer(countdown);
+
+    }
+
+    public static void UpdateTimer()
+    // update the timer countdown till the end
+    {
+        if (!IsActive)
+        {
+            return;
+        }
+        TimeSpan remainingTime =  _targetTime -DateTime.Now ;
+        int currentPrintedTime = Convert.ToInt32(remainingTime.TotalSeconds);
+
+        if (currentPrintedTime <= 0)
+        {
+            IsActive = false;
+            IsTimeFinished = true;
+            PrintTimer(currentPrintedTime);
+            return;
+        }
+        
+        
+        if (currentPrintedTime < _lastPrintedTime)
+            // update the timer
+        {
+            _lastPrintedTime = currentPrintedTime;
+            PrintTimer(currentPrintedTime);
+        }
         
     }
-    private static void PrintTimer()
+    private static void PrintTimer(int countdown)
     // print the timer to the user
     {
-        // save the older cursor's place
-        int oldXLocation = Console.CursorLeft;
-        int oldYLocation = Console.CursorTop;
+        int tempX = Console.CursorLeft;
+        int tempY = Console.CursorTop;
+
         
         // move to the timer's location
         Console.SetCursorPosition(TimerLocationX,0);
         
         // update the countdown
-        Console.Write(" ".PadRight(Console.WindowWidth));
-        Console.Write(Countdown);
-        Console.SetCursorPosition(oldXLocation,oldYLocation);
-    }
-    private static void OnTimedEvent(object? source, ElapsedEventArgs? e)
-    {
-        // Decrease the counter by 1 safety across all the threads and prevent 
-        // race condition by taking a snapshot of the current variable 
-        int currentCount = Interlocked.Decrement(ref _countDown);
+        Console.Write($"Remaining Time: {countdown}".PadRight(25, ' '));
+        Console.SetCursorPosition(tempX,tempY);
         
-        // evaluate if the timer is <= 0 or >= 
-        if (currentCount > 0)
-        {
-            IsTimeFinished = false;
-            PrintTimer();
-        }
-        if (currentCount <= 0)
-        {
-            Timer.Stop();
-            IsTimeFinished = true;
-            // Set a flag to True to move to the next question
-        }
     }
     #endregion
 }

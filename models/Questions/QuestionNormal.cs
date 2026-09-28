@@ -1,3 +1,4 @@
+using MathGame.Interfaces;
 using MathGame.models.Answers;
 
 namespace MathGame.models.Questions;
@@ -8,7 +9,7 @@ public class QuestionNormal : QuestionBase<string>,IQuestion
     {
         _answer =new(problem);
         var questionHeaderTypeHint = "What Is The Output Of The Following Problem ?";
-        var questionCaption = $"\r\n{Problem.FirstNum} {Problem.Operation} {Problem.SecondNum} = ?";
+        var questionCaption = $"\r\n{problem.FirstNum} {problem.Operation} {problem.SecondNum} = ?";
         var questionAnswers = "";
         QuestionPrompt = questionHeaderTypeHint + questionCaption + questionAnswers;
     }

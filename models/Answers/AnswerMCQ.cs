@@ -30,12 +30,10 @@ public class AnswerMcq : AnswerBase<char>, IEnumerable
     #region Constructor
     public AnswerMcq(Problem problem)
     {
-        int answer = problem.Answer;
-        // add the main answer
-        _answerList.Add(answer);
+        var answer = problem.Answer;
 
-        // add the rest of the answers
-        GenerateAnswerCandidates(answer);
+        // add the answers
+        _answerList.AddRange(GenerateAnswerCandidates(answer));
 
         // shuffle the elements in place
         Random.Shared.Shuffle(CollectionsMarshal.AsSpan(_answerList));        
@@ -44,25 +42,22 @@ public class AnswerMcq : AnswerBase<char>, IEnumerable
     #endregion
 
     #region Methods
-    private void GenerateAnswerCandidates(int a)
+    private List<int> GenerateAnswerCandidates(int a)
     // this method generate the keys and there values in the dictionary
     {
-        // iterating through the given counter
-        for (int i = 1; i < 4; i++)
-        {
-            // getting a temp value from a the non-negative range of possibilities 
-            int temp = Random.Shared.Next(a/2,a*2);
-            
-            // if the generated integer happens to be already exist enter a loop of generation
-            // till getting a value
-            while (_answerList.Contains(temp))
-            {
-                temp = Random.Shared.Next(a/2,a*2);
-            }    
+        int spreadBound = Math.Max(0, a - 10);
+        // basically using to 
+        // generate 21 number starting from the spread bound
+        return
+        [
+            .. Enumerable.Range(spreadBound, 21)
+                .Where(x => x != a) // exclude any real answer from the generation
+                .OrderBy(x => Random.Shared.Next()) // shuffle
+                .Take(3), // take 3 of that group 
 
-            // after loop
-            _answerList.Add(temp);
-        }
+            a
+        ];
+         
     }
 
     

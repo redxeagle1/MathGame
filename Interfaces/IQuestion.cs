@@ -1,6 +1,6 @@
 using MathGame.models;
 
-namespace MathGame;
+namespace MathGame.Interfaces;
 
 public interface IQuestion
 {

@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using MathGame.Interfaces;
 using MathGame.models;
 using MathGame.models.Answers;
 using MathGame.models.Questions;
@@ -9,16 +11,133 @@ public class GameWindow : WindowBase
 {
     public override string ValidOptions => "";
     public override int CurrentErrorLocation  => 20;
-    // Knowing that this is a workaround and probably a very bad practise I couldn't think
-    // of other way to store and reuse the question and it's answer
     
+    private IQuestion? _question;// an interface for all the Questions
+    private GameOptions _options;
+    private int _chances = 5;
+    private int _score;
+
     public override WindowMap ProcessInput(string userInput)
     {
-        throw new NotImplementedException();
+        if (_chances != 0 && userInput[0] != 'q')
+        {
+            bool isAnswerWrong = userInput == "TIMEOUT" || !(_question != null && _question.CheckAnswer(userInput));
+            if (!isAnswerWrong)
+            {
+                switch (_options.Difficulty)
+                {
+                    case GameDifficulty.Easy:
+                    case GameDifficulty.Normal:
+                        _score++;
+                        break;
+                    default:
+                        _score = _score + (QuestionTimer.CountDown + 1);
+                        break;
+                }
+            }
+            else
+            {
+                _chances--;
+            }
+            if (_chances > 0)
+            {
+                // reload another question
+                return WindowMap.GameWindow;
+            }
+            
+        }
+        // reset the Game Window
+        _chances = 5;
+        _score = 0;
+        GameEngine.Score = _score;
+        return WindowMap.GameOverWindow;
+    }
+
+    // copy the main option into a temp variable
+
+    private void CheckTimer()
+    {
+        switch (_options.Difficulty)
+        {
+            case GameDifficulty.Easy:
+            case GameDifficulty.Normal:
+                break;
+            case GameDifficulty.Hard:
+                QuestionTimer.StartTimer(60, 10);
+                break;
+            case GameDifficulty.Insane:
+                QuestionTimer.StartTimer(60,
+                    _options.Operation== GameOperation.Random ? 15:10);
+                break;
+            case GameDifficulty.Impossible:
+                QuestionTimer.StartTimer(60,
+                    _options.Operation== GameOperation.Random ? 10:5);
+                break;
+            default:
+                throw new Exception();
+        }
     }
 
     public override void Render()
     {
-        throw new NotImplementedException();
+        _options = GameEngine.SGameOptions;
+        _question = GetQuestion();
+        ConfigureInputOptions(_question.QuestionType);
+        Console.Write(_question.QuestionPrompt);
+        Console.Write("\r\n");
+        // Console.SetCursorPosition(1,0);
+        Console.Write($"\r\nChances Left: {_chances}");
+        Console.Write($"\r\nCurrent Score: {_score}");
+        CheckTimer();
+        InputHandler.InputPrompt(["type [q] to end the game"]);
+    }
+
+    private IQuestion GetQuestion()
+    {
+        // using a ternery operator we check if the question type is random or no 
+        // if it's select a random num from 1 to 5 then turn it into a question
+        // else set it the presented type
+        var type = _options.QuestionType == GameQuestionType.Random
+            ? (GameQuestionType)Random.Shared.Next(1, 5)
+            : _options.QuestionType;
+        var problem = new Problem(_options);
+        switch (type)
+        {
+            case GameQuestionType.Mcq:
+                return new QuestionMcq(problem);
+            case GameQuestionType.Normal:
+                return new QuestionNormal(problem);
+            case GameQuestionType.FillGaps:
+                return new QuestionFillGaps(problem);
+            case GameQuestionType.TrueFalse:
+                return new QuestionTf(problem);
+            default:
+                throw new Exception();
+        }
+    }
+
+    private void ConfigureInputOptions(GameQuestionType questionType)
+    // set the input dynamically
+    {
+        InputHandler.QuestionMode = false;
+        switch (questionType)
+        {
+            case GameQuestionType.Mcq:
+                InputHandler.SetActiveOptions = "abcd";
+                break;
+            case GameQuestionType.TrueFalse:
+                InputHandler.SetActiveOptions = "tf";
+                break;
+            case GameQuestionType.Normal:
+                InputHandler.QuestionMode = true;
+                InputHandler.SetActiveOptions = "0123456789";
+                break;
+            case GameQuestionType.FillGaps:
+                InputHandler.QuestionMode = true;
+                InputHandler.SetActiveOptions = "0123456789+-*/";
+                break;
+            default:
+                throw new Exception("unknown question type");
+        }
     }
 }

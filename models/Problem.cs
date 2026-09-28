@@ -69,7 +69,7 @@ public readonly struct Problem
     private (int first,int second,int answer) GenerateSubtractionProblem()
     {
         int first = Random.Shared.Next(0, _range);
-        int second = Random.Shared.Next(0, first-1); // to make sure it's alway positive
+        int second = Random.Shared.Next(0, Math.Max(first-1,0)); // to make sure it's alway positive
         
         
         // return a tuple containing all the problem parts
