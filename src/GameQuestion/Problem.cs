@@ -1,16 +1,20 @@
 namespace MathGame.GameQuestion;
 
+
+// this struct will be embedded to all questions and it size less than 16 byte
 public readonly struct Problem
 {
 
     #region fields
-/*
-    private readonly GameDifficulty _difficulty;
-*/
-    private readonly int _range ;
-    private readonly char[] _operation = ['+', '-', '*', '/'];
+
+    private readonly int _range ; // the maximum range of generations
+    private readonly char[] _operation = ['+', '-', '*', '/']; // operator list
+    
     #endregion
+    
+    
     #region Properties
+    // this represent a simple operation operands and the answer
     public int FirstNum { get; }
     public char Operation { get; }
     public int SecondNum { get;}
@@ -19,16 +23,18 @@ public readonly struct Problem
 
     public Problem(Options options)
     {
-        var difficulty =
             // set the difficulty
-            options.Difficulty;
+        var difficulty = options.Difficulty;
 
         // get the range
         _range = difficulty switch
         {
-            GameDifficulty.Easy or GameDifficulty.Hard => 11,
-            GameDifficulty.Normal or GameDifficulty.Insane or GameDifficulty.Impossible => 101,
-            _ => throw new Exception()
+            GameDifficulty.Easy => 11,
+            GameDifficulty.Normal => 101,
+            GameDifficulty.Hard => 501,
+            GameDifficulty.Insane => 1001,
+            GameDifficulty.Impossible => 2001,
+            _ => throw new IndexOutOfRangeException()
         };
 
 
@@ -69,7 +75,7 @@ public readonly struct Problem
     private (int first,int second,int answer) GenerateSubtractionProblem()
     {
         int first = Random.Shared.Next(0, _range);
-        int second = Random.Shared.Next(0, Math.Max(first-1,0)); // to make sure it's alway positive
+        int second = Random.Shared.Next(0, first+1); // to make sure it's alway positive
         
         
         // return a tuple containing all the problem parts
@@ -87,7 +93,7 @@ public readonly struct Problem
     private (int first,int second,int answer) GenerateDivisionProblem()
     {
         // get the second operand
-        int second = Random.Shared.Next(1, _range);
+        int second = Random.Shared.Next(1, 101);
 
         // it's the maximum possible number to be generated 
         int maxMultiplayer = (_range-1)/ second;
