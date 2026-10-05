@@ -34,7 +34,7 @@ public class GameWindow : WindowBase
                         _score++;
                         break;
                     default:
-                        _score = _score + (QuestionTimer.CountDown + 1);
+                        _score += (QuestionTimer.CountDown + 1);
                         break;
                 }
             }

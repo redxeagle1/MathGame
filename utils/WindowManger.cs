@@ -24,6 +24,8 @@ namespace MathGame.utils
             {WindowMap.SetupMenu,new SetupWindow()},
             { WindowMap.GameWindow , new GameWindow()},
             { WindowMap.GameOverWindow , new GameOverWindow()},
+            { WindowMap.HistoryWindow , new HistoryWindow()},
+
         };
         #endregion
         #region Properties

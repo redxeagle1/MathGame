@@ -1,3 +1,4 @@
+using System.CodeDom.Compiler;
 using MathGame.models;
 
 namespace MathGame.utils;
@@ -12,7 +13,7 @@ public static class GameEngine
 
     public static bool SFinishedGame;
     // our game history
-    private static readonly List<GameRecord> GameHistoryArray = new List<GameRecord>(1000);
+    public static readonly List<GameRecord> GameHistoryTable = new List<GameRecord>(1000);
     // Global tracker for both the record id and detection of array current size 
     public static int TotalGamesPlayed = 0;
     
@@ -25,7 +26,7 @@ public static class GameEngine
 
     #region Records
 
-    public record GameRecord(DateTime PlayedDate, int TotalScore, GameDifficulty Difficulty,GameOperation Operation,GameQuestionType QuestionType,int TotalNumberOfQuestions);
+    public record GameRecord(int Id,DateTime PlayedDate, int TotalScore, GameDifficulty Difficulty,GameOperation Operation,GameQuestionType QuestionType,int TotalNumberOfQuestions);
     #endregion
     #region Methods
     public static void GameSetup()
@@ -104,9 +105,42 @@ public static class GameEngine
 
     public static void CommitHistory()
     {
-        GameRecord record = new GameRecord(StartTime,Score,SGameOptions.Difficulty,SGameOptions.Operation,SGameOptions.QuestionType,STotalNumberOfQuestions);
-        GameHistoryArray.Add(record);
+        if (SFinishedGame)
+        {
+            GameRecord record = new GameRecord(TotalGamesPlayed, StartTime, Score, SGameOptions.Difficulty,
+                SGameOptions.Operation, SGameOptions.QuestionType, STotalNumberOfQuestions);
+            GameHistoryTable.Add(record);
+            SFinishedGame = false;
+        }
     }
+
+    // test method
+/*     private static void GeneratedRandomRecords()
+    {
+        // making a random variable to use
+        Random rnd = new();
+
+        // getting all the possible Enum outcomes
+        var difficulties = Enum.GetValues<GameDifficulty>();
+        var operations = Enum.GetValues<GameOperation>(); 
+        var questionType = Enum.GetValues<GameQuestionType>();
+
+
+
+        for (int i = 1; i <= 100; i++) // to get 100 test sample
+        {
+            GameHistoryTable.Add(new GameRecord(
+                Id: i,
+                PlayedDate: DateTime.Now.AddDays(rnd.NextDouble()*60).AddHours(rnd.NextDouble()*24),
+                TotalScore:rnd.Next(1,30000),
+                Difficulty:difficulties[rnd.Next(difficulties.Length)],
+                Operation:operations[rnd.Next(operations.Length)],
+                QuestionType:questionType[rnd.Next(questionType.Length)],
+                TotalNumberOfQuestions:rnd.Next(1,300000)
+            ));
+        }
+        TotalGamesPlayed = 100;
+    } */
     #endregion
 
 }
