@@ -4,7 +4,7 @@ namespace MathGame.GameWindows.SetupMenu
 {
     internal static class SetupOptionHandler
     {
-        public static bool SetQuestionOptions(string userInput,ref GameOptions options)
+        public static bool SetQuestionOptions(string userInput,ref Options options)
         {
             if (options.Difficulty == GameDifficulty.None)
             {
@@ -25,7 +25,7 @@ namespace MathGame.GameWindows.SetupMenu
             }
             return false;
         }
-        public static void RenderQuestionsSetup(ref GameOptions options)
+        public static void RenderQuestionsSetup(ref Options options)
         {
             string infoPanel = $"Difficulty : {options.Difficulty}\t\tOperation : {options.Operation}\t\tQuestion Type : {options.QuestionType}";
             if (options.Difficulty == GameDifficulty.None)
@@ -103,7 +103,7 @@ namespace MathGame.GameWindows.SetupMenu
             "e" => GameQuestionType.Random,
             _ => GameQuestionType.None
         };
-        public static void ResetOptions(ref GameOptions options)
+        public static void ResetOptions(ref Options options)
         {
             options.Difficulty = GameDifficulty.None;
             options.Operation = GameOperation.None;

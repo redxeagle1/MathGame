@@ -11,7 +11,7 @@ public class GameWindow : WindowBase
     public override int CurrentErrorLocation => 20;
     
     private IQuestion? _question;// an interface for all the Questions
-    private GameOptions _options;
+    private Options _options;
     private int _chances = 5;
     private int _score;
     private int _totalQuestionNumbers=1;
@@ -97,7 +97,7 @@ public class GameWindow : WindowBase
     {
         GameEngine.StartTime = DateTime.Now;
         InputHandler.CurrentErrorLocation = 17;
-        _options = GameEngine.SGameOptions;
+        _options = GameEngine.SGameOptionsRecord;
         if (_totalQuestionNumbers - _totalQuestionNumbersSnapshot == 1)
         {
             _totalQuestionNumbersSnapshot = _totalQuestionNumbers;

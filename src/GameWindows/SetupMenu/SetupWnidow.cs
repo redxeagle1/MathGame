@@ -9,10 +9,14 @@ public class SetupWindow : WindowBase
     public override string ValidOptions => "abcdew";
     public override int CurrentErrorLocation => 20;
     private bool IsOptionsSet { get; set; } = false;
-    private GameOptions _gameOptions = GameEngine.SGameOptions;
-
+    private bool IsOptionsSet { get; set; }
+    // private GameOptions _gameOptions = GameEngine.SGameOptions;
+    private Options _gameOptions = GameEngine.SGameOptionsRecord;
+    // process inputs
     public override WindowMap ProcessInput(string userInput)
     {
+        // smart trick so instead of handling or the input I just checks the mean three keys [q,w,r]
+        // and based on the IsOptionsSet I move one to the next option
         switch (userInput)
         {
             case "w" :
@@ -23,7 +27,7 @@ public class SetupWindow : WindowBase
                 return WindowMap.MainMenu;
             case "y":
                 // saves all our selection back to the Game Engine to utilize it in the game mech
-                GameEngine.SGameOptions = _gameOptions;
+                GameEngine.SGameOptionsRecord = _gameOptions;
                 return WindowMap.GameWindow;
             default:
                 if (!IsOptionsSet)

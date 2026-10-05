@@ -17,7 +17,7 @@ public readonly struct Problem
     public int Answer { get; }
     #endregion
 
-    public Problem(GameOptions options)
+    public Problem(Options options)
     {
         var difficulty =
             // set the difficulty

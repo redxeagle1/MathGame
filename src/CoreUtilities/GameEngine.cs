@@ -9,8 +9,8 @@ public static class GameEngine
     
     #region  Fields
         // our shared game option storage
-        public static GameOptions SGameOptions = new(); 
-        
+        // public static GameOptions SGameOptions = new(); 
+        public static Options SGameOptionsRecord = new();
         // this will act as an id for our history handling
         public static int STotalNumberOfQuestions;
         
@@ -145,8 +145,8 @@ public static class GameEngine
     public static void CommitHistory()
     // this method creates and push a GameRecord object to the history table
     {
-            GameRecord record = new GameRecord(TotalGamesPlayed, StartTime, Score, SGameOptions.Difficulty,
-                SGameOptions.Operation, SGameOptions.QuestionType, STotalNumberOfQuestions);
+            GameRecord record = new GameRecord(TotalGamesPlayed, StartTime, Score, SGameOptionsRecord.Difficulty,
+                SGameOptionsRecord.Operation, SGameOptionsRecord.QuestionType, STotalNumberOfQuestions);
             GameHistoryTable.Add(record);
     }
 
