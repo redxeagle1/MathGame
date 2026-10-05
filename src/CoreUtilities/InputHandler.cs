@@ -2,27 +2,28 @@ using System.Text;
 
 namespace MathGame.CoreUtilities
 {
-    public static class InputHandler
     // A unified utility class for handling user input effectively  
+    public static class InputHandler
     {
         #region fields
-        // this was preferred since I wanted to make most of my functions modular and window agnostic
-        // our buffer char array which will hold our current ongoing valid options
-        private static char[] _sActiveOptionsBuffer = ['a', 'b', 'c'];
-
+            // this was preferred since I wanted to make most of my functions modular and window
+            // agnostic our buffer char array which will hold our current ongoing valid options
+            private static char[] _sActiveOptionsBuffer = ['a', 'b', 'c'];
         #endregion
+        
         #region Properties
+            
+            // our buffer holder
+            private static StringBuilder? InputBuffer { get; set; } = new();
+            public static bool QuestionMode { get; set; } 
+            
+            // saving the input location
+            private static int InputX{get; set;}
 
-        // had to give up using readline() since it literally stop the execution of window update logic
-        // I may use thread for that, but I don't know multi-threading and concurrency either 
-        // so this is the safest route I can take 
-        private static StringBuilder? InputBuffer { get; set; } = new();
-        public static bool QuestionMode { get; set; } 
-        // saving the input location
-        public static int InputX{get; set;}
-        public static int InputY{get; set;}
-        // this is for controlling s_activeOptionBuffer it reset the current options into new ones
-        public static string? SetActiveOptions
+            private static int InputY{get; set;}
+        
+            // this is for controlling s_activeOptionBuffer it reset the current options into new ones
+            public static string? SetActiveOptions
         {
             set
             {
@@ -37,84 +38,103 @@ namespace MathGame.CoreUtilities
         } = "abc";
 
 
-        // indicators for wrong typing or invalid inputs 
-        public static bool HasError { get; set; }
+            // indicators for wrong typing or invalid inputs 
+            public static bool HasError { get; set; }
 
-        // the place in which will display our errors in the current active window
-        public static int CurrentErrorLocation { get; set; }
+            // the place in which will display our errors in the current active window
+            public static int CurrentErrorLocation { get; set; }
+        
         #endregion
+        
         #region Methods
-        public static string HandleUserInput(ConsoleKeyInfo key)
-        // this method handles the input buffer itself
-        {
-            var userInput = ""; // this is the return variable
-            
-            switch (key.Key)
-            // based on the given key it will handle these cases
+        
+        
+            // this method handles the input buffer itself
+            public static string HandleUserInput(ConsoleKeyInfo key)
             {
-                case ConsoleKey.Enter:
-                    // store this input into the string we are returning
-                    userInput = InputBuffer?.ToString() ?? "";
-
-                    // to check for empty input before submitting the string
-                    if (string.IsNullOrEmpty(userInput))
-                    {
-                        HasError = true;
-                        ShowErrorMessage("You didn't type anything please enter something");
-                    }
-                    // clear the submitted input for reusing 
-                    for (int i = 0; i < userInput.Length; i++)
-                    {
-                        Console.Write("\b \b");
-                    }
-                    // clear the buffer to reuse it again
-                    InputBuffer?.Clear();
-                    // check if there has been any errors flagged or no
-                    if (HasError)
-                    {
-                        // if true goto the default case
-                        goto default;
-                    }
-                    break;
-
-
+                var userInput = ""; // this is the return variable
                 
-                case ConsoleKey.Backspace: // to add back spacing logic since we give up ReadLine
-                    
-                    if (InputBuffer?.Length > 0  )
-                    // checking the length of the input buffer to avoid accidental invalid indexing  
-                    {
-                        
-                        // remove the element once from the buffer
-                        InputBuffer.Remove(InputBuffer.Length - 1, 1);
-                        Console.Write("\b \b"); // Erase character visually from console screen
+                // based on the given key it will handle these cases
+                switch (key.Key)
+                {
+                    // to submit the userInput to process it in the windows and handle any possible
+                    // error like empty inputs
+                    case ConsoleKey.Enter:
+                        // store this input into the string we are returning
+                        userInput = InputBuffer?.ToString() ?? "";
 
-                        // Clean errors if spotted
+                        // to check for empty input before submitting the string
+                        if (string.IsNullOrEmpty(userInput))
+                        {
+                            HasError = true;
+                            ShowErrorMessage("You didn't type anything please enter something");
+                        }
+                        // clear the submitted input for reusing 
+                        for (int i = 0; i < userInput.Length; i++)
+                        {
+                            Console.Write("\b \b");
+                        }
+                        // clear the buffer to reuse it again
+                        InputBuffer?.Clear();
+                        // check if there has been any errors flagged or no
                         if (HasError)
                         {
-                            CleanErrors();
+                            // if true fallback the default case
+                            goto default;
                         }
-                    }
-                    break;
-                default:
-                    // pass the key itself to be check in handle key method
-                    HandleInputKeys(key);
+                        break;
                     
-                    break;
+                    // to add back spacing logic since we give up ReadLine
+                    case ConsoleKey.Backspace: 
+                        
+                        // checking the length of the input buffer to avoid accidental invalid indexing  
+                        if (InputBuffer?.Length > 0  )
+                        {
+                            
+                            // remove the element once from the buffer
+                            InputBuffer.Remove(InputBuffer.Length - 1, 1);
+                            Console.Write("\b \b"); // Erase character visually from console screen
+
+                            // Clean errors if spotted
+                            if (HasError)
+                            {
+                                CleanErrors();
+                            }
+                        }
+                        break;
+                    
+                    // pass the key itself to be check in handle key method
+                    default:
+                        HandleInputKeys(key);
+                        break;
+                }
+                return userInput;
             }
-            return userInput;
-        }
-        private static void HandleInputKeys(ConsoleKeyInfo key)
-        // this method handles the user keystrokes and store it in the InputBuffer
-        {
-            // since the keys are capitalized I decided to lower them for easy processing
-            var loweredKey = char.ToLower(key.KeyChar);
-            // checking if our key is one of the valid options or a "q" and its length is 0
-            
-            // check if input is part of the valid options
-            if ((_sActiveOptionsBuffer.Contains(loweredKey) || loweredKey == 'q'))
+
+
+            // this method handles the user keystrokes and store it in the InputBuffer
+            private static void HandleInputKeys(ConsoleKeyInfo key)
             {
-                // to check if the length is greater than 1 and question mode is off
+                // since the keys are capitalized I decided to lower them for easy processing
+                var loweredKey = char.ToLower(key.KeyChar);
+                // checking if our key is one of the valid options or a "q" and its length is 0
+                bool isValidOptions = _sActiveOptionsBuffer.Contains(loweredKey) || loweredKey == 'q';
+
+                // check generally if there is a wrong input and return if so
+                if (!isValidOptions)
+                {
+                    if (!HasError)
+                    {
+                        // print the error message for the user
+                        ShowErrorMessage(
+                            $"You type wrong option you can only use[{string.Join(", ", _sActiveOptionsBuffer)}, q]");
+                        // flip the error flag to true
+                        HasError = true;
+                    }
+                    return;
+                }
+                
+                // to check if the length is greater than 1 and question mode is off and return if so
                 if (InputBuffer?.Length >= 1 && !QuestionMode)
                 {
                     if (!HasError)
@@ -123,90 +143,81 @@ namespace MathGame.CoreUtilities
                         ShowErrorMessage($"You Cannot type more than 1 letter option");
                         HasError = true;
                     }
-                }
-                else
-                {
-                    // to check if the IsHandlingFailed is true
-                    if (HasError)
-                    {
-                        CleanErrors();
-                        // return so the error message of wrong input doesn't override the empty input
-                    }
-                    // if so append that key to our input buffer than write it
-                    InputBuffer?.Append(loweredKey);
-                    Console.Write(loweredKey);
-                }
-            }
-            else
-            {
-                {
-                    if (!HasError)
-                    {
-                        // print the error message for the user
-                        ShowErrorMessage($"You type wrong option you can only use" + "[" + string.Join(", ", _sActiveOptionsBuffer) + ", q]");
-                        // make IsInputWrong true
-                        HasError = true;
-                    }
+                    return;
                 }
                 
+                // to clean errors and proceed if nothing wrong was done
+                if (HasError)
+                {
+                    CleanErrors();
+                }
+                
+                
+                // if everything is ok append this key to the buffer and visually prints it 
+                InputBuffer?.Append(loweredKey);
+                Console.Write(loweredKey);
+                
             }
-        }
 
-        private static void CleanErrors()
-        // to check and clear any error
-        {
-            
-            // passing an empty string will clear the error as well
-            ShowErrorMessage("");
-
-            // reset all the error flags as well
-            HasError = false;
-        }
-        public static void ShowErrorMessage(string currentErrorType)
-        // just to show the user what is wrong
-        {
-            
-
-            // setting the cursor into the specified location to display the message 
-            Console.SetCursorPosition(0, CurrentErrorLocation);
-            // return a padded version to overWrite it
-            string paddedError = currentErrorType.PadRight(Console.WindowWidth - 1, ' ');
-            // print the message and over-write the rest of the line with blanks  
-            Console.Write($"\e[31m{paddedError}\e[0m");
-            // reset the cursor back to the old position
-            int returnX = InputX + (InputBuffer?.Length ?? 0);
-            Console.SetCursorPosition(returnX, InputY); 
-        }
-        public static void InputPrompt(string[]? inputTips = null)
-        // Rather than ask for input in each time the user move to a new menu this method
-        // will handle this Idea as well as displaying tips to the user
-        {
-            // separation to avoid cluttering the input area with the menu of the current window
-            Console.Write("\r\n\r\n");
-
-
-            // to address the null array I used null coalescing operator
-            // if it founds that the array is null assign it to an empty array 
-            inputTips ??= Array.Empty<string>();
-            if (inputTips is not { Length: 0 })
+            // to check and clear any error
+            private static void CleanErrors()
             {
-                Console.Write($"NOTES:\r\n");
-                Console.Write($"\t{string.Join("\r\n\t", inputTips)}\r\n");
+                
+                // passing an empty string will clear the error as well
+                ShowErrorMessage("");
+
+                // reset all the error flags as well
+                HasError = false;
             }
             
-
-            // this to hold the current active options
-            string inputHints = $"type a letter from [{string.Join(", ", _sActiveOptionsBuffer)}, q]\r\n";
-            // a prompt to encourage the user to type here  
-            string askForInput = "\r\nType your answer : \t";
-            Console.Write(inputHints);
-            Console.Write(askForInput);
-            // the null check is for safety, but this will just show what the user has typed
-            InputX = Console.CursorLeft;
-            InputY = Console.CursorTop;
             
-            Console.Write(InputBuffer?.ToString().ToLower());
-        }
+            // just to show the user what is wrong
+            public static void ShowErrorMessage(string currentErrorType)
+            {
+                
+
+                // setting the cursor into the specified location to display the message 
+                Console.SetCursorPosition(0, CurrentErrorLocation);
+                // return a padded version to overWrite it
+                string paddedError = currentErrorType.PadRight(Console.WindowWidth - 1, ' ');
+                // print the message and over-write the rest of the line with blanks  
+                Console.Write($"\e[31m{paddedError}\e[0m");
+                // reset the cursor back to the old position
+                int returnX = InputX + (InputBuffer?.Length ?? 0);
+                Console.SetCursorPosition(returnX, InputY); 
+            }
+            
+            
+            // Rather than ask for input in each time the user move to a new menu this method
+            // will handle this Idea as well as displaying tips to the user
+            public static void InputPrompt(string[]? inputTips = null)
+            {
+                // separation to avoid cluttering the input area with the menu of the current window
+                Console.Write("\r\n\r\n");
+
+
+                // to address the null array I used null coalescing operator
+                // if it founds that the array is null assign it to an empty array 
+                inputTips ??= [];
+                if (inputTips is not { Length: 0 })
+                {
+                    Console.Write($"NOTES:\r\n");
+                    Console.Write($"\t{string.Join("\r\n\t", inputTips)}\r\n");
+                }
+                
+
+                // this to hold the current active options
+                string inputHints = $"type a letter from [{string.Join(", ", _sActiveOptionsBuffer)}, q]\r\n";
+                // a prompt to encourage the user to type here  
+                string askForInput = "\r\nType your answer : \t";
+                Console.Write(inputHints);
+                Console.Write(askForInput);
+                // the null check is for safety, but this will just show what the user has typed
+                InputX = Console.CursorLeft;
+                InputY = Console.CursorTop;
+                
+                Console.Write(InputBuffer?.ToString().ToLower());
+            }
         #endregion
     }
 }
