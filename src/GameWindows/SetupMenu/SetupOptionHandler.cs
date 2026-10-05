@@ -4,6 +4,8 @@ namespace MathGame.GameWindows.SetupMenu
 {
     internal static class SetupOptionHandler
     {
+        // this method returns bool denoting that the user have entered all the options 
+        // and it also modified the Setup window's stored option variable 
         public static bool SetQuestionOptions(string userInput,ref Options options)
         {
             if (options.Difficulty == GameDifficulty.None)
@@ -25,7 +27,9 @@ namespace MathGame.GameWindows.SetupMenu
             }
             return false;
         }
-        public static void RenderQuestionsSetup(ref Options options)
+        
+        // this method render the next option set and their options 
+        public static void RenderQuestionsSetup(Options options)
         {
             string infoPanel = $"Difficulty : {options.Difficulty}\t\tOperation : {options.Operation}\t\tQuestion Type : {options.QuestionType}";
             if (options.Difficulty == GameDifficulty.None)
@@ -45,7 +49,8 @@ namespace MathGame.GameWindows.SetupMenu
             Console.WriteLine($"{infoPanel}\r\n");
         }
 
-
+        // this region is responsible for printing out all options based on the current option type 
+        #region Rendering Options
         private static void RenderDifficultyOptions()
         {
             Console.Write("\tchoose a difficulty}\r\n");
@@ -73,36 +78,48 @@ namespace MathGame.GameWindows.SetupMenu
             Console.Write("\t\td. normal\r\n");
             Console.Write("\t\te. random\r\n");
         }
-        private static GameDifficulty SetGameDifficulty(string userInput) => userInput switch
-        // these method return a difficulty based on the input 
-        {
-            "a" => GameDifficulty.Easy,
-            "b" => GameDifficulty.Normal,
-            "c" => GameDifficulty.Hard,
-            "d" => GameDifficulty.Insane,
-            "e" => GameDifficulty.Impossible,
-            _ => GameDifficulty.None
-        };
-        private static GameOperation SetGameOperation(string userInput) => userInput switch
-        // these method return a Operation based on the input 
-        {
-            "a" => GameOperation.Addition,
-            "b" => GameOperation.Subtraction,
-            "c" => GameOperation.Multiplication,
-            "d" => GameOperation.Division,
-            "e" => GameOperation.Random,
-            _ => GameOperation.None
-        };
-        private static GameQuestionType SetGameQuestionType(string userInput) => userInput switch
-        // these method return a QuestionType based on the input 
-        {
-            "a" => GameQuestionType.Mcq,
-            "b" => GameQuestionType.TrueFalse,
-            "c" => GameQuestionType.FillGaps,
-            "d" => GameQuestionType.Normal,
-            "e" => GameQuestionType.Random,
-            _ => GameQuestionType.None
-        };
+        #endregion
+        
+
+
+        // this region is responsible for processing input based on the current option type 
+        #region Process Input Options
+
+            // these method return a difficulty based on the input 
+            private static GameDifficulty SetGameDifficulty(string userInput) => userInput switch
+            {
+                "a" => GameDifficulty.Easy,
+                "b" => GameDifficulty.Normal,
+                "c" => GameDifficulty.Hard,
+                "d" => GameDifficulty.Insane,
+                "e" => GameDifficulty.Impossible,
+                _ => GameDifficulty.None
+            };
+            // these method return a Operation based on the input 
+            private static GameOperation SetGameOperation(string userInput) => userInput switch
+            {
+                "a" => GameOperation.Addition,
+                "b" => GameOperation.Subtraction,
+                "c" => GameOperation.Multiplication,
+                "d" => GameOperation.Division,
+                "e" => GameOperation.Random,
+                _ => GameOperation.None
+            };
+            // these method return a QuestionType based on the input 
+            private static GameQuestionType SetGameQuestionType(string userInput) => userInput switch
+            {
+                "a" => GameQuestionType.Mcq,
+                "b" => GameQuestionType.TrueFalse,
+                "c" => GameQuestionType.FillGaps,
+                "d" => GameQuestionType.Normal,
+                "e" => GameQuestionType.Random,
+                _ => GameQuestionType.None
+            };
+        
+        #endregion
+        
+        
+        // this method reset the options
         public static void ResetOptions(ref Options options)
         {
             options.Difficulty = GameDifficulty.None;

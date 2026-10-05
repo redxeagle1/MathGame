@@ -7,24 +7,30 @@ namespace MathGame.GameWindows;
 
 public class GameWindow : WindowBase
 {
-    public override string ValidOptions => "";
-    public override int CurrentErrorLocation => 20;
+
     
-    private IQuestion? _question;// an interface for all the Questions
-    private Options _options;
-    private int _chances = 5;
-    private int _score;
-    private int _totalQuestionNumbers=1;
-    private int _totalQuestionNumbersSnapshot;
+    private IQuestion? _question; // an interface for all the Questions
+    private Options _options; // this is need 
+    private int _chances = 5; // let the user at least have 5 chances each game
+    private int _score; // user score
+    private int _totalQuestionNumbers=1; // this must be one
+    private int _totalQuestionNumbersSnapshot; // a snapshot of the total for comparison
     
     public override WindowMap ProcessInput(string userInput)
     {
+        // check if the user didn't force quit or lost all the chances if so move to the GameOver
         if (_chances != 0 && userInput[0] != 'q')
         {
+            // check either the time out occurred or is the answer wrong
             bool isAnswerWrong = userInput == "TIMEOUT" || !(_question != null && _question.CheckAnswer(userInput));
+            
+            // if the user answered correctly
             if (!isAnswerWrong)
             {
+                // increment the total number
                 _totalQuestionNumbers++;
+
+                // increment the score based weather the difficulty denotes timing or no
                 switch (_options.Difficulty)
                 {
                     case GameDifficulty.Easy:
@@ -32,15 +38,17 @@ public class GameWindow : WindowBase
                         _score++;
                         break;
                     default:
-                        _score += (QuestionTimer.CountDown + 1);
+                        _score += QuestionTimer.CountDown + 1;
                         break;
                 }
             }
+            // if the user answered wrongly
             else
             {
                 _totalQuestionNumbers++;
                 _chances--;
             }
+            // if there is any chances left keep the window
             if (_chances > 0)
             {
                 // reload another question
@@ -48,21 +56,19 @@ public class GameWindow : WindowBase
             }
             
         }
-        // reset the Game Window
-        _chances = 5;
+        // chances ar
         if (_totalQuestionNumbers >= 5)
         {
             GameEngine.TotalGamesPlayed++;
             GameEngine.Score = _score;
             GameEngine.STotalNumberOfQuestions =  _totalQuestionNumbers;
             GameEngine.SFinishedGame = true;
-            _score = 0;
-            _totalQuestionNumbers = 0;
-            _totalQuestionNumbersSnapshot = 0;
-            return WindowMap.GameOverWindow;
         }
+
+        // reset the Game Window
+        _chances = 5;
         _score = 0;
-        _totalQuestionNumbers = 0;
+        _totalQuestionNumbers = 1;
         _totalQuestionNumbersSnapshot = 0;
         GameEngine.SFinishedGame = false;
         return WindowMap.GameOverWindow;
@@ -93,20 +99,33 @@ public class GameWindow : WindowBase
         }
     }
 
+    // print out the menu
     public override void Render()
     {
+        // store the date for archiving
         GameEngine.StartTime = DateTime.Now;
-        InputHandler.CurrentErrorLocation = 17;
+
+        // store the current global option into a temp one
         _options = GameEngine.SGameOptionsRecord;
+
+        // this check is crucial to prevent wiping and resetting the game window accidentally
+        // on refreshes 
         if (_totalQuestionNumbers - _totalQuestionNumbersSnapshot == 1)
         {
+            // update the snapshot to the new number
             _totalQuestionNumbersSnapshot = _totalQuestionNumbers;
+            
+            // get a new question
             _question = GetQuestion();
             
+            // reset the timer
             CheckTimer();
 
         }
-        ConfigureInputOptions(_question?.QuestionType);
+        // prepare the input settings
+        ConfigureInputSettings(_question?.QuestionType);
+
+        // print the screen
         Console.Write($"Question numbers: {_totalQuestionNumbers}\r\n");
         Console.Write(_question?.QuestionPrompt);
         Console.Write("\r\n");
@@ -115,15 +134,19 @@ public class GameWindow : WindowBase
         InputHandler.InputPrompt(["type [q] to end the game"]);
     }
 
+    // return an interface of the question based on the game options
     private IQuestion GetQuestion()
     {
-        // using a ternery operator we check if the question type is random or no 
+        // using a ternary operator we check if the question type is random or no 
         // if it's select a random num from 1 to 5 then turn it into a question
         // else set it the presented type
         var type = _options.QuestionType == GameQuestionType.Random
             ? (GameQuestionType)Random.Shared.Next(1, 5)
             : _options.QuestionType;
+
+        // generate a new problem struct
         var problem = new Problem(_options);
+        // pass it to the returned object
         switch (type)
         {
             case GameQuestionType.Mcq:
@@ -135,13 +158,15 @@ public class GameWindow : WindowBase
             case GameQuestionType.TrueFalse:
                 return new QuestionTf(problem);
             default:
-                throw new Exception();
+                throw new IndexOutOfRangeException($"the hell you mean {type}???");
         }
     }
 
-    private void ConfigureInputOptions(GameQuestionType? questionType)
-    // set the input dynamically
+
+    // set the input settings
+    private void ConfigureInputSettings(GameQuestionType? questionType)
     {
+        InputHandler.CurrentErrorLocation = 17;
         InputHandler.QuestionMode = false;
         switch (questionType)
         {

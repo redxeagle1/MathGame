@@ -6,9 +6,6 @@ namespace MathGame.GameWindows.SetupMenu;
 
 public class SetupWindow : WindowBase
 {
-    public override string ValidOptions => "abcdew";
-    public override int CurrentErrorLocation => 20;
-    private bool IsOptionsSet { get; set; } = false;
     private bool IsOptionsSet { get; set; }
     // private GameOptions _gameOptions = GameEngine.SGameOptions;
     private Options _gameOptions = GameEngine.SGameOptionsRecord;
@@ -40,8 +37,7 @@ public class SetupWindow : WindowBase
 
     public override void Render()
     {
-
-
+        // checks if IsOptionsSet is true to print out special format for it and return guard then 
         if (IsOptionsSet)
         {
             InputHandler.CurrentErrorLocation = 20;
@@ -55,20 +51,24 @@ public class SetupWindow : WindowBase
 
 
             InputHandler.InputPrompt(
-            [
-            "- type [q] to go back to main menu",
-            "- type [y] to Confirm",
-            "- type [w] to wipe all selections",
-            "- press [ctrl+c] to hard exit"
-            ]
+                [
+                "- type [q] to go back to main menu",
+                "- type [y] to Confirm",
+                "- type [w] to wipe all selections",
+                "- press [ctrl+c] to hard exit"
+                ]
             );
             return;
         }
-        InputHandler.SetActiveOptions = ValidOptions;
-        InputHandler.CurrentErrorLocation = CurrentErrorLocation;
+        
+        // configure the input handle's active inputs and error location
+        InputHandler.SetActiveOptions = "abcdew";
+        InputHandler.CurrentErrorLocation = 20;
         Console.Write($"Choose From The Following Options:\r\n");
         Console.Write("\r\n");
-        SetupOptionHandler.RenderQuestionsSetup(ref _gameOptions);
+        // render the options only
+        SetupOptionHandler.RenderQuestionsSetup(_gameOptions);
+        // ask for user input
         InputHandler.InputPrompt(
         [
             "- type [q] to go back to main menu",

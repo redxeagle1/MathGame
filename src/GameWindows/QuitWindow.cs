@@ -2,10 +2,9 @@ using MathGame.AbstractBases;
 
 namespace MathGame.GameWindows;
 
+// goofy simple goodbye display
 public class QuitWindow :  WindowBase
 {
-    public override string ValidOptions  => "";
-    public override int CurrentErrorLocation => 0;
 
     public override WindowMap ProcessInput(string userInput)
     {
