@@ -52,9 +52,21 @@ public class GameWindow : WindowBase
         }
         // reset the Game Window
         _chances = 5;
+        if (_totalQuestionNumbers >= 5)
+        {
+            GameEngine.TotalGamesPlayed++;
+            GameEngine.Score = _score;
+            GameEngine.STotalNumberOfQuestions =  _totalQuestionNumbers;
+            GameEngine.SFinishedGame = true;
+            _score = 0;
+            _totalQuestionNumbers = 0;
+            _totalQuestionNumbersSnapshot = 0;
+            return WindowMap.GameOverWindow;
+        }
         _score = 0;
-        GameEngine.Score = _score;
-        GameEngine.TotalGamesPlayed++;
+        _totalQuestionNumbers = 0;
+        _totalQuestionNumbersSnapshot = 0;
+        GameEngine.SFinishedGame = false;
         return WindowMap.GameOverWindow;
     }
 
@@ -85,6 +97,7 @@ public class GameWindow : WindowBase
 
     public override void Render()
     {
+        GameEngine.StartTime = DateTime.Now;
         InputHandler.CurrentErrorLocation = 17;
         _options = GameEngine.SGameOptions;
         if (_totalQuestionNumbers - _totalQuestionNumbersSnapshot == 1)

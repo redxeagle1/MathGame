@@ -26,7 +26,8 @@ public class GameOverWindow : WindowBase
         [
             "[q] will wipe all the game data and exit",
             "[r] will reset the game with the settings",
-            "[c] will go back to the main menu"
+            "[c] will go back to the main menu",
+            $"{(GameEngine.SFinishedGame ? "your data was save successfully\r\ncheck the game history to find out" : "Couldn't Save Your Last Game's Data\r\nplease play at least 5 games to save your game")}"
         ];
         InputHandler.InputPrompt(inputTips);
     }

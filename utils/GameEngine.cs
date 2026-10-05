@@ -8,17 +8,25 @@ public static class GameEngine
     #region  Fields
     // our game option storage
     public static GameOptions SGameOptions = new(); 
+    public static int STotalNumberOfQuestions;
+
+    public static bool SFinishedGame;
     // our game history
-    public static GameRecord[] GameHistoryArray = new GameRecord[1000];
+    private static readonly List<GameRecord> GameHistoryArray = new List<GameRecord>(1000);
     // Global tracker for both the record id and detection of array current size 
     public static int TotalGamesPlayed = 0;
     
     #endregion
     
     #region Properties
+    public static DateTime StartTime{get;set;}
     public static int Score{get;set;} // the game score
     #endregion
 
+    #region Records
+
+    public record GameRecord(DateTime PlayedDate, int TotalScore, GameDifficulty Difficulty,GameOperation Operation,GameQuestionType QuestionType,int TotalNumberOfQuestions);
+    #endregion
     #region Methods
     public static void GameSetup()
         // a setup method to set the environment before entering the loop
@@ -78,6 +86,11 @@ public static class GameEngine
                     Console.Clear();
                     WindowManager.ActiveWindow.Render();
                 }
+
+                if (SFinishedGame)
+                {
+                    CommitHistory();
+                }
                 else
                 {
                     {
@@ -87,6 +100,12 @@ public static class GameEngine
             }
         }
 
+    }
+
+    public static void CommitHistory()
+    {
+        GameRecord record = new GameRecord(StartTime,Score,SGameOptions.Difficulty,SGameOptions.Operation,SGameOptions.QuestionType,STotalNumberOfQuestions);
+        GameHistoryArray.Add(record);
     }
     #endregion
 
