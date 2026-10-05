@@ -44,7 +44,7 @@ public class HistoryWindow : WindowBase
         // set the cursor to the offset to begin flushing the table date
         Console.SetCursorPosition(0, offset);
         Console.Write(string.Format(
-            rowFormat, "Id", "start Date", " Score", "Difficulty", "Op", "Q Type",
+            rowFormat, "Id", "start Time", " Score", "Difficulty", "Op", "Q Type",
             "Total Qs"
         ));
         Console.Write("\r\n");
@@ -60,7 +60,7 @@ public class HistoryWindow : WindowBase
             Console.SetCursorPosition(0, offset);
             Console.Write(rowFormat,
                 record.Id,
-                record.PlayedDate.ToString("yyyy-MM-dd"),
+                record.PlayedDate.ToString("HH:mm:ss"),
                 record.TotalScore,
                 record.Difficulty,
                 record.Operation switch

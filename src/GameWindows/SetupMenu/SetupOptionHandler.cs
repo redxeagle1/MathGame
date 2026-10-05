@@ -54,11 +54,11 @@ namespace MathGame.GameWindows.SetupMenu
         private static void RenderDifficultyOptions()
         {
             Console.Write("\tchoose a difficulty}\r\n");
-            Console.Write("\t\ta. easy (digits from 0 to 10)}\r\n");
-            Console.Write("\t\tb. normal (digits from 0 to 100)}\r\n");
-            Console.Write("\t\tc. hard (digits from 0 to 10 + TIMED 10s)}\r\n");
-            Console.Write("\t\td. insane (digits from 0 to 100 + TIMED 10s and 15s if random operation)}\r\n");
-            Console.Write("\t\te. impossible (digits from 0 to 100 + TIMED 5s and 10s if random operation)}\r\n");
+            Console.Write("\t\ta. easy (digits from 0 to 10)\r\n");
+            Console.Write("\t\tb. normal (digits from 0 to 100)\r\n");
+            Console.Write("\t\tc. hard (digits from 0 to 500)\r\n");
+            Console.Write("\t\td. insane (digits from 0 to 1000)\r\n");
+            Console.Write("\t\te. impossible (digits from 0 to 2000)\r\n");
         }
         private static void RenderOperationOptions()
         {
@@ -80,8 +80,6 @@ namespace MathGame.GameWindows.SetupMenu
         }
         #endregion
         
-
-
         // this region is responsible for processing input based on the current option type 
         #region Process Input Options
 
@@ -117,7 +115,6 @@ namespace MathGame.GameWindows.SetupMenu
             };
         
         #endregion
-        
         
         // this method reset the options
         public static void ResetOptions(ref Options options)

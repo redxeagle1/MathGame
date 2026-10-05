@@ -30,17 +30,8 @@ public class GameWindow : WindowBase
                 // increment the total number
                 _totalQuestionNumbers++;
 
-                // increment the score based weather the difficulty denotes timing or no
-                switch (_options.Difficulty)
-                {
-                    case GameDifficulty.Easy:
-                    case GameDifficulty.Normal:
-                        _score++;
-                        break;
-                    default:
-                        _score += QuestionTimer.CountDown + 1;
-                        break;
-                }
+                // increment the score based on timing 
+                _score += QuestionTimer.CountDown + 1;
             }
             // if the user answered wrongly
             else
@@ -56,13 +47,18 @@ public class GameWindow : WindowBase
             }
             
         }
-        // chances ar
+        // commit if five or more games are played
         if (_totalQuestionNumbers >= 5)
         {
             GameEngine.TotalGamesPlayed++;
             GameEngine.Score = _score;
             GameEngine.STotalNumberOfQuestions =  _totalQuestionNumbers;
             GameEngine.SFinishedGame = true;
+
+        }
+        else
+        {
+            GameEngine.SFinishedGame = false;
         }
 
         // reset the Game Window
@@ -70,7 +66,6 @@ public class GameWindow : WindowBase
         _score = 0;
         _totalQuestionNumbers = 1;
         _totalQuestionNumbersSnapshot = 0;
-        GameEngine.SFinishedGame = false;
         return WindowMap.GameOverWindow;
     }
 
@@ -81,21 +76,22 @@ public class GameWindow : WindowBase
         switch (_options.Difficulty)
         {
             case GameDifficulty.Easy:
+                QuestionTimer.StartTimer(60, _options.Operation== GameOperation.Random ? 15:10);
+                break;
             case GameDifficulty.Normal:
+                QuestionTimer.StartTimer(60, _options.Operation== GameOperation.Random ? 15:20);
                 break;
             case GameDifficulty.Hard:
-                QuestionTimer.StartTimer(60, 10);
+                QuestionTimer.StartTimer(60, _options.Operation== GameOperation.Random ? 45:30);
                 break;
             case GameDifficulty.Insane:
-                QuestionTimer.StartTimer(60,
-                    _options.Operation== GameOperation.Random ? 15:10);
+                QuestionTimer.StartTimer(60, _options.Operation== GameOperation.Random ? 60:45);
                 break;
             case GameDifficulty.Impossible:
-                QuestionTimer.StartTimer(60,
-                    _options.Operation== GameOperation.Random ? 10:5);
+                QuestionTimer.StartTimer(60, _options.Operation== GameOperation.Random ? 75:60);
                 break;
             default:
-                throw new Exception();
+                throw new IndexOutOfRangeException($"add {_options.Difficulty} please");
         }
     }
 
