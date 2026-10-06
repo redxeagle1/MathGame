@@ -2,6 +2,7 @@ using MathGame.GameQuestion;
 
 namespace MathGame.AbstractBases;
 
+// a generic abstract class and each class name represent its purpose
 public abstract class QuestionBase<T>(Problem problem) : IQuestion
 {
     // they will hold our problem itself
