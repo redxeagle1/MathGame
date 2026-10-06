@@ -3,6 +3,7 @@
 using MathGame.AbstractBases;
 using MathGame.GameWindows;
 using MathGame.GameWindows.SetupMenu;
+using MathGame.src.GameWindows;
 
 namespace MathGame.CoreUtilities
 {
@@ -24,7 +25,7 @@ namespace MathGame.CoreUtilities
                 { WindowMap.GameWindow , new GameWindow()},
                 { WindowMap.GameOverWindow , new GameOverWindow()},
                 { WindowMap.HistoryWindow , new HistoryWindow()},
-                // TODO: add the about window as the last needed window
+                {WindowMap.AboutWindow , new AboutWindow()}
             };
         #endregion
         
